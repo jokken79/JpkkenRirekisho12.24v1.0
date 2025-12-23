@@ -1,0 +1,7 @@
+{
+  "name": "StaffHub UNS Pro",
+  "description": "An advanced workforce management system for GenzaiX and Ukeoi staff with local database persistence, AI insights, and professional UI.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
