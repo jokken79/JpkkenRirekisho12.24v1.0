@@ -57,6 +57,7 @@ import {
 import { Skeleton } from './ui/skeleton';
 import { cn } from '../lib/cn';
 import { fadeInUp, staggerContainer } from '../lib/animations';
+import AvatarDisplay from './AvatarDisplay';
 import type { Staff } from '../lib/database.types';
 
 // Convert camelCase to snake_case for Supabase field access
@@ -199,6 +200,29 @@ const StaffTable: React.FC<Props> = ({ type, searchTerm, onEdit }) => {
       size: 50,
       enableSorting: false,
       enableHiding: false,
+    });
+
+    // Avatar/Photo column
+    cols.push({
+      id: 'avatar',
+      header: '写真',
+      cell: ({ row }) => {
+        const avatar = getRowValue(row.original, 'avatar');
+        const empId = getRowValue(row.original, 'empId') || getRowValue(row.original, 'emp_id');
+        const fullName = getRowValue(row.original, 'fullName') || getRowValue(row.original, 'full_name');
+        // Try avatar field first, then fallback to empId-based filename
+        const photoFile = avatar || (empId ? `${empId}.jpg` : '');
+        return (
+          <AvatarDisplay
+            filename={photoFile}
+            alt={fullName || 'Employee'}
+            size="sm"
+          />
+        );
+      },
+      size: 60,
+      enableSorting: false,
+      enableHiding: true,
     });
 
     // Data columns from fields
@@ -443,7 +467,7 @@ const StaffTable: React.FC<Props> = ({ type, searchTerm, onEdit }) => {
               {table.getHeaderGroups().map((headerGroup) => (
                 <tr key={headerGroup.id}>
                   {headerGroup.headers.map((header, idx) => {
-                    const isFrozen = idx <= 2; // Freeze first 3 columns
+                    const isFrozen = idx <= 3; // Freeze first 4 columns (#, photo, status, empId)
                     return (
                       <th
                         key={header.id}
@@ -452,7 +476,8 @@ const StaffTable: React.FC<Props> = ({ type, searchTerm, onEdit }) => {
                           isFrozen && 'sticky bg-slate-50 z-20',
                           idx === 0 && 'left-0',
                           idx === 1 && 'left-[50px]',
-                          idx === 2 && 'left-[146px] shadow-[2px_0_5px_-2px_rgba(0,0,0,0.05)]'
+                          idx === 2 && 'left-[110px]',
+                          idx === 3 && 'left-[206px] shadow-[2px_0_5px_-2px_rgba(0,0,0,0.05)]'
                         )}
                         style={{ width: header.getSize() }}
                       >
@@ -487,7 +512,7 @@ const StaffTable: React.FC<Props> = ({ type, searchTerm, onEdit }) => {
                     className="hover:bg-blue-50/30 group transition-colors"
                   >
                     {row.getVisibleCells().map((cell, idx) => {
-                      const isFrozen = idx <= 2;
+                      const isFrozen = idx <= 3; // Freeze first 4 columns (#, photo, status, empId)
                       return (
                         <td
                           key={cell.id}
@@ -496,7 +521,8 @@ const StaffTable: React.FC<Props> = ({ type, searchTerm, onEdit }) => {
                             isFrozen && 'sticky bg-white group-hover:bg-blue-50/30 z-10',
                             idx === 0 && 'left-0',
                             idx === 1 && 'left-[50px]',
-                            idx === 2 && 'left-[146px] shadow-[2px_0_5px_-2px_rgba(0,0,0,0.05)]'
+                            idx === 2 && 'left-[110px]',
+                            idx === 3 && 'left-[206px] shadow-[2px_0_5px_-2px_rgba(0,0,0,0.05)]'
                           )}
                           style={{ width: cell.column.getSize() }}
                         >

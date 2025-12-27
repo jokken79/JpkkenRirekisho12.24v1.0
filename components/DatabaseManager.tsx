@@ -96,10 +96,16 @@ const DatabaseManager: React.FC = () => {
         const rows: any[][] = utils.sheet_to_json(workbook.Sheets[genzaiSheet], { header: 1 });
         for (const row of rows.slice(1)) {
           if (!row[1]) continue;
+          const empId = String(row[1]);
           await staffService.create({
             type: 'GenzaiX',
             status: row[0] || 'Active',
-            emp_id: String(row[1]),
+            emp_id: empId,
+            dispatch_id: row[2] || null,
+            dispatch_company: row[3] || null,
+            department: row[4] || null,
+            line: row[5] || null,
+            job_content: row[6] || null,
             full_name: row[7] || '',
             full_name_kana: row[8] || '',
             gender: row[9] || '',
@@ -107,18 +113,28 @@ const DatabaseManager: React.FC = () => {
             birth_date: excelDateToJSDate(row[11]),
             age: parseIntSafe(row[12]),
             hourly_wage: parseIntSafe(row[13]),
+            wage_revision: row[14] || null,
             billing_unit: parseIntSafe(row[15]),
+            billing_revision: row[16] || null,
             profit_margin: parseIntSafe(row[17]),
             standard_remuneration: parseIntSafe(row[18]),
             health_ins: parseIntSafe(row[19]),
             nursing_ins: parseIntSafe(row[20]),
             pension: parseIntSafe(row[21]),
             visa_expiry: excelDateToJSDate(row[22]),
+            visa_alert: row[23] || null,
             visa_type: row[24] || null,
             postal_code: row[25] || null,
             address: row[26] || null,
+            apartment: row[27] || null,
+            is_shaku: row[28] === '社宅' || row[28] === true,
             hire_date: excelDateToJSDate(row[29]),
-            notes: row[34] || null
+            resign_date: excelDateToJSDate(row[30]),
+            move_in_date: excelDateToJSDate(row[31]),
+            move_out_date: excelDateToJSDate(row[32]),
+            social_ins_status: row[33] || null,
+            notes: row[34] || null,
+            avatar: `${empId}.jpg`
           });
           importedCount++;
         }
@@ -128,10 +144,12 @@ const DatabaseManager: React.FC = () => {
         const rows: any[][] = utils.sheet_to_json(workbook.Sheets[ukeoiSheet], { header: 1 });
         for (const row of rows.slice(1)) {
           if (!row[1]) continue;
+          const empId = String(row[1]);
           await staffService.create({
             type: 'Ukeoi',
             status: row[0] || 'Active',
-            emp_id: String(row[1]),
+            emp_id: empId,
+            dispatch_id: row[2] || null,
             full_name: row[3] || '',
             full_name_kana: row[4] || '',
             gender: row[5] || '',
@@ -139,20 +157,33 @@ const DatabaseManager: React.FC = () => {
             birth_date: excelDateToJSDate(row[7]),
             age: parseIntSafe(row[8]),
             hourly_wage: parseIntSafe(row[9]),
+            wage_revision: row[10] || null,
             standard_remuneration: parseIntSafe(row[11]),
             health_ins: parseIntSafe(row[12]),
             nursing_ins: parseIntSafe(row[13]),
             pension: parseIntSafe(row[14]),
+            department: row[15] || null,
+            line: row[16] || null,
             profit_margin: parseIntSafe(row[17]),
             visa_expiry: excelDateToJSDate(row[18]),
+            visa_alert: row[19] || null,
             visa_type: row[20] || null,
             postal_code: row[21] || null,
             address: row[22] || null,
+            apartment: row[23] || null,
+            is_shaku: row[24] === '社宅' || row[24] === true,
             hire_date: excelDateToJSDate(row[25]),
+            resign_date: excelDateToJSDate(row[26]),
+            move_in_date: excelDateToJSDate(row[27]),
+            move_out_date: excelDateToJSDate(row[28]),
             bank_account_holder: row[29] || null,
             bank_name: row[30] || null,
+            bank_branch: row[31] || null,
+            bank_account_type: row[32] || null,
             bank_account_number: row[33] || null,
-            notes: row[35] || null
+            social_ins_status: row[34] || null,
+            notes: row[35] || null,
+            avatar: `${empId}.jpg`
           });
           importedCount++;
         }
