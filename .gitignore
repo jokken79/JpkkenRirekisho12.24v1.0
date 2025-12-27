@@ -23,3 +23,9 @@ dist-ssr
 *.sln
 *.sw?
 .vercel
+
+# Temporary/generated files
+.playwright-mcp/
+legacy_resumes.json
+nul
+*.cjs
