@@ -6,6 +6,27 @@ import { staffService, resumeService } from '../lib/dataService';
 import { isSupabaseConfigured } from '../lib/supabase';
 import { useStaffCount, useResumeCount } from '../lib/useSupabase';
 
+// Helper to safely parse dates, handling NaT and invalid values
+const parseDateSafe = (value: any): string | null => {
+  if (!value) return null;
+  const str = String(value);
+  // Check for invalid date values
+  if (str === 'NaT' || str === 'Na' || str === 'null' || str === 'undefined' || str === '') {
+    return null;
+  }
+  // Try to extract YYYY-MM-DD format
+  const match = str.match(/^\d{4}-\d{2}-\d{2}/);
+  if (match) {
+    return match[0];
+  }
+  // Try other formats like YYYY/MM/DD
+  const slashMatch = str.match(/^(\d{4})\/(\d{1,2})\/(\d{1,2})/);
+  if (slashMatch) {
+    return `${slashMatch[1]}-${slashMatch[2].padStart(2, '0')}-${slashMatch[3].padStart(2, '0')}`;
+  }
+  return null;
+};
+
 const DatabaseManager: React.FC = () => {
   const [isExporting, setIsExporting] = useState(false);
   const [isImporting, setIsImporting] = useState(false);
@@ -185,7 +206,7 @@ const DatabaseManager: React.FC = () => {
           applicant_id: String(rec['履歴書ID'] || ''),
           full_name: rec['氏名'] || 'Unknown',
           full_name_kana: rec['フリガナ'] || '',
-          birth_date: rec['生年月日'] ? String(rec['生年月日']).split('T')[0] : null,
+          birth_date: parseDateSafe(rec['生年月日']),
           gender: rec['性別'] || '',
           nationality: rec['国籍'] || '',
           postal_code: rec['郵便番号'] || '',
