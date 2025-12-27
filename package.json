@@ -1,7 +1,7 @@
 {
   "name": "staffhub-uns-pro",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -9,20 +9,31 @@
     "preview": "vite preview",
     "test": "vitest",
     "test:run": "vitest run",
-    "test:coverage": "vitest run --coverage"
+    "test:coverage": "vitest run --coverage",
+    "backend": "cd backend && uvicorn main:app --reload --port 8000"
   },
   "dependencies": {
-    "@google/genai": "^1.34.0",
     "@heroicons/react": "^2.2.0",
+    "@radix-ui/react-dialog": "^1.1.15",
+    "@radix-ui/react-dropdown-menu": "^2.1.16",
+    "@radix-ui/react-select": "^2.2.6",
+    "@radix-ui/react-tabs": "^1.1.13",
+    "@radix-ui/react-tooltip": "^1.2.8",
+    "@radix-ui/react-slot": "^1.2.3",
     "@supabase/supabase-js": "^2.89.0",
+    "@tanstack/react-table": "^8.21.3",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
     "dexie": "^4.2.1",
     "dexie-react-hooks": "^4.2.0",
+    "framer-motion": "^11.15.0",
     "lucide-react": "^0.562.0",
     "react": "^19.2.3",
     "react-dom": "^19.2.3",
     "react-router-dom": "^7.11.0",
     "recharts": "^3.6.0",
     "sql.js": "1.12.0",
+    "tailwind-merge": "^2.6.0",
     "xlsx": "^0.18.5",
     "zod": "^4.2.1"
   },

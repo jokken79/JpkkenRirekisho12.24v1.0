@@ -12,7 +12,7 @@ import {
   ChevronLeft,
   ChevronRight,
   Database,
-  Bot,
+  BarChart3,
   FileText,
   User as UserIcon,
   Loader2
@@ -27,7 +27,7 @@ const StaffTable = lazy(() => import('./components/StaffTable'));
 const StaffForm = lazy(() => import('./components/StaffForm'));
 const RirekishoForm = lazy(() => import('./components/RirekishoForm'));
 const Dashboard = lazy(() => import('./components/Dashboard'));
-const AISummary = lazy(() => import('./components/AISummary'));
+const StatsDashboard = lazy(() => import('./components/StatsDashboard'));
 const DatabaseManager = lazy(() => import('./components/DatabaseManager'));
 const UserProfile = lazy(() => import('./components/UserProfile'));
 const ResumeList = lazy(() => import('./components/ResumeList'));
@@ -43,7 +43,7 @@ const LoadingFallback = () => (
   </div>
 );
 
-type ViewType = 'dashboard' | 'genzaix' | 'ukeoi' | 'ai' | 'resumes' | 'applications' | 'database' | 'profile';
+type ViewType = 'dashboard' | 'genzaix' | 'ukeoi' | 'stats' | 'resumes' | 'applications' | 'database' | 'profile';
 
 // Map routes to view names
 const routeToView: Record<string, ViewType> = {
@@ -53,7 +53,7 @@ const routeToView: Record<string, ViewType> = {
   '/ukeoi': 'ukeoi',
   '/resumes': 'resumes',
   '/applications': 'applications',
-  '/ai': 'ai',
+  '/stats': 'stats',
   '/database': 'database',
   '/profile': 'profile',
 };
@@ -176,14 +176,14 @@ const App: React.FC = () => {
             collapsed={!isSidebarOpen}
           />
            <div className="pt-4 pb-2 px-3">
-             <span className={`text-[10px] font-bold text-slate-400 uppercase tracking-widest ${!isSidebarOpen && 'hidden'}`}>Intelligence</span>
+             <span className={`text-[10px] font-bold text-slate-400 uppercase tracking-widest ${!isSidebarOpen && 'hidden'}`}>Analytics</span>
              {!isSidebarOpen && <div className="h-px bg-slate-100" />}
           </div>
-          <SidebarItem 
-            icon={<Bot size={20} />} 
-            label="AI Insights" 
-            active={activeView === 'ai'} 
-            onClick={() => setActiveView('ai')}
+          <SidebarItem
+            icon={<BarChart3 size={20} />}
+            label="Statistics"
+            active={activeView === 'stats'}
+            onClick={() => setActiveView('stats')}
             collapsed={!isSidebarOpen}
           />
           <SidebarItem 
@@ -226,7 +226,7 @@ const App: React.FC = () => {
         <header className="h-20 bg-white border-b border-slate-200 px-8 flex items-center justify-between shrink-0 shadow-sm z-30 no-print">
           <div className="flex items-center gap-6">
             <h1 className="text-xl font-bold text-slate-800 capitalize">
-              {activeView === 'dashboard' ? 'Overview' : activeView === 'resumes' ? 'Applicant Resumes' : activeView === 'database' ? 'Database Management' : activeView === 'profile' ? 'User Profile' : activeView.replace('ai', 'AI Insights')}
+              {activeView === 'dashboard' ? 'Overview' : activeView === 'resumes' ? 'Applicant Resumes' : activeView === 'database' ? 'Database Management' : activeView === 'profile' ? 'User Profile' : activeView === 'stats' ? 'Statistics & KPIs' : activeView}
             </h1>
             {['genzaix', 'ukeoi', 'resumes'].includes(activeView) && (
                <div className="relative group">
@@ -287,7 +287,7 @@ const App: React.FC = () => {
               <Route path="/ukeoi" element={<StaffTable type="Ukeoi" searchTerm={searchTerm} onEdit={handleEditStaff} />} />
               <Route path="/resumes" element={<ResumeList searchTerm={searchTerm} onEdit={handleEditResume} />} />
               <Route path="/applications" element={<ApplicationList />} />
-              <Route path="/ai" element={<AISummary />} />
+              <Route path="/stats" element={<StatsDashboard />} />
               <Route path="/database" element={<DatabaseManager />} />
               <Route path="/profile" element={<UserProfile />} />
               <Route path="*" element={<Navigate to="/" replace />} />

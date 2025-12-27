@@ -2,9 +2,11 @@
 import React, { useState, useEffect } from 'react';
 import { resumeService } from '../lib/useSupabase';
 import { Rirekisho } from '../types';
-import { Save, Printer, Upload, Trash2, Plus, ArrowLeft, Globe, HeartPulse, ShieldAlert, Briefcase, Users, ThumbsUp, ThumbsDown } from 'lucide-react';
-import { processDocumentOCR } from '../services/ocr';
+import { Save, Printer, Upload, Trash2, Plus, ArrowLeft, Globe, HeartPulse, ShieldAlert, Briefcase, Users, ThumbsUp, ThumbsDown, Scan, Loader2 } from 'lucide-react';
 import RirekishoPrintView from './RirekishoPrintView';
+
+// OCR API endpoint (backend Python)
+const OCR_API_URL = import.meta.env.VITE_OCR_API_URL || 'http://localhost:8000/api/ocr';
 
 interface Props {
   resume?: Rirekisho;
@@ -104,22 +106,39 @@ const RirekishoForm: React.FC<Props> = ({ resume, onClose }) => {
     setOcrLoading('card');
     try {
       const file = e.target.files[0];
-      const reader = new FileReader();
-      reader.onloadend = async () => {
-        const base64 = (reader.result as string).split(',')[1];
-        const result = await processDocumentOCR(base64, file.type);
+
+      // Create FormData for backend API
+      const formDataPayload = new FormData();
+      formDataPayload.append('file', file);
+      formDataPayload.append('document_type', 'zairyu_card');
+
+      const response = await fetch(`${OCR_API_URL}/process`, {
+        method: 'POST',
+        body: formDataPayload
+      });
+
+      if (!response.ok) {
+        throw new Error('OCR processing failed');
+      }
+
+      const result = await response.json();
+
+      if (result.success) {
         setFormData(prev => ({
           ...prev,
-          nameKanji: result.name || prev.nameKanji,
-          birthDate: result.birthday || prev.birthDate,
-          address: result.address || prev.address,
-          postalCode: result.postalCode || prev.postalCode,
-          visaType: result.visaType || prev.visaType,
-          residenceCardNo: result.residenceCardNo || prev.residenceCardNo,
-          visaPeriod: result.visaPeriod || prev.visaPeriod
+          nameKanji: result.full_name_kanji || result.name_kanji || prev.nameKanji,
+          birthDate: result.date_of_birth || result.birthday || prev.birthDate,
+          address: result.current_address || result.address || prev.address,
+          postalCode: result.postal_code || prev.postalCode,
+          visaType: result.residence_status || result.visa_status || prev.visaType,
+          residenceCardNo: result.residence_card_number || result.zairyu_card_number || prev.residenceCardNo,
+          visaPeriod: result.visa_period || prev.visaPeriod,
+          nationality: result.nationality || prev.nationality
         }));
-      };
-      reader.readAsDataURL(file);
+      }
+    } catch (error) {
+      console.error('OCR Error:', error);
+      alert('OCR processing failed. Make sure the backend server is running.');
     } finally {
       setOcrLoading(null);
     }
