@@ -1,37 +1,69 @@
 
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useMemo, Suspense, lazy } from 'react';
 import { useLiveQuery } from 'dexie-react-hooks';
-import { 
-  Users, 
-  Briefcase, 
-  Plus, 
-  Search, 
-  LayoutDashboard, 
-  Settings, 
+import { useNavigate, useLocation, Routes, Route, Navigate } from 'react-router-dom';
+import {
+  Users,
+  Briefcase,
+  Plus,
+  Search,
+  LayoutDashboard,
+  Settings,
   LogOut,
   ChevronLeft,
   ChevronRight,
   Database,
-  BarChart3,
   Bot,
   FileText,
-  User as UserIcon
+  User as UserIcon,
+  Loader2
 } from 'lucide-react';
 import { StaffType, StaffMember, Rirekisho } from './types';
 import { db } from './db';
-import StaffTable from './components/StaffTable';
-import StaffForm from './components/StaffForm';
-import RirekishoForm from './components/RirekishoForm';
-import Dashboard from './components/Dashboard';
-import AISummary from './components/AISummary';
-import DatabaseManager from './components/DatabaseManager';
-import UserProfile from './components/UserProfile';
 import { APP_LOGO } from './constants';
-import ResumeList from './components/ResumeList';
-import ApplicationList from './components/ApplicationList';
+
+// Lazy load components for code splitting
+const StaffTable = lazy(() => import('./components/StaffTable'));
+const StaffForm = lazy(() => import('./components/StaffForm'));
+const RirekishoForm = lazy(() => import('./components/RirekishoForm'));
+const Dashboard = lazy(() => import('./components/Dashboard'));
+const AISummary = lazy(() => import('./components/AISummary'));
+const DatabaseManager = lazy(() => import('./components/DatabaseManager'));
+const UserProfile = lazy(() => import('./components/UserProfile'));
+const ResumeList = lazy(() => import('./components/ResumeList'));
+const ApplicationList = lazy(() => import('./components/ApplicationList'));
+
+// Loading fallback component
+const LoadingFallback = () => (
+  <div className="flex-1 flex items-center justify-center bg-slate-50">
+    <div className="flex flex-col items-center gap-3">
+      <Loader2 className="w-8 h-8 text-blue-600 animate-spin" />
+      <p className="text-sm text-slate-500 font-medium">Loading...</p>
+    </div>
+  </div>
+);
+
+type ViewType = 'dashboard' | 'genzaix' | 'ukeoi' | 'ai' | 'resumes' | 'applications' | 'database' | 'profile';
+
+// Map routes to view names
+const routeToView: Record<string, ViewType> = {
+  '/': 'dashboard',
+  '/dashboard': 'dashboard',
+  '/genzaix': 'genzaix',
+  '/ukeoi': 'ukeoi',
+  '/resumes': 'resumes',
+  '/applications': 'applications',
+  '/ai': 'ai',
+  '/database': 'database',
+  '/profile': 'profile',
+};
 
 const App: React.FC = () => {
-  const [activeView, setActiveView] = useState<'dashboard' | 'genzaix' | 'ukeoi' | 'ai' | 'resumes' | 'applications' | 'database' | 'profile'>('dashboard');
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  // Derive activeView from current route
+  const activeView: ViewType = routeToView[location.pathname] || 'dashboard';
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [showStaffForm, setShowStaffForm] = useState(false);
   const [showResumeForm, setShowResumeForm] = useState(false);
@@ -62,6 +94,11 @@ const App: React.FC = () => {
   };
 
   const currentType: StaffType = activeView === 'genzaix' ? 'GenzaiX' : 'Ukeoi';
+
+  // Navigation helper that uses React Router
+  const setActiveView = (view: ViewType) => {
+    navigate(`/${view === 'dashboard' ? '' : view}`);
+  };
 
   const userInitials = useMemo(() => {
     if (!currentUser?.displayName) return '??';
@@ -237,21 +274,28 @@ const App: React.FC = () => {
           </div>
         </header>
 
-        <div className="flex-1 overflow-hidden">
-           {activeView === 'dashboard' && <Dashboard onNav={setActiveView} />}
-           {(activeView === 'genzaix' || activeView === 'ukeoi') && (
-              <StaffTable type={currentType} searchTerm={searchTerm} onEdit={handleEditStaff} />
-           )}
-           {activeView === 'resumes' && <ResumeList searchTerm={searchTerm} onEdit={handleEditResume} />}
-           {activeView === 'applications' && <ApplicationList />}
-           {activeView === 'ai' && <AISummary />}
-           {activeView === 'database' && <DatabaseManager />}
-           {activeView === 'profile' && <UserProfile />}
-        </div>
+        <Suspense fallback={<LoadingFallback />}>
+          <div className="flex-1 overflow-hidden">
+            <Routes>
+              <Route path="/" element={<Dashboard onNav={setActiveView} />} />
+              <Route path="/dashboard" element={<Navigate to="/" replace />} />
+              <Route path="/genzaix" element={<StaffTable type="GenzaiX" searchTerm={searchTerm} onEdit={handleEditStaff} />} />
+              <Route path="/ukeoi" element={<StaffTable type="Ukeoi" searchTerm={searchTerm} onEdit={handleEditStaff} />} />
+              <Route path="/resumes" element={<ResumeList searchTerm={searchTerm} onEdit={handleEditResume} />} />
+              <Route path="/applications" element={<ApplicationList />} />
+              <Route path="/ai" element={<AISummary />} />
+              <Route path="/database" element={<DatabaseManager />} />
+              <Route path="/profile" element={<UserProfile />} />
+              <Route path="*" element={<Navigate to="/" replace />} />
+            </Routes>
+          </div>
+        </Suspense>
       </main>
 
-      {showStaffForm && <StaffForm type={currentType} member={editingMember} onClose={() => setShowStaffForm(false)} />}
-      {showResumeForm && <RirekishoForm resume={editingResume} onClose={() => setShowResumeForm(false)} />}
+      <Suspense fallback={null}>
+        {showStaffForm && <StaffForm type={currentType} member={editingMember} onClose={() => setShowStaffForm(false)} />}
+        {showResumeForm && <RirekishoForm resume={editingResume} onClose={() => setShowResumeForm(false)} />}
+      </Suspense>
     </div>
   );
 };

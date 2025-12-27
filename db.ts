@@ -1,13 +1,15 @@
 
 import Dexie from 'dexie';
 import type { Table } from 'dexie';
-import { StaffMember, Rirekisho, UserProfile } from './types';
+import { StaffMember, Rirekisho, UserProfile, Application, Factory } from './types';
 
 // Use the default export of Dexie to ensure proper inheritance of instance methods like version()
 export class StaffHubDB extends Dexie {
   staff!: Table<StaffMember>;
   resumes!: Table<Rirekisho>;
   settings!: Table<UserProfile>;
+  applications!: Table<Application>;
+  factories!: Table<Factory>;
 
   constructor() {
     super('StaffHubDB');

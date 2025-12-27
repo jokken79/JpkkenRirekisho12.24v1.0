@@ -1,9 +1,11 @@
 
 import React, { useState, useEffect } from 'react';
-import { X, Save, ChevronRight, UserCircle2 } from 'lucide-react';
+import { X, Save, ChevronRight, UserCircle2, AlertCircle, Loader2 } from 'lucide-react';
 import { StaffType, StaffMember, TableField } from '../types';
 import { GENZAIX_FIELDS, UKEOI_FIELDS } from '../constants';
 import { db } from '../db';
+import { staffMemberSchema, validateForm } from '../lib/validation';
+import { useToast } from './Toast';
 
 interface Props {
   type: StaffType;
@@ -12,11 +14,14 @@ interface Props {
 }
 
 const StaffForm: React.FC<Props> = ({ type, member, onClose }) => {
+  const toast = useToast();
   const [formData, setFormData] = useState<Partial<StaffMember>>({
     type: type,
     status: type === 'GenzaiX' ? 'Active' : 'Active',
     createdAt: Date.now()
   });
+  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
     if (member) {
@@ -35,18 +40,37 @@ const StaffForm: React.FC<Props> = ({ type, member, onClose }) => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    // Validate with Zod
+    const validation = validateForm(staffMemberSchema, formData);
+
+    if (!validation.success) {
+      setErrors(validation.errors || {});
+      toast.error('Please fix the validation errors before saving.');
+      return;
+    }
+
+    setErrors({});
+    setIsSubmitting(true);
+
     try {
       if (member?.id) {
         await db.staff.update(member.id, formData);
+        toast.success('Personnel record updated successfully!');
       } else {
         await db.staff.add(formData as StaffMember);
+        toast.success('New personnel record created!');
       }
       onClose();
     } catch (error) {
       console.error('Failed to save:', error);
-      alert('Error saving record. Check data and try again.');
+      toast.error('Error saving record. Please check data and try again.');
+    } finally {
+      setIsSubmitting(false);
     }
   };
+
+  const getFieldError = (key: string) => errors[key];
 
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm animate-in fade-in duration-300">
@@ -86,7 +110,9 @@ const StaffForm: React.FC<Props> = ({ type, member, onClose }) => {
                       </label>
                       {field.type === 'select' ? (
                         <select
-                          className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all text-sm appearance-none"
+                          className={`w-full px-4 py-3 bg-slate-50 border rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all text-sm appearance-none ${
+                            getFieldError(field.key) ? 'border-red-400 bg-red-50' : 'border-slate-200'
+                          }`}
                           value={String(formData[field.key] || '')}
                           onChange={(e) => setFormData({ ...formData, [field.key]: e.target.value })}
                         >
@@ -98,17 +124,26 @@ const StaffForm: React.FC<Props> = ({ type, member, onClose }) => {
                       ) : field.type === 'textarea' ? (
                         <textarea
                           rows={3}
-                          className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all text-sm resize-none"
+                          className={`w-full px-4 py-3 bg-slate-50 border rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all text-sm resize-none ${
+                            getFieldError(field.key) ? 'border-red-400 bg-red-50' : 'border-slate-200'
+                          }`}
                           value={String(formData[field.key] || '')}
                           onChange={(e) => setFormData({ ...formData, [field.key]: e.target.value })}
                         />
                       ) : (
                         <input
                           type={field.type}
-                          className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all text-sm"
+                          className={`w-full px-4 py-3 bg-slate-50 border rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all text-sm ${
+                            getFieldError(field.key) ? 'border-red-400 bg-red-50' : 'border-slate-200'
+                          }`}
                           value={String(formData[field.key] || '')}
                           onChange={(e) => setFormData({ ...formData, [field.key]: e.target.value })}
                         />
+                      )}
+                      {getFieldError(field.key) && (
+                        <p className="text-red-500 text-xs mt-1 flex items-center gap-1">
+                          <AlertCircle size={12} /> {getFieldError(field.key)}
+                        </p>
                       )}
                     </div>
                   ))}
@@ -120,20 +155,25 @@ const StaffForm: React.FC<Props> = ({ type, member, onClose }) => {
 
         {/* Footer */}
         <div className="px-8 py-6 border-t border-slate-100 flex justify-end items-center gap-4 bg-slate-50/50">
-          <button 
-            type="button" 
+          <button
+            type="button"
             onClick={onClose}
-            className="px-6 py-2.5 text-sm font-semibold text-slate-500 hover:text-slate-800 transition-colors"
+            disabled={isSubmitting}
+            className="px-6 py-2.5 text-sm font-semibold text-slate-500 hover:text-slate-800 transition-colors disabled:opacity-50"
           >
             Cancel Changes
           </button>
-          <button 
-            type="submit" 
+          <button
+            type="submit"
             form="staffForm"
-            className="flex items-center gap-2 px-8 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl shadow-lg shadow-blue-500/20 transition-all active:scale-95"
+            disabled={isSubmitting}
+            className="flex items-center gap-2 px-8 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl shadow-lg shadow-blue-500/20 transition-all active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            <Save size={18} />
-            {member ? 'Update Record' : 'Save New Entry'}
+            {isSubmitting ? (
+              <><Loader2 size={18} className="animate-spin" /> Saving...</>
+            ) : (
+              <><Save size={18} /> {member ? 'Update Record' : 'Save New Entry'}</>
+            )}
           </button>
         </div>
       </div>

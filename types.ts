@@ -1,6 +1,35 @@
 
 export type StaffType = 'GenzaiX' | 'Ukeoi';
 
+// Family member structure for Rirekisho
+export interface FamilyMember {
+  name?: string;
+  relation?: string;
+  age?: number;
+  occupation?: string;
+  livingTogether?: boolean;
+}
+
+// Job history entry for Rirekisho
+export interface JobHistoryEntry {
+  companyName?: string;
+  position?: string;
+  startDate?: string;
+  endDate?: string;
+  description?: string;
+}
+
+// User profile for settings
+export interface UserProfile {
+  key: string;
+  displayName?: string;
+  email?: string;
+  role?: string;
+  avatar?: string;
+  bio?: string;
+  createdAt?: number;
+}
+
 export interface StaffMember {
   id?: number;
   type: StaffType;
@@ -142,8 +171,8 @@ export interface Rirekisho {
     kanaWrite: string;
   };
   
-  family?: any[]; 
-  jobHistory?: any[]; 
+  family?: FamilyMember[];
+  jobHistory?: JobHistoryEntry[]; 
   
   // Evaluation (New)
   interviewResult?: 'passed' | 'failed' | 'pending';

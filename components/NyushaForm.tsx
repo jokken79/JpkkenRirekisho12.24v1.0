@@ -2,8 +2,9 @@
 import React, { useState } from 'react';
 import { db } from '../db';
 import { Rirekisho, Application, StaffType } from '../types';
-import { Save, X, Building2, Landmark, Calendar, Banknote, UserCheck } from 'lucide-react';
+import { Save, X, Building2, Landmark, Calendar, Banknote, UserCheck, AlertCircle } from 'lucide-react';
 import AvatarDisplay from './AvatarDisplay';
+import { applicationSchema, validateForm } from '../lib/validation';
 
 interface Props {
   resume: Rirekisho;
@@ -23,17 +24,28 @@ const NyushaForm: React.FC<Props> = ({ resume, onClose }) => {
     createdAt: Date.now()
   });
 
+  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   const saveApplication = async () => {
-    if (!formData.factoryName) {
-      alert("Please enter a factory name.");
+    // Validate with Zod
+    const validation = validateForm(applicationSchema, formData);
+
+    if (!validation.success) {
+      setErrors(validation.errors || {});
       return;
     }
+
+    setErrors({});
+    setIsSubmitting(true);
+
     try {
       await db.applications.add(formData as Application);
-      alert("Application (申請) created successfully!");
       onClose();
     } catch (e) {
-      alert("Error: " + e);
+      setErrors({ submit: "Failed to save application: " + e });
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -105,17 +117,19 @@ const NyushaForm: React.FC<Props> = ({ resume, onClose }) => {
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                 <InputGroup 
-                    label="Factory Name (派遣先/工場)" 
-                    placeholder="Enter factory name..." 
-                    value={formData.factoryName} 
-                    onChange={(e: any) => setFormData({...formData, factoryName: e.target.value})} 
+                 <InputGroup
+                    label="Factory Name (派遣先/工場)"
+                    placeholder="Enter factory name..."
+                    value={formData.factoryName}
+                    onChange={(e: any) => setFormData({...formData, factoryName: e.target.value})}
+                    error={errors.factoryName}
+                    required
                  />
-                 <InputGroup 
-                    label="Department (配属先)" 
-                    placeholder="Manufacturing, QA, etc." 
-                    value={formData.department} 
-                    onChange={(e: any) => setFormData({...formData, department: e.target.value})} 
+                 <InputGroup
+                    label="Department (配属先)"
+                    placeholder="Manufacturing, QA, etc."
+                    value={formData.department}
+                    onChange={(e: any) => setFormData({...formData, department: e.target.value})}
                  />
               </div>
            </div>
@@ -130,11 +144,11 @@ const NyushaForm: React.FC<Props> = ({ resume, onClose }) => {
                     <label className="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2 px-1">Hourly Wage (時給)</label>
                     <div className="relative">
                        <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 font-bold">¥</span>
-                       <input 
-                          type="number" 
-                          value={formData.hourlyWage} 
-                          onChange={(e) => setFormData({...formData, hourlyWage: parseInt(e.target.value)})}
-                          className="w-full bg-white border border-slate-200 rounded-xl pl-8 pr-4 py-3 text-sm font-bold focus:border-blue-500 outline-none" 
+                       <input
+                          type="number"
+                          value={formData.hourlyWage || ''}
+                          onChange={(e) => setFormData({...formData, hourlyWage: parseInt(e.target.value) || 0})}
+                          className="w-full bg-white border border-slate-200 rounded-xl pl-8 pr-4 py-3 text-sm font-bold focus:border-blue-500 outline-none"
                        />
                     </div>
                  </div>
@@ -142,11 +156,11 @@ const NyushaForm: React.FC<Props> = ({ resume, onClose }) => {
                     <label className="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2 px-1">Billing Unit (請求単価)</label>
                     <div className="relative">
                        <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 font-bold">¥</span>
-                       <input 
-                          type="number" 
-                          value={formData.billingUnit} 
-                          onChange={(e) => setFormData({...formData, billingUnit: parseInt(e.target.value)})}
-                          className="w-full bg-white border border-slate-200 rounded-xl pl-8 pr-4 py-3 text-sm font-bold focus:border-blue-500 outline-none" 
+                       <input
+                          type="number"
+                          value={formData.billingUnit || ''}
+                          onChange={(e) => setFormData({...formData, billingUnit: parseInt(e.target.value) || 0})}
+                          className="w-full bg-white border border-slate-200 rounded-xl pl-8 pr-4 py-3 text-sm font-bold focus:border-blue-500 outline-none"
                        />
                     </div>
                  </div>
@@ -156,14 +170,26 @@ const NyushaForm: React.FC<Props> = ({ resume, onClose }) => {
         </div>
 
         {/* Footer */}
-        <div className="p-8 bg-slate-50 border-t border-slate-100 shrink-0 flex gap-4">
-           <button onClick={onClose} className="flex-1 py-4 bg-white border border-slate-200 text-slate-600 font-bold rounded-2xl hover:bg-slate-100 transition-all">Cancel</button>
-           <button 
-             onClick={saveApplication}
-             className="flex-[2] py-4 bg-blue-600 text-white font-bold rounded-2xl shadow-xl shadow-blue-600/20 hover:bg-blue-700 transition-all flex items-center justify-center gap-2"
-           >
-              <Save size={20} /> Create Hiring Application (申請)
-           </button>
+        <div className="p-8 bg-slate-50 border-t border-slate-100 shrink-0 space-y-4">
+           {errors.submit && (
+             <div className="p-3 bg-red-50 border border-red-200 rounded-xl flex items-center gap-2 text-red-700 text-sm">
+               <AlertCircle size={16} /> {errors.submit}
+             </div>
+           )}
+           <div className="flex gap-4">
+             <button onClick={onClose} disabled={isSubmitting} className="flex-1 py-4 bg-white border border-slate-200 text-slate-600 font-bold rounded-2xl hover:bg-slate-100 transition-all disabled:opacity-50">Cancel</button>
+             <button
+               onClick={saveApplication}
+               disabled={isSubmitting}
+               className="flex-[2] py-4 bg-blue-600 text-white font-bold rounded-2xl shadow-xl shadow-blue-600/20 hover:bg-blue-700 transition-all flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+             >
+                {isSubmitting ? (
+                  <span className="animate-pulse">Saving...</span>
+                ) : (
+                  <><Save size={20} /> Create Hiring Application (申請)</>
+                )}
+             </button>
+           </div>
         </div>
 
       </div>
@@ -171,16 +197,26 @@ const NyushaForm: React.FC<Props> = ({ resume, onClose }) => {
   );
 };
 
-const InputGroup = ({ label, value, onChange, type = "text", placeholder }: any) => (
+const InputGroup = ({ label, value, onChange, type = "text", placeholder, error, required }: any) => (
   <div className="flex-1 min-w-0">
-    <label className="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2 px-1">{label}</label>
-    <input 
-      type={type} 
-      value={value || ''} 
+    <label className="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2 px-1">
+      {label}
+      {required && <span className="text-red-500 ml-1">*</span>}
+    </label>
+    <input
+      type={type}
+      value={value || ''}
       onChange={onChange}
-      className="w-full bg-white border border-slate-200 rounded-xl px-4 py-3 text-sm font-bold focus:border-blue-500 outline-none transition-all placeholder:text-slate-300"
+      className={`w-full bg-white border rounded-xl px-4 py-3 text-sm font-bold focus:border-blue-500 outline-none transition-all placeholder:text-slate-300 ${
+        error ? 'border-red-400 bg-red-50' : 'border-slate-200'
+      }`}
       placeholder={placeholder}
     />
+    {error && (
+      <p className="text-red-500 text-xs mt-1 px-1 flex items-center gap-1">
+        <AlertCircle size={12} /> {error}
+      </p>
+    )}
   </div>
 );
 
