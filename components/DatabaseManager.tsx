@@ -6,7 +6,14 @@ import { staffService, resumeService } from '../lib/dataService';
 import { isSupabaseConfigured } from '../lib/supabase';
 import { useStaffCount, useResumeCount } from '../lib/useSupabase';
 
-// Helper to safely parse numbers, handling empty strings and invalid values
+// Helper to safely parse integers, handling empty strings, decimals, and invalid values
+const parseIntSafe = (value: any): number | null => {
+  if (value === null || value === undefined || value === '' || value === 0) return null;
+  const num = Number(value);
+  return isNaN(num) ? null : Math.round(num);
+};
+
+// Helper to safely parse decimals/floats
 const parseNumberSafe = (value: any): number | null => {
   if (value === null || value === undefined || value === '' || value === 0) return null;
   const num = Number(value);
@@ -98,14 +105,14 @@ const DatabaseManager: React.FC = () => {
             gender: row[9] || '',
             nationality: row[10] || '',
             birth_date: excelDateToJSDate(row[11]),
-            age: parseNumberSafe(row[12]),
-            hourly_wage: parseNumberSafe(row[13]),
-            billing_unit: parseNumberSafe(row[15]),
-            profit_margin: parseNumberSafe(row[17]),
-            standard_remuneration: parseNumberSafe(row[18]),
-            health_ins: parseNumberSafe(row[19]),
-            nursing_ins: parseNumberSafe(row[20]),
-            pension: parseNumberSafe(row[21]),
+            age: parseIntSafe(row[12]),
+            hourly_wage: parseIntSafe(row[13]),
+            billing_unit: parseIntSafe(row[15]),
+            profit_margin: parseIntSafe(row[17]),
+            standard_remuneration: parseIntSafe(row[18]),
+            health_ins: parseIntSafe(row[19]),
+            nursing_ins: parseIntSafe(row[20]),
+            pension: parseIntSafe(row[21]),
             visa_expiry: excelDateToJSDate(row[22]),
             visa_type: row[24] || null,
             postal_code: row[25] || null,
@@ -130,13 +137,13 @@ const DatabaseManager: React.FC = () => {
             gender: row[5] || '',
             nationality: row[6] || '',
             birth_date: excelDateToJSDate(row[7]),
-            age: parseNumberSafe(row[8]),
-            hourly_wage: parseNumberSafe(row[9]),
-            standard_remuneration: parseNumberSafe(row[11]),
-            health_ins: parseNumberSafe(row[12]),
-            nursing_ins: parseNumberSafe(row[13]),
-            pension: parseNumberSafe(row[14]),
-            profit_margin: parseNumberSafe(row[17]),
+            age: parseIntSafe(row[8]),
+            hourly_wage: parseIntSafe(row[9]),
+            standard_remuneration: parseIntSafe(row[11]),
+            health_ins: parseIntSafe(row[12]),
+            nursing_ins: parseIntSafe(row[13]),
+            pension: parseIntSafe(row[14]),
+            profit_margin: parseIntSafe(row[17]),
             visa_expiry: excelDateToJSDate(row[18]),
             visa_type: row[20] || null,
             postal_code: row[21] || null,
