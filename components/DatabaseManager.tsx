@@ -134,7 +134,7 @@ const DatabaseManager: React.FC = () => {
             move_out_date: excelDateToJSDate(row[32]),
             social_ins_status: row[33] || null,
             notes: row[34] || null,
-            avatar: `${empId}.jpg`
+            photo: `${empId}.jpg`
           });
           importedCount++;
         }
@@ -183,7 +183,7 @@ const DatabaseManager: React.FC = () => {
             bank_account_number: row[33] || null,
             social_ins_status: row[34] || null,
             notes: row[35] || null,
-            avatar: `${empId}.jpg`
+            photo: `${empId}.jpg`
           });
           importedCount++;
         }
