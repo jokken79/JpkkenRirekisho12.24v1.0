@@ -6,6 +6,13 @@ import { staffService, resumeService } from '../lib/dataService';
 import { isSupabaseConfigured } from '../lib/supabase';
 import { useStaffCount, useResumeCount } from '../lib/useSupabase';
 
+// Helper to safely parse numbers, handling empty strings and invalid values
+const parseNumberSafe = (value: any): number | null => {
+  if (value === null || value === undefined || value === '' || value === 0) return null;
+  const num = Number(value);
+  return isNaN(num) ? null : num;
+};
+
 // Helper to safely parse dates, handling NaT and invalid values
 const parseDateSafe = (value: any): string | null => {
   if (!value) return null;
@@ -76,20 +83,20 @@ const DatabaseManager: React.FC = () => {
             gender: row[9] || '',
             nationality: row[10] || '',
             birth_date: excelDateToJSDate(row[11]),
-            age: row[12],
-            hourly_wage: row[13],
-            billing_unit: row[15],
-            profit_margin: row[17],
-            standard_remuneration: row[18],
-            health_ins: row[19],
-            nursing_ins: row[20],
-            pension: row[21],
+            age: parseNumberSafe(row[12]),
+            hourly_wage: parseNumberSafe(row[13]),
+            billing_unit: parseNumberSafe(row[15]),
+            profit_margin: parseNumberSafe(row[17]),
+            standard_remuneration: parseNumberSafe(row[18]),
+            health_ins: parseNumberSafe(row[19]),
+            nursing_ins: parseNumberSafe(row[20]),
+            pension: parseNumberSafe(row[21]),
             visa_expiry: excelDateToJSDate(row[22]),
-            visa_type: row[24],
-            postal_code: row[25],
-            address: row[26],
+            visa_type: row[24] || null,
+            postal_code: row[25] || null,
+            address: row[26] || null,
             hire_date: excelDateToJSDate(row[29]),
-            notes: row[34]
+            notes: row[34] || null
           });
           importedCount++;
         }
@@ -108,22 +115,22 @@ const DatabaseManager: React.FC = () => {
             gender: row[5] || '',
             nationality: row[6] || '',
             birth_date: excelDateToJSDate(row[7]),
-            age: row[8],
-            hourly_wage: row[9],
-            standard_remuneration: row[11],
-            health_ins: row[12],
-            nursing_ins: row[13],
-            pension: row[14],
-            profit_margin: row[17],
+            age: parseNumberSafe(row[8]),
+            hourly_wage: parseNumberSafe(row[9]),
+            standard_remuneration: parseNumberSafe(row[11]),
+            health_ins: parseNumberSafe(row[12]),
+            nursing_ins: parseNumberSafe(row[13]),
+            pension: parseNumberSafe(row[14]),
+            profit_margin: parseNumberSafe(row[17]),
             visa_expiry: excelDateToJSDate(row[18]),
-            visa_type: row[20],
-            postal_code: row[21],
-            address: row[22],
+            visa_type: row[20] || null,
+            postal_code: row[21] || null,
+            address: row[22] || null,
             hire_date: excelDateToJSDate(row[25]),
-            bank_account_holder: row[29],
-            bank_name: row[30],
-            bank_account_number: row[33],
-            notes: row[35]
+            bank_account_holder: row[29] || null,
+            bank_name: row[30] || null,
+            bank_account_number: row[33] || null,
+            notes: row[35] || null
           });
           importedCount++;
         }
