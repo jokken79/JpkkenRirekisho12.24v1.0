@@ -5,6 +5,7 @@ import { BrowserRouter } from 'react-router-dom';
 import App from './App';
 import ErrorBoundary from './components/ErrorBoundary';
 import { ToastProvider } from './components/Toast';
+import { AuthProvider } from './components/AuthProvider';
 
 const rootElement = document.getElementById('root');
 if (!rootElement) {
@@ -16,9 +17,11 @@ root.render(
   <React.StrictMode>
     <ErrorBoundary>
       <ToastProvider>
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
+        <AuthProvider>
+          <BrowserRouter>
+            <App />
+          </BrowserRouter>
+        </AuthProvider>
       </ToastProvider>
     </ErrorBoundary>
   </React.StrictMode>
