@@ -1,168 +1,203 @@
 
 import React, { useState, useRef } from 'react';
-import { Database, Download, ShieldCheck, RefreshCw, FileCode, HardDrive, Upload, FileSpreadsheet } from 'lucide-react';
-import { exportToSQLite } from '../services/sqliteService';
+import { Database, Download, ShieldCheck, RefreshCw, FileCode, Cloud, Upload, FileSpreadsheet, CheckCircle2, AlertCircle } from 'lucide-react';
 import { read, utils } from 'xlsx';
-import { db } from '../db';
-import { StaffMember } from '../types';
+import { staffService, resumeService } from '../lib/dataService';
+import { isSupabaseConfigured } from '../lib/supabase';
+import { useStaffCount, useResumeCount } from '../lib/useSupabase';
 
 const DatabaseManager: React.FC = () => {
   const [isExporting, setIsExporting] = useState(false);
   const [isImporting, setIsImporting] = useState(false);
+  const [importStatus, setImportStatus] = useState<{ success: boolean; message: string } | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const legacyFileInputRef = useRef<HTMLInputElement>(null);
 
-  const handleExport = async () => {
-    setIsExporting(true);
-    try {
-      await exportToSQLite();
-    } catch (err) {
-      console.error(err);
-      alert("Failed to generate SQLite file.");
-    } finally {
-      setIsExporting(false);
-    }
-  };
+  const staffCount = useStaffCount() || 0;
+  const resumeCount = useResumeCount() || 0;
+  const isConnected = isSupabaseConfigured();
 
   const excelDateToJSDate = (serial: number | string): string | undefined => {
     if (!serial) return undefined;
-    if (typeof serial === 'string') return serial; // Already a string
-    const utc_days  = Math.floor(serial - 25569);
-    const utc_value = utc_days * 86400;                                        
+    if (typeof serial === 'string') return serial;
+    const utc_days = Math.floor(serial - 25569);
+    const utc_value = utc_days * 86400;
     const date_info = new Date(utc_value * 1000);
     return date_info.toISOString().split('T')[0];
   };
 
-  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  // Import Excel file to Supabase
+  const handleExcelImport = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files || e.target.files.length === 0) return;
     const file = e.target.files[0];
     setIsImporting(true);
+    setImportStatus(null);
 
     try {
       const data = await file.arrayBuffer();
       const workbook = read(data);
-      
+
       const genzaiSheet = workbook.SheetNames.find(n => n.includes('GenzaiX'));
       const ukeoiSheet = workbook.SheetNames.find(n => n.includes('UkeoiX'));
-      
-      const newStaff: StaffMember[] = [];
+
+      let importedCount = 0;
 
       if (genzaiSheet) {
         const rows: any[][] = utils.sheet_to_json(workbook.Sheets[genzaiSheet], { header: 1 });
-        // Skip header (row 0), start from row 1
-        rows.slice(1).forEach(row => {
-            if (!row[1]) return; // Skip empty rows (check EmpID)
-            newStaff.push({
-                type: 'GenzaiX',
-                status: row[0],
-                empId: String(row[1]),
-                dispatchId: row[2],
-                dispatchCompany: row[3],
-                department: row[4],
-                line: row[5],
-                jobContent: row[6],
-                fullName: row[7],
-                furigana: row[8],
-                gender: row[9],
-                nationality: row[10],
-                birthDate: excelDateToJSDate(row[11]),
-                age: row[12],
-                hourlyWage: row[13],
-                wageRevision: row[14],
-                billingUnit: row[15],
-                billingRevision: row[16],
-                profitMargin: row[17],
-                standardRemuneration: row[18],
-                healthIns: row[19],
-                nursingIns: row[20],
-                pension: row[21],
-                visaExpiry: excelDateToJSDate(row[22]),
-                visaAlert: row[23],
-                visaType: row[24],
-                postalCode: row[25],
-                address: row[26],
-                apartment: row[27],
-                moveInDate: excelDateToJSDate(row[28]),
-                hireDate: excelDateToJSDate(row[29]),
-                resignDate: excelDateToJSDate(row[30]),
-                moveOutDate: excelDateToJSDate(row[31]),
-                socialInsStatus: row[32],
-                hireRequest: row[33],
-                remarks: row[34],
-                currentHireDate: excelDateToJSDate(row[35]),
-                licenseType: row[36],
-                licenseExpiry: excelDateToJSDate(row[37]),
-                commuteMethod: row[38],
-                voluntaryInsExpiry: excelDateToJSDate(row[39]),
-                japaneseLevel: row[40],
-                careerUp5: row[41],
-                companyName: row[3], // Fallback
-                position: row[6], // Fallback
-                createdAt: Date.now()
-            });
-        });
+        for (const row of rows.slice(1)) {
+          if (!row[1]) continue;
+          await staffService.create({
+            type: 'GenzaiX',
+            status: row[0] || 'Active',
+            emp_id: String(row[1]),
+            full_name: row[7] || '',
+            full_name_kana: row[8] || '',
+            gender: row[9] || '',
+            nationality: row[10] || '',
+            birth_date: excelDateToJSDate(row[11]),
+            age: row[12],
+            hourly_wage: row[13],
+            billing_unit: row[15],
+            profit_margin: row[17],
+            standard_remuneration: row[18],
+            health_ins: row[19],
+            nursing_ins: row[20],
+            pension: row[21],
+            visa_expiry: excelDateToJSDate(row[22]),
+            visa_type: row[24],
+            postal_code: row[25],
+            address: row[26],
+            hire_date: excelDateToJSDate(row[29]),
+            notes: row[34]
+          });
+          importedCount++;
+        }
       }
 
       if (ukeoiSheet) {
         const rows: any[][] = utils.sheet_to_json(workbook.Sheets[ukeoiSheet], { header: 1 });
-        rows.slice(1).forEach(row => {
-             if (!row[1]) return;
-             newStaff.push({
-                type: 'Ukeoi',
-                status: row[0],
-                empId: String(row[1]),
-                contractWork: row[2],
-                fullName: row[3],
-                furigana: row[4],
-                gender: row[5],
-                nationality: row[6],
-                birthDate: excelDateToJSDate(row[7]),
-                age: row[8],
-                hourlyWage: row[9],
-                wageRevision: row[10],
-                standardRemuneration: row[11],
-                healthIns: row[12],
-                nursingIns: row[13],
-                pension: row[14],
-                commuteDist: row[15],
-                transportationCost: row[16],
-                profitMargin: row[17],
-                visaExpiry: excelDateToJSDate(row[18]),
-                visaAlert: row[19],
-                visaType: row[20],
-                postalCode: row[21],
-                address: row[22],
-                apartment: row[23],
-                moveInDate: excelDateToJSDate(row[24]),
-                hireDate: excelDateToJSDate(row[25]),
-                resignDate: excelDateToJSDate(row[26]),
-                moveOutDate: excelDateToJSDate(row[27]),
-                socialInsStatus: row[28],
-                bankAccountHolder: row[29],
-                bankName: row[30],
-                branchNum: row[31],
-                branchName: row[32],
-                accountNum: row[33],
-                hireRequest: row[34],
-                remarks: row[35],
-                companyName: "UNS Ukeoi", // Fallback
-                createdAt: Date.now()
-             });
-        });
+        for (const row of rows.slice(1)) {
+          if (!row[1]) continue;
+          await staffService.create({
+            type: 'Ukeoi',
+            status: row[0] || 'Active',
+            emp_id: String(row[1]),
+            full_name: row[3] || '',
+            full_name_kana: row[4] || '',
+            gender: row[5] || '',
+            nationality: row[6] || '',
+            birth_date: excelDateToJSDate(row[7]),
+            age: row[8],
+            hourly_wage: row[9],
+            standard_remuneration: row[11],
+            health_ins: row[12],
+            nursing_ins: row[13],
+            pension: row[14],
+            profit_margin: row[17],
+            visa_expiry: excelDateToJSDate(row[18]),
+            visa_type: row[20],
+            postal_code: row[21],
+            address: row[22],
+            hire_date: excelDateToJSDate(row[25]),
+            bank_account_holder: row[29],
+            bank_name: row[30],
+            bank_account_number: row[33],
+            notes: row[35]
+          });
+          importedCount++;
+        }
       }
 
-      if (newStaff.length > 0) {
-        await db.staff.bulkAdd(newStaff);
-        alert(`Successfully imported ${newStaff.length} staff records!`);
+      if (importedCount > 0) {
+        setImportStatus({ success: true, message: `${importedCount}件のスタッフデータをSupabaseにインポートしました！` });
       } else {
-        alert("No valid records found in the selected Excel file.");
+        setImportStatus({ success: false, message: 'Excelファイルに有効なデータが見つかりませんでした。' });
       }
 
-    } catch (error) {
+    } catch (error: any) {
       console.error("Import failed:", error);
-      alert("Error processing file. Please ensure it is a valid .xlsm/.xlsx file.");
+      setImportStatus({ success: false, message: `インポートエラー: ${error.message}` });
     } finally {
       setIsImporting(false);
       if (fileInputRef.current) fileInputRef.current.value = '';
+    }
+  };
+
+  // Import legacy JSON to Supabase
+  const handleLegacyImport = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!e.target.files || e.target.files.length === 0) return;
+    const file = e.target.files[0];
+    setIsImporting(true);
+    setImportStatus(null);
+
+    try {
+      const text = await file.text();
+      const legacyData = JSON.parse(text);
+
+      if (!Array.isArray(legacyData)) {
+        throw new Error('JSONファイルは配列形式である必要があります');
+      }
+
+      let importedCount = 0;
+
+      for (const rec of legacyData) {
+        await resumeService.create({
+          applicant_id: String(rec['履歴書ID'] || rec['applicantId'] || ''),
+          full_name: rec['氏名'] || rec['nameKanji'] || 'Unknown',
+          full_name_kana: rec['フリガナ'] || rec['nameFurigana'] || '',
+          birth_date: rec['生年月日'] ? rec['生年月日'].split('T')[0] : undefined,
+          gender: rec['性別'] || rec['gender'] || '',
+          nationality: rec['国籍'] || rec['nationality'] || '',
+          postal_code: rec['郵便番号'] || rec['postalCode'] || '',
+          address: `${rec['現住所'] || ''} ${rec['番地'] || ''} ${rec['物件名'] || ''}`.trim() || rec['address'] || '',
+          phone: rec['携帯電話'] || rec['電話番号'] || rec['mobile'] || rec['phone'] || '',
+          email: rec['email'] || '',
+          skills: rec['特技'] || rec['skills'] || '',
+          hobbies: rec['趣味'] || rec['hobbies'] || '',
+          motivation: rec['志望動機'] || rec['motivation'] || '',
+          legacy_raw: rec
+        });
+        importedCount++;
+      }
+
+      setImportStatus({ success: true, message: `${importedCount}件の履歴書データをSupabaseにインポートしました！` });
+
+    } catch (error: any) {
+      console.error("Import failed:", error);
+      setImportStatus({ success: false, message: `インポートエラー: ${error.message}` });
+    } finally {
+      setIsImporting(false);
+      if (legacyFileInputRef.current) legacyFileInputRef.current.value = '';
+    }
+  };
+
+  // Export data from Supabase to JSON
+  const handleExport = async () => {
+    setIsExporting(true);
+    try {
+      const staff = await staffService.getAll();
+      const resumes = await resumeService.getAll();
+
+      const exportData = {
+        exportDate: new Date().toISOString(),
+        staff,
+        resumes
+      };
+
+      const blob = new Blob([JSON.stringify(exportData, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `staffhub-backup-${new Date().toISOString().split('T')[0]}.json`;
+      a.click();
+      URL.revokeObjectURL(url);
+
+      setImportStatus({ success: true, message: 'データをエクスポートしました！' });
+    } catch (err: any) {
+      console.error(err);
+      setImportStatus({ success: false, message: `エクスポートエラー: ${err.message}` });
+    } finally {
+      setIsExporting(false);
     }
   };
 
@@ -172,15 +207,23 @@ const DatabaseManager: React.FC = () => {
         <div className="text-center space-y-4">
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-emerald-100 text-emerald-700 rounded-full text-xs font-bold uppercase tracking-widest">
             <ShieldCheck size={14} />
-            Data Integrity Guard
+            データ管理
           </div>
           <h2 className="text-4xl font-black text-slate-800 tracking-tight">Database Management</h2>
           <p className="text-slate-400 max-w-lg mx-auto leading-relaxed">
-            Manage your local IndexedDB storage, import legacy data, and export your entire workforce database.
+            Supabaseクラウドデータベースの管理。ファイルからデータをインポート、またはバックアップをエクスポート。
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {/* Status Message */}
+        {importStatus && (
+          <div className={`p-4 rounded-2xl flex items-center gap-3 ${importStatus.success ? 'bg-emerald-50 text-emerald-700 border border-emerald-200' : 'bg-red-50 text-red-700 border border-red-200'}`}>
+            {importStatus.success ? <CheckCircle2 size={20} /> : <AlertCircle size={20} />}
+            {importStatus.message}
+          </div>
+        )}
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {/* Excel Import Card */}
           <div className="bg-white p-8 rounded-[2.5rem] shadow-xl shadow-slate-200/50 border border-slate-100 flex flex-col items-center text-center space-y-6 relative overflow-hidden group">
             <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-emerald-400 to-green-500" />
@@ -188,140 +231,105 @@ const DatabaseManager: React.FC = () => {
               <FileSpreadsheet size={40} strokeWidth={1.5} />
             </div>
             <div className="space-y-2">
-              <h3 className="text-xl font-bold text-slate-800">Import Master Excel</h3>
-              <p className="text-sm text-slate-400 px-4">Import staff data from the UNS Master .xlsm file (GenzaiX/UkeoiX).</p>
+              <h3 className="text-xl font-bold text-slate-800">Excelインポート</h3>
+              <p className="text-sm text-slate-400 px-4">UNS Master .xlsm/.xlsxファイルからスタッフデータをインポート</p>
             </div>
-            <input 
-                type="file" 
-                ref={fileInputRef} 
-                onChange={handleFileChange} 
-                className="hidden" 
-                accept=".xlsx, .xlsm, .xls"
+            <input
+              type="file"
+              ref={fileInputRef}
+              onChange={handleExcelImport}
+              className="hidden"
+              accept=".xlsx, .xlsm, .xls"
             />
-            <button 
+            <button
               onClick={() => fileInputRef.current?.click()}
-              disabled={isImporting}
+              disabled={isImporting || !isConnected}
               className={`
                 w-full py-4 rounded-2xl font-bold transition-all active:scale-95 flex items-center justify-center gap-3 shadow-lg
-                ${isImporting ? 'bg-slate-100 text-slate-400 cursor-not-allowed' : 'bg-emerald-600 hover:bg-emerald-700 text-white shadow-emerald-500/20'}
+                ${isImporting || !isConnected ? 'bg-slate-100 text-slate-400 cursor-not-allowed' : 'bg-emerald-600 hover:bg-emerald-700 text-white shadow-emerald-500/20'}
               `}
             >
               {isImporting ? <RefreshCw className="animate-spin" size={20} /> : <Upload size={20} />}
-              {isImporting ? 'Parsing Excel...' : 'Select File'}
+              {isImporting ? '処理中...' : 'ファイルを選択'}
             </button>
           </div>
 
-          {/* Legacy Access Import Card */}
+          {/* Legacy JSON Import Card */}
           <div className="bg-white p-8 rounded-[2.5rem] shadow-xl shadow-slate-200/50 border border-slate-100 flex flex-col items-center text-center space-y-6 relative overflow-hidden group">
             <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-orange-400 to-red-500" />
             <div className="w-20 h-20 bg-orange-50 text-orange-600 rounded-3xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
               <Database size={40} strokeWidth={1.5} />
             </div>
             <div className="space-y-2">
-              <h3 className="text-xl font-bold text-slate-800">Legacy Access DB</h3>
-              <p className="text-sm text-slate-400 px-4">Import 1000+ resumes from the old Access database (legacy_resumes.json).</p>
+              <h3 className="text-xl font-bold text-slate-800">履歴書JSONインポート</h3>
+              <p className="text-sm text-slate-400 px-4">legacy_resumes.jsonなどの履歴書データをインポート</p>
             </div>
-            <button 
-              onClick={async () => {
-                if (!confirm("This will import/update data from 'public/legacy_resumes_fixed.json'. Continue?")) return;
-                setIsImporting(true);
-                try {
-                   // Try to fetch the fixed version first, fallback to original if not found
-                   let response = await fetch('/legacy_resumes_fixed.json');
-                   if (!response.ok) {
-                      console.warn("Fixed JSON not found, trying original...");
-                      response = await fetch('/legacy_resumes.json');
-                   }
-                   
-                   if (!response.ok) throw new Error("Data file not found. Please run the migration scripts.");
-                   const legacyData = await response.json();
-                   
-                   const newResumes = legacyData.map((rec: any) => ({
-                      applicantId: String(rec['履歴書ID'] || ''),
-                      nameKanji: rec['氏名'] || 'Unknown',
-                      nameFurigana: rec['フリガナ'] || '',
-                      birthDate: rec['生年月日'] ? rec['生年月日'].split('T')[0] : '',
-                      gender: rec['性別'] || '',
-                      nationality: rec['国籍'] || '',
-                      postalCode: rec['郵便番号'] || '',
-                      address: `${rec['現住所'] || ''} ${rec['番地'] || ''} ${rec['物件名'] || ''}`.trim(),
-                      mobile: rec['携帯電話'] || rec['電話番号'] || '',
-                      phone: rec['電話番号'] || '',
-                      visaType: rec['在留資格'] || '', // Check exact key in legacy data
-                      visaPeriod: rec['在留期間'] || '',
-                      residenceCardNo: rec['在留カード番号'] || '',
-                      spouse: rec['配偶者'] || '',
-                      height: rec['身長'] ? String(rec['身長']) : '',
-                      weight: rec['体重'] ? String(rec['体重']) : '',
-                      shoeSize: rec['靴サイズ'] ? String(rec['靴サイズ']) : '',
-                      
-                      // Store EVERYTHING else in legacyRaw to ensure no data loss as requested
-                      legacyRaw: rec,
-                      createdAt: Date.now()
-                   }));
-
-                   // Use bulkPut to update existing records instead of failing on duplicates
-                   await db.resumes.bulkPut(newResumes);
-                   alert(`Successfully imported/updated ${newResumes.length} legacy resumes!`);
-
-                } catch (e) {
-                   console.error(e);
-                   alert("Import failed: " + e);
-                } finally {
-                   setIsImporting(false);
-                }
-              }}
-              disabled={isImporting}
+            <input
+              type="file"
+              ref={legacyFileInputRef}
+              onChange={handleLegacyImport}
+              className="hidden"
+              accept=".json"
+            />
+            <button
+              onClick={() => legacyFileInputRef.current?.click()}
+              disabled={isImporting || !isConnected}
               className={`
                 w-full py-4 rounded-2xl font-bold transition-all active:scale-95 flex items-center justify-center gap-3 shadow-lg
-                ${isImporting ? 'bg-slate-100 text-slate-400 cursor-not-allowed' : 'bg-orange-600 hover:bg-orange-700 text-white shadow-orange-500/20'}
+                ${isImporting || !isConnected ? 'bg-slate-100 text-slate-400 cursor-not-allowed' : 'bg-orange-600 hover:bg-orange-700 text-white shadow-orange-500/20'}
               `}
             >
               {isImporting ? <RefreshCw className="animate-spin" size={20} /> : <Upload size={20} />}
-              {isImporting ? 'Importing...' : 'Load Legacy Data'}
+              {isImporting ? '処理中...' : 'JSONを選択'}
             </button>
           </div>
 
-          {/* SQLite Export Card */}
+          {/* Export Card */}
           <div className="bg-white p-8 rounded-[2.5rem] shadow-xl shadow-slate-200/50 border border-slate-100 flex flex-col items-center text-center space-y-6">
             <div className="w-20 h-20 bg-blue-50 text-blue-600 rounded-3xl flex items-center justify-center">
               <FileCode size={40} strokeWidth={1.5} />
             </div>
             <div className="space-y-2">
-              <h3 className="text-xl font-bold text-slate-800">Export to SQLite</h3>
-              <p className="text-sm text-slate-400 px-4">Generate a standard .db file compatible with DB Browser for SQLite.</p>
+              <h3 className="text-xl font-bold text-slate-800">バックアップ</h3>
+              <p className="text-sm text-slate-400 px-4">全データをJSONファイルとしてダウンロード</p>
             </div>
-            <button 
+            <button
               onClick={handleExport}
-              disabled={isExporting}
+              disabled={isExporting || !isConnected}
               className={`
                 w-full py-4 rounded-2xl font-bold transition-all active:scale-95 flex items-center justify-center gap-3 shadow-lg
-                ${isExporting ? 'bg-slate-100 text-slate-400 cursor-not-allowed' : 'bg-blue-600 hover:bg-blue-700 text-white shadow-blue-500/20'}
+                ${isExporting || !isConnected ? 'bg-slate-100 text-slate-400 cursor-not-allowed' : 'bg-blue-600 hover:bg-blue-700 text-white shadow-blue-500/20'}
               `}
             >
               {isExporting ? <RefreshCw className="animate-spin" size={20} /> : <Download size={20} />}
-              {isExporting ? 'Generating...' : 'Download .db'}
+              {isExporting ? 'エクスポート中...' : 'ダウンロード'}
             </button>
           </div>
 
-          {/* Local Storage Card */}
+          {/* Connection Status Card */}
           <div className="bg-white p-8 rounded-[2.5rem] shadow-xl shadow-slate-200/50 border border-slate-100 flex flex-col items-center text-center space-y-6">
-            <div className="w-20 h-20 bg-amber-50 text-amber-600 rounded-3xl flex items-center justify-center">
-              <HardDrive size={40} strokeWidth={1.5} />
+            <div className={`w-20 h-20 ${isConnected ? 'bg-emerald-50 text-emerald-600' : 'bg-red-50 text-red-600'} rounded-3xl flex items-center justify-center`}>
+              <Cloud size={40} strokeWidth={1.5} />
             </div>
             <div className="space-y-2">
-              <h3 className="text-xl font-bold text-slate-800">Storage Info</h3>
-              <p className="text-sm text-slate-400 px-4">Local storage is persistent. Data is safely stored in your browser.</p>
+              <h3 className="text-xl font-bold text-slate-800">接続状態</h3>
+              <p className="text-sm text-slate-400 px-4">Supabaseクラウドデータベース</p>
             </div>
-            <div className="w-full p-4 bg-slate-50 rounded-2xl text-left border border-slate-100 mt-auto">
-               <div className="flex justify-between items-center mb-2">
-                 <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Active Database</span>
-                 <span className="text-[10px] font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-full">DEXIE_IDB</span>
-               </div>
-               <div className="flex items-center gap-2 text-sm font-bold text-slate-700">
-                  <Database size={14} className="text-slate-400" />
-                  StaffHubDB v4.0
-               </div>
+            <div className="w-full p-4 bg-slate-50 rounded-2xl text-left border border-slate-100 mt-auto space-y-3">
+              <div className="flex justify-between items-center">
+                <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Status</span>
+                <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${isConnected ? 'text-emerald-600 bg-emerald-50' : 'text-red-600 bg-red-50'}`}>
+                  {isConnected ? 'CONNECTED' : 'OFFLINE'}
+                </span>
+              </div>
+              <div className="flex justify-between items-center text-sm">
+                <span className="text-slate-500">スタッフ</span>
+                <span className="font-bold text-slate-700">{staffCount}件</span>
+              </div>
+              <div className="flex justify-between items-center text-sm">
+                <span className="text-slate-500">履歴書</span>
+                <span className="font-bold text-slate-700">{resumeCount}件</span>
+              </div>
             </div>
           </div>
         </div>
