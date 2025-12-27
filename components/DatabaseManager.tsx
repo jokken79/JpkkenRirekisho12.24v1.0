@@ -141,21 +141,66 @@ const DatabaseManager: React.FC = () => {
       let importedCount = 0;
 
       for (const rec of legacyData) {
+        // Build education from 最終学歴
+        const education = rec['最終学歴'] ? [{ school: rec['最終学歴'], graduated: true }] : null;
+
+        // Build job history from 職歴 fields
+        const jobHistory = [];
+        for (let i = 1; i <= 7; i++) {
+          const company = rec[`職歴入社会社名${i}`];
+          if (company) {
+            jobHistory.push({
+              company,
+              startYear: rec[`職歴年入社${i}`] || '',
+              startMonth: rec[`職歴月入社${i}`] || '',
+              endYear: rec[`職歴年退社社${i}`] || '',
+              endMonth: rec[`職歴月退社社${i}`] || ''
+            });
+          }
+        }
+
+        // Build family from 家族構成 fields
+        const family = [];
+        for (let i = 1; i <= 5; i++) {
+          const name = rec[`家族構成氏名${i}`];
+          if (name) {
+            family.push({
+              name,
+              relationship: rec[`家族構成続柄${i}`] || '',
+              age: rec[`年齢${i}`] || '',
+              residence: rec[`居住${i}`] || ''
+            });
+          }
+        }
+
+        // Build licenses from certification fields
+        const licenses = [];
+        if (rec['ﾌｫｰｸﾘﾌﾄ免許']) licenses.push('フォークリフト');
+        if (rec['玉掛']) licenses.push('玉掛');
+        if (rec['移動式ｸﾚｰﾝ運転士(5ﾄﾝ未満)']) licenses.push('移動式クレーン(5t未満)');
+        if (rec['移動式ｸﾚｰﾝ運転士(5ﾄﾝ以上)']) licenses.push('移動式クレーン(5t以上)');
+        if (rec['ｶﾞｽ溶接作業者']) licenses.push('ガス溶接');
+
         await resumeService.create({
-          applicant_id: String(rec['履歴書ID'] || rec['applicantId'] || ''),
-          full_name: rec['氏名'] || rec['nameKanji'] || 'Unknown',
-          full_name_kana: rec['フリガナ'] || rec['nameFurigana'] || '',
-          birth_date: rec['生年月日'] ? rec['生年月日'].split('T')[0] : undefined,
-          gender: rec['性別'] || rec['gender'] || '',
-          nationality: rec['国籍'] || rec['nationality'] || '',
-          postal_code: rec['郵便番号'] || rec['postalCode'] || '',
-          address: `${rec['現住所'] || ''} ${rec['番地'] || ''} ${rec['物件名'] || ''}`.trim() || rec['address'] || '',
-          phone: rec['携帯電話'] || rec['電話番号'] || rec['mobile'] || rec['phone'] || '',
-          email: rec['email'] || '',
-          skills: rec['特技'] || rec['skills'] || '',
-          hobbies: rec['趣味'] || rec['hobbies'] || '',
-          motivation: rec['志望動機'] || rec['motivation'] || '',
-          legacy_raw: rec
+          applicant_id: String(rec['履歴書ID'] || ''),
+          full_name: rec['氏名'] || 'Unknown',
+          full_name_kana: rec['フリガナ'] || '',
+          birth_date: rec['生年月日'] ? String(rec['生年月日']).split('T')[0] : null,
+          gender: rec['性別'] || '',
+          nationality: rec['国籍'] || '',
+          postal_code: rec['郵便番号'] || '',
+          address: `${rec['現住所'] || ''} ${rec['番地'] || ''} ${rec['物件名'] || ''}`.trim(),
+          phone: rec['携帯電話'] || rec['電話番号'] || '',
+          email: rec['email'] || null,
+          photo: rec['写真'] || null,
+          education: education,
+          job_history: jobHistory.length > 0 ? jobHistory : null,
+          licenses: licenses.length > 0 ? licenses : null,
+          family: family.length > 0 ? family : null,
+          skills: rec['特技'] || '',
+          hobbies: rec['趣味'] || '',
+          motivation: rec['志望動機'] || '',
+          requests: rec['本人希望'] || null
         });
         importedCount++;
       }

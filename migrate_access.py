@@ -6,8 +6,8 @@ import datetime
 import os
 
 # Configuration
-DB_PATH = r"D:\RirekishoDBaseAntigua\ユニバーサル企画㈱データベースv24.1.1_be.accdb"
-OUTPUT_FILE = r"D:\staffhub-uns-pro\public\legacy_resumes.json"
+DB_PATH = r"C:\Users\Jpkken\Downloads\ユニバーサル企画㈱データベースv25.3.24_be.accdb"
+OUTPUT_FILE = r"C:\Users\Jpkken\JpkkenRirekisho12.24v1.0\legacy_resumes.json"
 
 # Access Connection String
 conn_str = (
