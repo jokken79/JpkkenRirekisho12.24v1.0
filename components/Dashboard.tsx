@@ -45,14 +45,14 @@ const Dashboard: React.FC<Props> = ({ onNav }) => {
           onClick={() => onNav('ukeoi')}
           color="blue"
         />
-        <StatCard 
-          icon={<FileText className="text-purple-600" size={24} />}
+        <StatCard
+          icon={<FileText className="text-cyan-600" size={24} />}
           label="Active CVs"
           value={resumeCount || 0}
           trend="+8.3%"
           isPositive={true}
           onClick={() => onNav('resumes')}
-          color="purple"
+          color="cyan"
         />
         <StatCard 
           icon={<Database className="text-emerald-600" size={24} />}

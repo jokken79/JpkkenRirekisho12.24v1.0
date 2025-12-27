@@ -55,6 +55,7 @@ import {
   SelectValue,
 } from './ui/select';
 import { Skeleton } from './ui/skeleton';
+import { ConfirmDialog } from './ui/confirm-dialog';
 import { cn } from '../lib/cn';
 import { fadeInUp, staggerContainer } from '../lib/animations';
 import AvatarDisplay from './AvatarDisplay';
@@ -152,6 +153,11 @@ const StaffTable: React.FC<Props> = ({ type, searchTerm, onEdit }) => {
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
   const [globalFilter, setGlobalFilter] = useState('');
   const [pageSize, setPageSize] = useState(20);
+
+  // Delete confirmation dialog state
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+  const [deleteTarget, setDeleteTarget] = useState<{ id: string; name: string } | null>(null);
+  const [deleteLoading, setDeleteLoading] = useState(false);
 
   // Sync external search term
   useEffect(() => {
@@ -315,7 +321,10 @@ const StaffTable: React.FC<Props> = ({ type, searchTerm, onEdit }) => {
               </DropdownMenuItem>
               <DropdownMenuSeparator />
               <DropdownMenuItem
-                onClick={() => handleDelete(row.original.id!)}
+                onClick={() => {
+                  const name = getRowValue(row.original, 'fullName') || getRowValue(row.original, 'full_name') || 'this employee';
+                  openDeleteDialog(row.original.id!, name);
+                }}
                 className="text-red-600 focus:text-red-600"
               >
                 <Trash2 className="h-4 w-4 mr-2" />
@@ -333,9 +342,23 @@ const StaffTable: React.FC<Props> = ({ type, searchTerm, onEdit }) => {
     return cols;
   }, [fields, onEdit]);
 
-  const handleDelete = async (id: string) => {
-    if (confirm('Are you sure you want to delete this record permanently?')) {
-      await staffService.delete(id);
+  const openDeleteDialog = (id: string, name: string) => {
+    setDeleteTarget({ id, name });
+    setDeleteDialogOpen(true);
+  };
+
+  const handleDelete = async () => {
+    if (!deleteTarget) return;
+    setDeleteLoading(true);
+    try {
+      await staffService.delete(deleteTarget.id);
+    } catch (error) {
+      console.error('Failed to delete staff:', error);
+      // Error will be shown via toast or handled by caller
+    } finally {
+      setDeleteLoading(false);
+      setDeleteDialogOpen(false);
+      setDeleteTarget(null);
     }
   };
 
@@ -602,6 +625,19 @@ const StaffTable: React.FC<Props> = ({ type, searchTerm, onEdit }) => {
           </Button>
         </div>
       </div>
+
+      {/* Delete Confirmation Dialog */}
+      <ConfirmDialog
+        open={deleteDialogOpen}
+        onOpenChange={setDeleteDialogOpen}
+        title="Delete Employee Record"
+        description={`Are you sure you want to permanently delete ${deleteTarget?.name || 'this employee'}? This action cannot be undone.`}
+        confirmLabel="Delete"
+        cancelLabel="Cancel"
+        variant="danger"
+        onConfirm={handleDelete}
+        loading={deleteLoading}
+      />
     </motion.div>
   );
 };

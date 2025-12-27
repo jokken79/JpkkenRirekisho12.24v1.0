@@ -4,12 +4,21 @@ import { useApplications, applicationService, resumeService, staffService } from
 import type { Application, Resume, Staff } from '../lib/database.types';
 import { FileText, CheckCircle2, Clock, Building2, UserPlus, Trash2 } from 'lucide-react';
 import AvatarDisplay from './AvatarDisplay';
+import { ConfirmDialog } from './ui/confirm-dialog';
+import { useToast } from './Toast';
 
 type ApplicationWithResume = Application & { resume?: Resume };
 
 const ApplicationList: React.FC = () => {
   const allApplications = useApplications();
   const [applications, setApplications] = useState<ApplicationWithResume[]>([]);
+  const { showToast } = useToast();
+
+  // Dialog states
+  const [hiringDialogOpen, setHiringDialogOpen] = useState(false);
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+  const [targetApp, setTargetApp] = useState<ApplicationWithResume | null>(null);
+  const [actionLoading, setActionLoading] = useState(false);
 
   // Fetch applications and join with resume data
   useEffect(() => {
@@ -28,44 +37,73 @@ const ApplicationList: React.FC = () => {
     fetchWithResumes();
   }, [allApplications]);
 
-  const finalizeHiring = async (app: ApplicationWithResume) => {
-    if (!confirm(`Confirm hiring for ${app.resume?.full_name}? This will create an official Staff record.`)) return;
+  const openHiringDialog = (app: ApplicationWithResume) => {
+    setTargetApp(app);
+    setHiringDialogOpen(true);
+  };
+
+  const openDeleteDialog = (app: ApplicationWithResume) => {
+    setTargetApp(app);
+    setDeleteDialogOpen(true);
+  };
+
+  const finalizeHiring = async () => {
+    if (!targetApp) return;
+    setActionLoading(true);
 
     try {
       const newStaff: Partial<Staff> = {
-        type: app.type as any,
+        type: targetApp.type as any,
         status: 'Active',
-        emp_id: app.resume?.applicant_id || '',
-        full_name: app.resume?.full_name || '',
-        furigana: app.resume?.name_furigana || '',
-        gender: app.resume?.gender || '',
-        birth_date: app.resume?.birth_date,
-        nationality: app.resume?.nationality,
-        address: app.resume?.address,
-        postal_code: app.resume?.postal_code,
-        mobile: app.resume?.mobile,
-        hire_date: app.start_date,
-        department: app.department,
-        dispatch_company: app.factory_name,
-        hourly_wage: app.hourly_wage,
-        billing_unit: app.billing_unit,
-        resume_id: app.resume_id
+        emp_id: targetApp.resume?.applicant_id || '',
+        full_name: targetApp.resume?.full_name || '',
+        furigana: targetApp.resume?.name_furigana || '',
+        gender: targetApp.resume?.gender || '',
+        birth_date: targetApp.resume?.birth_date,
+        nationality: targetApp.resume?.nationality,
+        address: targetApp.resume?.address,
+        postal_code: targetApp.resume?.postal_code,
+        mobile: targetApp.resume?.mobile,
+        hire_date: targetApp.start_date,
+        department: targetApp.department,
+        dispatch_company: targetApp.factory_name,
+        hourly_wage: targetApp.hourly_wage,
+        billing_unit: targetApp.billing_unit,
+        resume_id: targetApp.resume_id
       };
 
       // 1. Add to staff table
       await staffService.create(newStaff as any);
 
       // 2. Update application status to completed
-      await applicationService.update(app.id!, { status: 'completed', processed_at: new Date().toISOString() });
+      await applicationService.update(targetApp.id!, { status: 'completed', processed_at: new Date().toISOString() });
 
-      alert("Staff registered successfully!");
+      showToast('Staff registered successfully!', 'success');
     } catch (e) {
-      alert("Error finalizing hiring: " + e);
+      console.error('Error finalizing hiring:', e);
+      showToast('Error finalizing hiring: ' + e, 'error');
+    } finally {
+      setActionLoading(false);
+      setHiringDialogOpen(false);
+      setTargetApp(null);
     }
   };
 
-  const deleteApplication = async (id: string) => {
-    if (confirm("Delete this application?")) await applicationService.delete(id);
+  const deleteApplication = async () => {
+    if (!targetApp) return;
+    setActionLoading(true);
+
+    try {
+      await applicationService.delete(targetApp.id!);
+      showToast('Application deleted', 'success');
+    } catch (e) {
+      console.error('Error deleting application:', e);
+      showToast('Error deleting application', 'error');
+    } finally {
+      setActionLoading(false);
+      setDeleteDialogOpen(false);
+      setTargetApp(null);
+    }
   };
 
   if (!applications) return null;
@@ -114,7 +152,7 @@ const ApplicationList: React.FC = () => {
 
                 <div className="flex-1 min-w-0">
                    <div className="flex items-center gap-2 mb-1">
-                      <span className={`text-[9px] font-black uppercase tracking-widest px-2 py-0.5 rounded-full ${app.type === 'GenzaiX' ? 'bg-blue-50 text-blue-600' : 'bg-purple-50 text-purple-600'}`}>
+                      <span className={`text-[9px] font-black uppercase tracking-widest px-2 py-0.5 rounded-full ${app.type === 'GenzaiX' ? 'bg-blue-50 text-blue-600' : 'bg-cyan-50 text-cyan-600'}`}>
                          {app.type === 'GenzaiX' ? 'HAKEN (派遣)' : 'UKEOI (請負)'}
                       </span>
                       <span className="text-[10px] font-bold text-slate-300">ID: {app.resume?.applicant_id}</span>
@@ -141,8 +179,8 @@ const ApplicationList: React.FC = () => {
                 {/* Actions */}
                 <div className="flex gap-2">
                    {app.status !== 'completed' ? (
-                     <button 
-                       onClick={() => finalizeHiring(app)}
+                     <button
+                       onClick={() => openHiringDialog(app)}
                        className="flex items-center gap-2 px-6 py-3 bg-emerald-600 text-white font-bold rounded-2xl hover:bg-emerald-700 shadow-lg shadow-emerald-600/20 transition-all whitespace-nowrap"
                      >
                         <UserPlus size={18} /> Register Staff
@@ -152,8 +190,8 @@ const ApplicationList: React.FC = () => {
                         <CheckCircle2 size={18} /> Finalized
                      </span>
                    )}
-                   <button 
-                     onClick={() => deleteApplication(app.id!)}
+                   <button
+                     onClick={() => openDeleteDialog(app)}
                      className="p-3 text-slate-300 hover:text-red-500 hover:bg-red-50 rounded-2xl transition-all"
                    >
                       <Trash2 size={20} />
@@ -165,6 +203,32 @@ const ApplicationList: React.FC = () => {
           </div>
         )}
       </div>
+
+      {/* Hiring Confirmation Dialog */}
+      <ConfirmDialog
+        open={hiringDialogOpen}
+        onOpenChange={setHiringDialogOpen}
+        title="Confirm Staff Registration"
+        description={`Register ${targetApp?.resume?.full_name || 'this applicant'} as an official staff member? This will create a new employee record.`}
+        confirmLabel="Register Staff"
+        cancelLabel="Cancel"
+        variant="success"
+        onConfirm={finalizeHiring}
+        loading={actionLoading}
+      />
+
+      {/* Delete Confirmation Dialog */}
+      <ConfirmDialog
+        open={deleteDialogOpen}
+        onOpenChange={setDeleteDialogOpen}
+        title="Delete Application"
+        description={`Are you sure you want to delete the application for ${targetApp?.resume?.full_name || 'this applicant'}? This action cannot be undone.`}
+        confirmLabel="Delete"
+        cancelLabel="Cancel"
+        variant="danger"
+        onConfirm={deleteApplication}
+        loading={actionLoading}
+      />
     </div>
   );
 };

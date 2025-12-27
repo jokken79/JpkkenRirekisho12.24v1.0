@@ -4,6 +4,33 @@
 import { supabase, isSupabaseConfigured } from './supabase';
 import type { Staff, StaffInsert, Resume, ResumeInsert, Application, ApplicationInsert, Factory, FactoryInsert, UserProfile } from './database.types';
 
+// ============ INPUT SANITIZATION ============
+
+/**
+ * Sanitize search term to prevent SQL/pattern injection
+ * Escapes special characters used in PostgreSQL LIKE patterns
+ */
+function sanitizeSearchTerm(term: string): string {
+  if (!term || typeof term !== 'string') return '';
+  // Escape PostgreSQL LIKE special characters: %, _, \
+  // Also limit length and trim whitespace
+  return term
+    .trim()
+    .slice(0, 100) // Limit to 100 chars
+    .replace(/\\/g, '\\\\')
+    .replace(/%/g, '\\%')
+    .replace(/_/g, '\\_');
+}
+
+/**
+ * Validate UUID format
+ */
+function isValidUUID(id: string): boolean {
+  if (!id || typeof id !== 'string') return false;
+  const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+  return uuidRegex.test(id);
+}
+
 // ============ STAFF OPERATIONS ============
 
 export const staffService = {
@@ -54,10 +81,13 @@ export const staffService = {
   },
 
   async search(term: string, type?: 'GenzaiX' | 'Ukeoi'): Promise<Staff[]> {
+    const safeTerm = sanitizeSearchTerm(term);
+    if (!safeTerm) return [];
+
     let query = supabase
       .from('staff')
       .select('*')
-      .or(`full_name.ilike.%${term}%,emp_id.ilike.%${term}%,phone.ilike.%${term}%`);
+      .or(`full_name.ilike.%${safeTerm}%,emp_id.ilike.%${safeTerm}%,phone.ilike.%${safeTerm}%`);
 
     if (type) {
       query = query.eq('type', type);
@@ -128,10 +158,13 @@ export const resumeService = {
   },
 
   async search(term: string): Promise<Resume[]> {
+    const safeTerm = sanitizeSearchTerm(term);
+    if (!safeTerm) return [];
+
     const { data, error } = await supabase
       .from('resumes')
       .select('*')
-      .or(`full_name.ilike.%${term}%,applicant_id.ilike.%${term}%,phone.ilike.%${term}%`)
+      .or(`full_name.ilike.%${safeTerm}%,applicant_id.ilike.%${safeTerm}%,phone.ilike.%${safeTerm}%`)
       .order('created_at', { ascending: false });
     if (error) throw error;
     return data || [];

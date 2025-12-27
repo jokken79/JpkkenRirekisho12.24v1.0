@@ -1,10 +1,14 @@
 // React hooks for Supabase data fetching with realtime updates
 // Replaces useLiveQuery from dexie-react-hooks
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { supabase, isSupabaseConfigured } from './supabase';
 import { staffService, resumeService, applicationService, factoryService, userProfileService } from './dataService';
 import type { Staff, Resume, Application, Factory, UserProfile } from './database.types';
+import type { RealtimeChannel } from '@supabase/supabase-js';
+
+// Counter for unique channel IDs (prevents memory leaks from random IDs)
+let channelCounter = 0;
 
 // Generic hook for data fetching with realtime updates
 function useRealtimeQuery<T>(
@@ -14,19 +18,27 @@ function useRealtimeQuery<T>(
 ): T | undefined {
   const [data, setData] = useState<T | undefined>(undefined);
   const [loading, setLoading] = useState(true);
+  const channelRef = useRef<RealtimeChannel | null>(null);
+  const isMountedRef = useRef(true);
 
   const refetch = useCallback(async () => {
     try {
       const result = await fetchFn();
-      setData(result);
+      if (isMountedRef.current) {
+        setData(result);
+      }
     } catch (error) {
       console.error(`Error fetching ${tableName}:`, error);
     } finally {
-      setLoading(false);
+      if (isMountedRef.current) {
+        setLoading(false);
+      }
     }
   }, [fetchFn, tableName]);
 
   useEffect(() => {
+    isMountedRef.current = true;
+
     if (!isSupabaseConfigured()) {
       setLoading(false);
       return;
@@ -34,16 +46,25 @@ function useRealtimeQuery<T>(
 
     refetch();
 
-    // Subscribe to realtime changes
+    // Subscribe to realtime changes with stable channel ID
+    const channelId = `${tableName}-changes-${++channelCounter}`;
     const channel = supabase
-      .channel(`${tableName}-changes-${Math.random()}`)
+      .channel(channelId)
       .on('postgres_changes', { event: '*', schema: 'public', table: tableName }, () => {
-        refetch();
+        if (isMountedRef.current) {
+          refetch();
+        }
       })
       .subscribe();
 
+    channelRef.current = channel;
+
     return () => {
-      supabase.removeChannel(channel);
+      isMountedRef.current = false;
+      if (channelRef.current) {
+        supabase.removeChannel(channelRef.current);
+        channelRef.current = null;
+      }
     };
   }, [...deps, refetch]);
 

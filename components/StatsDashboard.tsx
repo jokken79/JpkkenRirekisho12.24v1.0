@@ -65,7 +65,7 @@ interface MetricCardProps {
   value: number;
   icon: React.ReactNode;
   trend?: { value: number; isUp: boolean };
-  color: 'blue' | 'emerald' | 'amber' | 'red' | 'purple';
+  color: 'blue' | 'emerald' | 'amber' | 'red' | 'cyan';
   delay?: number;
 }
 
@@ -75,7 +75,7 @@ function MetricCard({ title, value, icon, trend, color, delay = 0 }: MetricCardP
     emerald: 'bg-emerald-100 text-emerald-600',
     amber: 'bg-amber-100 text-amber-600',
     red: 'bg-red-100 text-red-600',
-    purple: 'bg-purple-100 text-purple-600',
+    cyan: 'bg-cyan-100 text-cyan-600',
   };
 
   return (
@@ -123,7 +123,6 @@ const COLORS = {
   emerald: '#10b981',
   amber: '#f59e0b',
   red: '#ef4444',
-  purple: '#8b5cf6',
   cyan: '#06b6d4',
   pink: '#ec4899',
   slate: '#64748b',
@@ -307,7 +306,7 @@ export default function StatsDashboard() {
           title="Active Resumes"
           value={resumes?.length || 0}
           icon={<TrendingUp className="h-6 w-6" />}
-          color="purple"
+          color="cyan"
           delay={0.3}
         />
       </div>
