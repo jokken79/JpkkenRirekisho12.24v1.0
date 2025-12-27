@@ -45,9 +45,24 @@ const DatabaseManager: React.FC = () => {
   const resumeCount = useResumeCount() || 0;
   const isConnected = isSupabaseConfigured();
 
-  const excelDateToJSDate = (serial: number | string): string | undefined => {
-    if (!serial) return undefined;
-    if (typeof serial === 'string') return serial;
+  const excelDateToJSDate = (serial: number | string): string | null => {
+    if (!serial) return null;
+    // If it's a string, validate it looks like a date
+    if (typeof serial === 'string') {
+      // Check for YYYY-MM-DD format
+      if (/^\d{4}-\d{2}-\d{2}/.test(serial)) {
+        return serial.substring(0, 10);
+      }
+      // Check for YYYY/MM/DD format
+      const slashMatch = serial.match(/^(\d{4})\/(\d{1,2})\/(\d{1,2})/);
+      if (slashMatch) {
+        return `${slashMatch[1]}-${slashMatch[2].padStart(2, '0')}-${slashMatch[3].padStart(2, '0')}`;
+      }
+      // Not a valid date string (e.g., "永住者"), return null
+      return null;
+    }
+    // Handle Excel serial date number
+    if (typeof serial !== 'number' || isNaN(serial)) return null;
     const utc_days = Math.floor(serial - 25569);
     const utc_value = utc_days * 86400;
     const date_info = new Date(utc_value * 1000);
