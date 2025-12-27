@@ -266,17 +266,26 @@ export const factoryService = {
 
 export const userProfileService = {
   async getCurrent(): Promise<UserProfile | null> {
-    const { data: { user } } = await supabase.auth.getUser();
-    if (!user) return null;
+    try {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) return null;
 
-    const { data, error } = await supabase
-      .from('user_profiles')
-      .select('*')
-      .eq('user_id', user.id)
-      .single();
+      const { data, error } = await supabase
+        .from('user_profiles')
+        .select('*')
+        .eq('user_id', user.id)
+        .maybeSingle();
 
-    if (error && error.code !== 'PGRST116') throw error;
-    return data;
+      // Silently handle all errors - return null if profile doesn't exist
+      if (error) {
+        console.warn('User profile fetch error:', error.message);
+        return null;
+      }
+      return data;
+    } catch (err) {
+      console.warn('User profile error:', err);
+      return null;
+    }
   },
 
   async upsert(profile: Partial<UserProfile>): Promise<UserProfile> {

@@ -210,8 +210,8 @@ const StaffTable: React.FC<Props> = ({ type, searchTerm, onEdit }) => {
         const photo = getRowValue(row.original, 'photo');
         const empId = getRowValue(row.original, 'empId') || getRowValue(row.original, 'emp_id');
         const fullName = getRowValue(row.original, 'fullName') || getRowValue(row.original, 'full_name');
-        // Try photo field first, then fallback to empId-based filename
-        const photoFile = photo || (empId ? `${empId}.jpg` : '');
+        // Only use photo field if it exists - don't fallback to empId.jpg
+        const photoFile = photo || '';
         return (
           <AvatarDisplay
             filename={photoFile}
