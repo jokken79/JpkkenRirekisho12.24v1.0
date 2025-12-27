@@ -1,6 +1,5 @@
 
 import React, { useState, useMemo, Suspense, lazy } from 'react';
-import { useLiveQuery } from 'dexie-react-hooks';
 import { useNavigate, useLocation, Routes, Route, Navigate } from 'react-router-dom';
 import {
   Users,
@@ -19,7 +18,8 @@ import {
   Loader2
 } from 'lucide-react';
 import { StaffType, StaffMember, Rirekisho } from './types';
-import { db } from './db';
+import { useCurrentUserProfile } from './lib/useSupabase';
+import { signOut } from './lib/supabase';
 import { APP_LOGO } from './constants';
 
 // Lazy load components for code splitting
@@ -71,7 +71,7 @@ const App: React.FC = () => {
   const [editingResume, setEditingResume] = useState<Rirekisho | undefined>(undefined);
   const [searchTerm, setSearchTerm] = useState('');
 
-  const currentUser = useLiveQuery(() => db.settings.get('current_user'));
+  const currentUser = useCurrentUserProfile();
 
   const handleAddStaff = () => {
     setEditingMember(undefined);
@@ -101,14 +101,18 @@ const App: React.FC = () => {
   };
 
   const userInitials = useMemo(() => {
-    if (!currentUser?.displayName) return '??';
-    return currentUser.displayName
+    if (!currentUser?.display_name) return '??';
+    return currentUser.display_name
       .split(' ')
       .map(n => n[0])
       .join('')
       .toUpperCase()
       .slice(0, 2);
   }, [currentUser]);
+
+  const handleSignOut = async () => {
+    await signOut();
+  };
 
   return (
     <div className="flex h-screen bg-slate-50 overflow-hidden font-sans">
@@ -206,11 +210,11 @@ const App: React.FC = () => {
             onClick={() => {}}
             collapsed={!isSidebarOpen}
           />
-          <SidebarItem 
-            icon={<LogOut size={20} />} 
-            label="Sign Out" 
-            active={false} 
-            onClick={() => {}}
+          <SidebarItem
+            icon={<LogOut size={20} />}
+            label="Sign Out"
+            active={false}
+            onClick={handleSignOut}
             collapsed={!isSidebarOpen}
             textColor="text-red-500"
           />
@@ -257,17 +261,17 @@ const App: React.FC = () => {
                 </button>
              )}
              
-             <button 
+             <button
                 onClick={() => setActiveView('profile')}
                 className="flex items-center gap-3 pl-2 pr-4 py-1.5 rounded-full hover:bg-slate-100 transition-colors border border-transparent hover:border-slate-200"
              >
                 <div className="w-10 h-10 rounded-full bg-blue-600 border-2 border-white shadow-sm flex items-center justify-center text-white font-bold overflow-hidden">
-                   {currentUser?.avatar ? (
-                      <img src={currentUser.avatar} className="w-full h-full object-cover" alt="Profile" />
+                   {currentUser?.avatar_url ? (
+                      <img src={currentUser.avatar_url} className="w-full h-full object-cover" alt="Profile" />
                    ) : userInitials}
                 </div>
                 <div className="text-left hidden lg:block">
-                   <p className="text-sm font-bold text-slate-800 leading-none mb-0.5">{currentUser?.displayName || 'Loading...'}</p>
+                   <p className="text-sm font-bold text-slate-800 leading-none mb-0.5">{currentUser?.display_name || 'Loading...'}</p>
                    <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{currentUser?.role || 'User'}</p>
                 </div>
              </button>

@@ -1,61 +1,71 @@
 
-import React from 'react';
-import { useLiveQuery } from 'dexie-react-hooks';
-import { db } from '../db';
-import { Application, Rirekisho, StaffMember } from '../types';
+import React, { useMemo, useState, useEffect } from 'react';
+import { useApplications, applicationService, resumeService, staffService } from '../lib/useSupabase';
+import type { Application, Resume, Staff } from '../lib/database.types';
 import { FileText, CheckCircle2, Clock, Building2, UserPlus, Trash2 } from 'lucide-react';
 import AvatarDisplay from './AvatarDisplay';
 
-const ApplicationList: React.FC = () => {
-  // Fetch applications joined with resume data
-  const applications = useLiveQuery(async () => {
-    const apps = await db.applications.toArray();
-    const joined = await Promise.all(apps.map(async (app) => {
-      const resume = await db.resumes.get(app.resumeId);
-      return { ...app, resume };
-    }));
-    return joined.reverse();
-  });
+type ApplicationWithResume = Application & { resume?: Resume };
 
-  const finalizeHiring = async (app: Application & { resume?: Rirekisho }) => {
-    if (!confirm(`Confirm hiring for ${app.resume?.nameKanji}? This will create an official Staff record.`)) return;
+const ApplicationList: React.FC = () => {
+  const allApplications = useApplications();
+  const [applications, setApplications] = useState<ApplicationWithResume[]>([]);
+
+  // Fetch applications and join with resume data
+  useEffect(() => {
+    if (!allApplications) return;
+
+    const fetchWithResumes = async () => {
+      const joined = await Promise.all(
+        allApplications.map(async (app) => {
+          const resume = app.resume_id ? await resumeService.getById(app.resume_id) : null;
+          return { ...app, resume: resume || undefined };
+        })
+      );
+      setApplications(joined.reverse());
+    };
+
+    fetchWithResumes();
+  }, [allApplications]);
+
+  const finalizeHiring = async (app: ApplicationWithResume) => {
+    if (!confirm(`Confirm hiring for ${app.resume?.full_name}? This will create an official Staff record.`)) return;
 
     try {
-      const newStaff: StaffMember = {
-        type: app.type,
+      const newStaff: Partial<Staff> = {
+        type: app.type as any,
         status: 'Active',
-        empId: app.resume?.applicantId || '',
-        fullName: app.resume?.nameKanji || '',
-        furigana: app.resume?.nameFurigana || '',
+        emp_id: app.resume?.applicant_id || '',
+        full_name: app.resume?.full_name || '',
+        furigana: app.resume?.name_furigana || '',
         gender: app.resume?.gender || '',
-        birthDate: app.resume?.birthDate,
+        birth_date: app.resume?.birth_date,
         nationality: app.resume?.nationality,
         address: app.resume?.address,
-        postalCode: app.resume?.postalCode,
+        postal_code: app.resume?.postal_code,
         mobile: app.resume?.mobile,
-        hireDate: app.startDate,
+        hire_date: app.start_date,
         department: app.department,
-        dispatchCompany: app.factoryName,
-        hourlyWage: app.hourlyWage,
-        billingUnit: app.billingUnit,
-        resumeId: app.resumeId,
-        createdAt: Date.now()
+        dispatch_company: app.factory_name,
+        hourly_wage: app.hourly_wage,
+        billing_unit: app.billing_unit,
+        resume_id: app.resume_id
       };
 
       // 1. Add to staff table
-      await db.staff.add(newStaff);
-      
+      await staffService.create(newStaff as any);
+
       // 2. Update application status to completed
-      await db.applications.update(app.id!, { status: 'completed', processedAt: Date.now() });
-      
+      await applicationService.update(app.id!, { status: 'completed', processed_at: new Date().toISOString() });
+
       alert("Staff registered successfully!");
     } catch (e) {
       alert("Error finalizing hiring: " + e);
     }
   };
 
-  const deleteApplication = async (id: number) => {
-    if (confirm("Delete this application?")) await db.applications.delete(id);
+  const deleteApplication = async (id: string) => {
+    if (confirm("Delete this application?")) await applicationService.delete(id);
   };
 
   if (!applications) return null;
@@ -89,10 +99,10 @@ const ApplicationList: React.FC = () => {
                 
                 {/* Photo & Identity */}
                 <div className="relative">
-                   <AvatarDisplay 
-                     filename={app.resume?.legacyRaw?.['写真']} 
-                     alt={app.resume?.nameKanji || ''} 
-                     size="md" 
+                   <AvatarDisplay
+                     filename={app.resume?.legacy_raw ? (app.resume.legacy_raw as any)['写真'] : undefined}
+                     alt={app.resume?.full_name || ''}
+                     size="md"
                      className="rounded-2xl"
                    />
                    {app.status === 'completed' && (
@@ -107,17 +117,17 @@ const ApplicationList: React.FC = () => {
                       <span className={`text-[9px] font-black uppercase tracking-widest px-2 py-0.5 rounded-full ${app.type === 'GenzaiX' ? 'bg-blue-50 text-blue-600' : 'bg-purple-50 text-purple-600'}`}>
                          {app.type === 'GenzaiX' ? 'HAKEN (派遣)' : 'UKEOI (請負)'}
                       </span>
-                      <span className="text-[10px] font-bold text-slate-300">ID: {app.resume?.applicantId}</span>
+                      <span className="text-[10px] font-bold text-slate-300">ID: {app.resume?.applicant_id}</span>
                    </div>
-                   <h3 className="text-lg font-bold text-slate-800 truncate">{app.resume?.nameKanji}</h3>
+                   <h3 className="text-lg font-bold text-slate-800 truncate">{app.resume?.full_name}</h3>
                    <div className="flex items-center gap-4 mt-2">
                       <div className="flex items-center gap-1.5 text-xs text-slate-500 font-medium">
                          <Building2 size={14} className="text-slate-300" />
-                         {app.factoryName}
+                         {app.factory_name}
                       </div>
                       <div className="flex items-center gap-1.5 text-xs text-slate-500 font-medium">
                          <Clock size={14} className="text-slate-300" />
-                         Start: {app.startDate}
+                         Start: {app.start_date}
                       </div>
                    </div>
                 </div>
@@ -125,7 +135,7 @@ const ApplicationList: React.FC = () => {
                 {/* Financials Summary */}
                 <div className="hidden md:flex flex-col items-end px-8 border-x border-slate-50 gap-1">
                    <span className="text-[10px] font-black text-slate-300 uppercase tracking-widest leading-none">Hourly Wage</span>
-                   <span className="text-lg font-black text-slate-700">¥{app.hourlyWage?.toLocaleString()}</span>
+                   <span className="text-lg font-black text-slate-700">¥{app.hourly_wage?.toLocaleString()}</span>
                 </div>
 
                 {/* Actions */}

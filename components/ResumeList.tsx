@@ -1,34 +1,33 @@
 import React, { useMemo, useState } from 'react';
-import { useLiveQuery } from 'dexie-react-hooks';
-import { db } from '../db';
-import { Rirekisho } from '../types';
-import { Trash2, Edit3, User, Database, Calendar, Printer, ThumbsUp, ThumbsDown, Briefcase } from 'lucide-react';
+import { useResumes, resumeService } from '../lib/useSupabase';
+import type { Resume } from '../lib/database.types';
+import { Trash2, Edit3, Database, Calendar, Printer, ThumbsUp, ThumbsDown, Briefcase } from 'lucide-react';
 import AvatarDisplay from './AvatarDisplay';
 import RirekishoPrintView from './RirekishoPrintView';
 import NyushaForm from './NyushaForm';
 
 interface Props {
   searchTerm: string;
-  onEdit: (resume: Rirekisho) => void;
+  onEdit: (resume: Resume) => void;
 }
 
 const ResumeList: React.FC<Props> = ({ searchTerm, onEdit }) => {
-  const [printingResume, setPrintingResume] = useState<Rirekisho | null>(null);
-  const [hiringResume, setHiringResume] = useState<Rirekisho | null>(null);
-  const allResumes = useLiveQuery(() => db.resumes.reverse().toArray());
+  const [printingResume, setPrintingResume] = useState<any | null>(null);
+  const [hiringResume, setHiringResume] = useState<any | null>(null);
+  const allResumes = useResumes();
 
   const filtered = useMemo(() => {
     if (!allResumes) return [];
     if (!searchTerm) return allResumes;
     const l = searchTerm.toLowerCase();
-    return allResumes.filter(r => 
-      r.nameKanji.toLowerCase().includes(l) || 
-      r.applicantId.toLowerCase().includes(l)
+    return allResumes.filter(r =>
+      (r.full_name && r.full_name.toLowerCase().includes(l)) ||
+      (r.applicant_id && r.applicant_id.toLowerCase().includes(l))
     );
   }, [allResumes, searchTerm]);
 
-  const handleDelete = async (id: number) => {
-    if(confirm('Delete this resume?')) await db.resumes.delete(id);
+  const handleDelete = async (id: string) => {
+    if(confirm('Delete this resume?')) await resumeService.delete(id);
   };
 
   if (printingResume) {
@@ -54,20 +53,20 @@ const ResumeList: React.FC<Props> = ({ searchTerm, onEdit }) => {
             <div className="flex items-start justify-between">
               <div className="flex items-center gap-4">
                 {/* Use new AvatarDisplay component */}
-                <AvatarDisplay 
-                   filename={r.legacyRaw ? r.legacyRaw['写真'] : undefined} 
-                   alt={r.nameKanji} 
+                <AvatarDisplay
+                   filename={r.legacy_raw ? (r.legacy_raw as any)['写真'] : undefined}
+                   alt={r.full_name || ''}
                    size="lg"
                    className="rounded-2xl border border-slate-100 bg-slate-50"
                 />
                 <div>
                   <div className="flex items-center gap-2">
-                    <h3 className="text-lg font-bold text-slate-800 line-clamp-1" title={r.nameKanji}>{r.nameKanji}</h3>
-                    {r.interviewResult === 'passed' && <ThumbsUp size={14} className="text-emerald-500 fill-emerald-500" />}
-                    {r.interviewResult === 'failed' && <ThumbsDown size={14} className="text-rose-500 fill-rose-500" />}
+                    <h3 className="text-lg font-bold text-slate-800 line-clamp-1" title={r.full_name || ''}>{r.full_name}</h3>
+                    {r.interview_result === 'passed' && <ThumbsUp size={14} className="text-emerald-500 fill-emerald-500" />}
+                    {r.interview_result === 'failed' && <ThumbsDown size={14} className="text-rose-500 fill-rose-500" />}
                   </div>
-                  <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{r.applicantId}</p>
-                  {r.legacyRaw && (
+                  <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{r.applicant_id}</p>
+                  {r.legacy_raw && (
                     <span className="inline-block mt-1 text-[9px] text-amber-600 bg-amber-50 px-1.5 py-0.5 rounded font-bold border border-amber-100">
                       LEGACY
                     </span>
@@ -75,7 +74,7 @@ const ResumeList: React.FC<Props> = ({ searchTerm, onEdit }) => {
                 </div>
               </div>
               <div className="flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                {r.interviewResult === 'passed' && (
+                {r.interview_result === 'passed' && (
                   <button 
                     onClick={() => setHiringResume(r)}
                     className="p-2 bg-blue-50 text-blue-600 rounded-xl hover:bg-blue-100 transition-all"
@@ -101,20 +100,20 @@ const ResumeList: React.FC<Props> = ({ searchTerm, onEdit }) => {
                  <p className="text-[9px] font-bold text-slate-400 uppercase mb-1">Birth Date</p>
                  <div className="flex items-center gap-2 text-slate-700 text-xs font-bold">
                    <Calendar size={12} className="text-slate-400" />
-                   {r.birthDate || 'N/A'}
+                   {r.birth_date || 'N/A'}
                  </div>
                </div>
                <div className="bg-slate-50 p-3 rounded-xl">
                  <p className="text-[9px] font-bold text-slate-400 uppercase mb-1">Status</p>
                  <div className="flex items-center gap-2 text-slate-700 text-xs font-bold">
                    <div className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
-                   {r.interviewResult === 'passed' ? 'Approved' : 'Available'}
+                   {r.interview_result === 'passed' ? 'Approved' : 'Available'}
                  </div>
                </div>
             </div>
 
             <div className="text-xs text-slate-400 font-medium flex justify-between items-center mt-auto">
-              <span>Added {new Date(r.createdAt).toLocaleDateString()}</span>
+              <span>Added {r.created_at ? new Date(r.created_at).toLocaleDateString() : 'N/A'}</span>
               {r.address && <span className="max-w-[120px] truncate" title={r.address}>{r.address}</span>}
             </div>
           </div>

@@ -1,9 +1,9 @@
 
 import React, { useState, useEffect } from 'react';
-import { X, Save, ChevronRight, UserCircle2, AlertCircle, Loader2 } from 'lucide-react';
+import { X, Save, UserCircle2, AlertCircle, Loader2 } from 'lucide-react';
 import { StaffType, StaffMember, TableField } from '../types';
 import { GENZAIX_FIELDS, UKEOI_FIELDS } from '../constants';
-import { db } from '../db';
+import { staffService } from '../lib/useSupabase';
 import { staffMemberSchema, validateForm } from '../lib/validation';
 import { useToast } from './Toast';
 
@@ -55,10 +55,10 @@ const StaffForm: React.FC<Props> = ({ type, member, onClose }) => {
 
     try {
       if (member?.id) {
-        await db.staff.update(member.id, formData);
+        await staffService.update(member.id, formData);
         toast.success('Personnel record updated successfully!');
       } else {
-        await db.staff.add(formData as StaffMember);
+        await staffService.create(formData as any);
         toast.success('New personnel record created!');
       }
       onClose();

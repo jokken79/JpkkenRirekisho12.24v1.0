@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
-import { db } from '../db';
+import { resumeService } from '../lib/useSupabase';
 import { Rirekisho } from '../types';
 import { Save, Printer, Upload, Trash2, Plus, ArrowLeft, Globe, HeartPulse, ShieldAlert, Briefcase, Users, ThumbsUp, ThumbsDown } from 'lucide-react';
 import { processDocumentOCR } from '../services/ocr';
@@ -128,9 +128,9 @@ const RirekishoForm: React.FC<Props> = ({ resume, onClose }) => {
   const save = async () => {
     try {
       if (resume?.id) {
-        await db.resumes.update(resume.id, formData);
+        await resumeService.update(resume.id, formData as any);
       } else {
-        await db.resumes.add(formData);
+        await resumeService.create(formData as any);
       }
       onClose();
     } catch (e) {

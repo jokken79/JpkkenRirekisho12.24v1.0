@@ -1,7 +1,6 @@
 
 import React from 'react';
-import { useLiveQuery } from 'dexie-react-hooks';
-import { db } from '../db';
+import { useStaffCount, useResumeCount, useActiveStaffCount } from '../lib/useSupabase';
 import { Users, Briefcase, UserCheck, TrendingUp, ArrowUpRight, ArrowDownRight, FileText, Database } from 'lucide-react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, AreaChart, Area } from 'recharts';
 
@@ -10,10 +9,10 @@ interface Props {
 }
 
 const Dashboard: React.FC<Props> = ({ onNav }) => {
-  const genzaixCount = useLiveQuery(() => db.staff.where('type').equals('GenzaiX').count());
-  const ukeoiCount = useLiveQuery(() => db.staff.where('type').equals('Ukeoi').count());
-  const activeStaff = useLiveQuery(() => db.staff.where('status').equals('Active').count());
-  const resumeCount = useLiveQuery(() => db.resumes.count());
+  const genzaixCount = useStaffCount('GenzaiX');
+  const ukeoiCount = useStaffCount('Ukeoi');
+  const activeStaff = useActiveStaffCount();
+  const resumeCount = useResumeCount();
 
   const chartData = [
     { name: 'Jan', genzaix: 45, ukeoi: 32 },

@@ -1,10 +1,19 @@
 
 import React, { useState, useEffect, useMemo } from 'react';
-import { useLiveQuery } from 'dexie-react-hooks';
-import { db } from '../db';
+import { useStaff, staffService } from '../lib/useSupabase';
 import { StaffType, StaffMember, TableField } from '../types';
 import { GENZAIX_FIELDS, UKEOI_FIELDS } from '../constants';
 import { Trash2, Edit3, MoreHorizontal, Database } from 'lucide-react';
+import type { Staff } from '../lib/database.types';
+
+// Convert camelCase to snake_case for Supabase field access
+const toSnakeCase = (str: string): string =>
+  str.replace(/[A-Z]/g, letter => `_${letter.toLowerCase()}`);
+
+// Get value from row using either camelCase or snake_case key
+const getRowValue = (row: any, key: string): any => {
+  return row[key] ?? row[toSnakeCase(key)] ?? '-';
+};
 
 interface Props {
   type: StaffType;
@@ -13,9 +22,7 @@ interface Props {
 }
 
 const StaffTable: React.FC<Props> = ({ type, searchTerm, onEdit }) => {
-  const allStaff = useLiveQuery(() => 
-    db.staff.where('type').equals(type).reverse().toArray()
-  , [type]);
+  const allStaff = useStaff(type);
 
   const fields = type === 'GenzaiX' ? GENZAIX_FIELDS : UKEOI_FIELDS;
 
@@ -23,17 +30,16 @@ const StaffTable: React.FC<Props> = ({ type, searchTerm, onEdit }) => {
     if (!allStaff) return [];
     if (!searchTerm) return allStaff;
     const lower = searchTerm.toLowerCase();
-    return allStaff.filter(s => 
-      s.fullName.toLowerCase().includes(lower) || 
-      s.empId.toLowerCase().includes(lower) ||
-      (s.department && s.department.toLowerCase().includes(lower)) ||
-      (s.companyName && s.companyName.toLowerCase().includes(lower))
+    return allStaff.filter(s =>
+      (s.full_name && s.full_name.toLowerCase().includes(lower)) ||
+      (s.emp_id && s.emp_id.toLowerCase().includes(lower)) ||
+      (s.phone && s.phone.toLowerCase().includes(lower))
     );
   }, [allStaff, searchTerm]);
 
-  const handleDelete = async (id: number) => {
+  const handleDelete = async (id: string) => {
     if (confirm('Are you sure you want to delete this record permanently?')) {
-      await db.staff.delete(id);
+      await staffService.delete(id);
     }
   };
 
@@ -91,7 +97,7 @@ const StaffTable: React.FC<Props> = ({ type, searchTerm, onEdit }) => {
                         `}
                         style={f.frozen ? { left: i === 0 ? '4rem' : '10rem' } : {}}
                       >
-                        {String(row[f.key] || '-')}
+                        {String(getRowValue(row, f.key))}
                       </td>
                     ))}
                     <td className="sticky right-0 z-10 bg-white group-hover:bg-blue-50/30 py-4 px-4 text-center border-l border-slate-100 shadow-[-2px_0_5px_-2px_rgba(0,0,0,0.05)]">
