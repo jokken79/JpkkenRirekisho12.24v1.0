@@ -109,12 +109,14 @@ const App: React.FC = () => {
   };
 
   // Command palette commands
-  const commands = useMemo(() => createDefaultCommands({
-    onNavigate: (path) => navigate(path),
-    onAddStaff: handleAddStaff,
-    onAddResume: handleAddResume,
-    onExport: () => navigate('/database'),
-  }), [navigate]);
+  const commands = useMemo(() => createDefaultCommands(
+    (path) => navigate(`/${path}`),
+    {
+      addStaff: handleAddStaff,
+      addResume: handleAddResume,
+      exportData: () => navigate('/database'),
+    }
+  ), [navigate]);
 
   // Keyboard shortcut for Command Palette (Ctrl+K)
   useEffect(() => {
