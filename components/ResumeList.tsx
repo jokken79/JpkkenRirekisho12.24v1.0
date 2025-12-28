@@ -1,10 +1,34 @@
 import React, { useMemo, useState } from 'react';
+import { motion } from 'framer-motion';
 import { useResumes, resumeService } from '../lib/useSupabase';
 import type { Resume } from '../lib/database.types';
-import { Trash2, Edit3, Database, Calendar, Printer, ThumbsUp, ThumbsDown, Briefcase } from 'lucide-react';
+import { Trash2, Edit3, Calendar, Printer, ThumbsUp, ThumbsDown, Briefcase, FileText, Search } from 'lucide-react';
 import AvatarDisplay from './AvatarDisplay';
 import RirekishoPrintView from './RirekishoPrintView';
 import NyushaForm from './NyushaForm';
+import { Skeleton } from './ui/skeleton';
+import { EmptyState } from './ui/empty-state';
+import { staggerContainer, fadeInUp } from '../lib/animations';
+
+// Skeleton for resume card
+const ResumeCardSkeleton = () => (
+  <div className="bg-white p-6 rounded-[2rem] border border-slate-100 shadow-sm flex flex-col gap-6">
+    <div className="flex items-start justify-between">
+      <div className="flex items-center gap-4">
+        <Skeleton variant="rounded" className="w-16 h-16" />
+        <div>
+          <Skeleton className="h-5 w-32 mb-2" />
+          <Skeleton className="h-3 w-20" />
+        </div>
+      </div>
+    </div>
+    <div className="grid grid-cols-2 gap-4">
+      <Skeleton variant="rounded" className="h-16" />
+      <Skeleton variant="rounded" className="h-16" />
+    </div>
+    <Skeleton className="h-4 w-full" />
+  </div>
+);
 
 interface Props {
   searchTerm: string;
@@ -38,18 +62,50 @@ const ResumeList: React.FC<Props> = ({ searchTerm, onEdit }) => {
     );
   }
 
-  if (!allResumes) return null;
+  // Loading state with skeleton
+  if (!allResumes) {
+    return (
+      <div className="p-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 overflow-y-auto h-full pb-24">
+        {Array.from({ length: 6 }).map((_, i) => (
+          <ResumeCardSkeleton key={i} />
+        ))}
+      </div>
+    );
+  }
 
   return (
-    <div className="p-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 overflow-y-auto h-full pb-24">
+    <motion.div
+      className="p-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 overflow-y-auto h-full pb-24"
+      variants={staggerContainer}
+      initial="initial"
+      animate="animate"
+    >
       {filtered.length === 0 ? (
-        <div className="col-span-full py-32 text-center text-slate-400">
-           <Database size={48} className="mx-auto mb-4 opacity-10" />
-           <p className="font-medium">No resumes found</p>
+        <div className="col-span-full">
+          {searchTerm ? (
+            <EmptyState
+              icon={Search}
+              title="No matching resumes"
+              description={`No resumes found matching "${searchTerm}". Try adjusting your search.`}
+            />
+          ) : (
+            <EmptyState
+              icon={FileText}
+              title="No resumes yet"
+              description="Get started by adding your first resume. Click the 'New Resume' button above."
+              actionLabel="Add Resume"
+              onAction={() => {}}
+            />
+          )}
         </div>
       ) : (
-        filtered.map(r => (
-          <div key={r.id} className="bg-white p-6 rounded-[2rem] border border-slate-100 shadow-sm hover:shadow-md transition-all group flex flex-col gap-6">
+        filtered.map((r, index) => (
+          <motion.div
+            key={r.id}
+            className="bg-white p-6 rounded-[2rem] border border-slate-100 shadow-sm hover:shadow-md transition-all group flex flex-col gap-6"
+            variants={fadeInUp}
+            custom={index}
+          >
             <div className="flex items-start justify-between">
               <div className="flex items-center gap-4">
                 {/* Use new AvatarDisplay component */}
@@ -116,18 +172,18 @@ const ResumeList: React.FC<Props> = ({ searchTerm, onEdit }) => {
               <span>Added {r.created_at ? new Date(r.created_at).toLocaleDateString() : 'N/A'}</span>
               {r.address && <span className="max-w-[120px] truncate" title={r.address}>{r.address}</span>}
             </div>
-          </div>
+          </motion.div>
         ))
       )}
-      
+
       {/* Nyusha / Onboarding Form */}
       {hiringResume && (
-        <NyushaForm 
-          resume={hiringResume} 
-          onClose={() => setHiringResume(null)} 
+        <NyushaForm
+          resume={hiringResume}
+          onClose={() => setHiringResume(null)}
         />
       )}
-    </div>
+    </motion.div>
   );
 };
 

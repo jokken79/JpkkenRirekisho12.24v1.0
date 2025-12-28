@@ -1,12 +1,15 @@
-
 import React, { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
 import { useCurrentUserProfile, userProfileService } from '../lib/useSupabase';
 import { useAuth } from './AuthProvider';
+import { useTheme } from './ThemeProvider';
 import {
   User, Mail, Shield, Camera, Save,
   RefreshCw, CheckCircle2, UserCircle,
   MapPin, Globe, Award
 } from 'lucide-react';
+import { Skeleton } from './ui/skeleton';
+import { staggerContainer, fadeInUp } from '../lib/animations';
 
 const UserProfile: React.FC = () => {
   const [loading, setLoading] = useState(false);
@@ -14,6 +17,9 @@ const UserProfile: React.FC = () => {
   const [displayName, setDisplayName] = useState('');
   const [avatar, setAvatar] = useState<string | undefined>(undefined);
   const [bio, setBio] = useState('');
+
+  const { resolvedTheme } = useTheme();
+  const isDark = resolvedTheme === 'dark';
 
   const userProfile = useCurrentUserProfile();
   const { user } = useAuth();
@@ -56,11 +62,46 @@ const UserProfile: React.FC = () => {
     }
   };
 
-  // Show loading or placeholder if profile isn't loaded yet
+  // Show loading skeleton if profile isn't loaded yet
   if (userProfile === undefined) {
     return (
-      <div className="flex-1 flex items-center justify-center">
-        <RefreshCw className="animate-spin text-blue-600" size={32} />
+      <div className={`flex-1 overflow-y-auto p-8 lg:p-12 flex flex-col items-center transition-colors ${isDark ? 'bg-slate-900' : 'bg-slate-50'}`}>
+        <div className="max-w-4xl w-full space-y-8">
+          {/* Header skeleton */}
+          <div className={`rounded-[2.5rem] shadow-xl border overflow-hidden ${isDark ? 'bg-slate-800 border-slate-700' : 'bg-white border-slate-100'}`}>
+            <Skeleton className="h-40 w-full" />
+            <div className="px-10 pb-10">
+              <div className="flex items-end gap-6 -mt-16">
+                <Skeleton variant="rounded" className="w-32 h-32" />
+                <div className="space-y-2 mb-2">
+                  <Skeleton className="h-8 w-48" />
+                  <Skeleton className="h-4 w-64" />
+                </div>
+              </div>
+            </div>
+          </div>
+          {/* Form skeleton */}
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div className="lg:col-span-2">
+              <div className={`p-10 rounded-[2.5rem] shadow-xl border space-y-8 ${isDark ? 'bg-slate-800 border-slate-700' : 'bg-white border-slate-100'}`}>
+                <Skeleton className="h-6 w-40" />
+                <div className="space-y-6">
+                  <Skeleton className="h-12 w-full rounded-2xl" />
+                  <Skeleton className="h-24 w-full rounded-2xl" />
+                  <div className="grid grid-cols-2 gap-6">
+                    <Skeleton className="h-12 w-full rounded-2xl" />
+                    <Skeleton className="h-12 w-full rounded-2xl" />
+                  </div>
+                </div>
+                <Skeleton className="h-14 w-full rounded-2xl" />
+              </div>
+            </div>
+            <div className="space-y-8">
+              <Skeleton className="h-48 w-full rounded-[2.5rem]" />
+              <Skeleton className="h-40 w-full rounded-[2.5rem]" />
+            </div>
+          </div>
+        </div>
       </div>
     );
   }
@@ -70,20 +111,25 @@ const UserProfile: React.FC = () => {
   const userRole = userProfile?.role || 'User';
 
   return (
-    <div className="flex-1 overflow-y-auto p-8 lg:p-12 bg-slate-50 flex flex-col items-center">
-      <div className="max-w-4xl w-full space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
-        
+    <motion.div
+      className={`flex-1 overflow-y-auto p-8 lg:p-12 flex flex-col items-center transition-colors ${isDark ? 'bg-slate-900' : 'bg-slate-50'}`}
+      variants={staggerContainer}
+      initial="initial"
+      animate="animate"
+    >
+      <div className="max-w-4xl w-full space-y-8">
+
         {/* Profile Header Card */}
-        <div className="bg-white rounded-[2.5rem] shadow-xl shadow-slate-200/50 border border-slate-100 overflow-hidden relative">
+        <motion.div variants={fadeInUp} className={`rounded-[2.5rem] shadow-xl border overflow-hidden relative ${isDark ? 'bg-slate-800 border-slate-700 shadow-slate-900/50' : 'bg-white border-slate-100 shadow-slate-200/50'}`}>
           <div className="h-40 bg-gradient-to-r from-blue-600 to-indigo-700" />
           <div className="px-10 pb-10">
             <div className="flex flex-col md:flex-row items-end gap-6 -mt-16">
               <div className="relative group">
-                <div className="w-32 h-32 rounded-3xl bg-white p-1 shadow-lg overflow-hidden border border-slate-100">
+                <div className={`w-32 h-32 rounded-3xl p-1 shadow-lg overflow-hidden border ${isDark ? 'bg-slate-700 border-slate-600' : 'bg-white border-slate-100'}`}>
                   {avatar ? (
                     <img src={avatar} className="w-full h-full object-cover rounded-2xl" alt="Avatar" />
                   ) : (
-                    <div className="w-full h-full bg-slate-100 rounded-2xl flex items-center justify-center text-slate-300">
+                    <div className={`w-full h-full rounded-2xl flex items-center justify-center ${isDark ? 'bg-slate-600 text-slate-500' : 'bg-slate-100 text-slate-300'}`}>
                       <UserCircle size={64} strokeWidth={1} />
                     </div>
                   )}
@@ -95,8 +141,8 @@ const UserProfile: React.FC = () => {
                 </div>
               </div>
               <div className="flex-1 space-y-1 mb-2">
-                <h2 className="text-3xl font-black text-slate-800 tracking-tight">{displayName}</h2>
-                <div className="flex items-center gap-4 text-sm font-medium text-slate-400">
+                <h2 className={`text-3xl font-black tracking-tight ${isDark ? 'text-white' : 'text-slate-800'}`}>{displayName}</h2>
+                <div className={`flex items-center gap-4 text-sm font-medium ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>
                   <div className="flex items-center gap-1.5">
                     <Shield size={14} className="text-blue-500" />
                     {userRole}
@@ -109,16 +155,16 @@ const UserProfile: React.FC = () => {
               </div>
             </div>
           </div>
-        </div>
+        </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <motion.div variants={fadeInUp} className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Main Edit Form */}
           <div className="lg:col-span-2 space-y-8">
-            <form onSubmit={handleSave} className="bg-white p-10 rounded-[2.5rem] shadow-xl shadow-slate-200/50 border border-slate-100 space-y-8">
+            <form onSubmit={handleSave} className={`p-10 rounded-[2.5rem] shadow-xl border space-y-8 ${isDark ? 'bg-slate-800 border-slate-700 shadow-slate-900/50' : 'bg-white border-slate-100 shadow-slate-200/50'}`}>
               <div className="flex items-center justify-between">
-                <h3 className="text-xl font-bold text-slate-800">Account Settings</h3>
+                <h3 className={`text-xl font-bold ${isDark ? 'text-white' : 'text-slate-800'}`}>Account Settings</h3>
                 {success && (
-                  <div className="flex items-center gap-2 text-emerald-600 bg-emerald-50 px-3 py-1 rounded-full text-xs font-bold animate-in fade-in slide-in-from-right-2">
+                  <div className={`flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold animate-in fade-in slide-in-from-right-2 ${isDark ? 'text-emerald-400 bg-emerald-900/30' : 'text-emerald-600 bg-emerald-50'}`}>
                     <CheckCircle2 size={14} />
                     Saved Successfully
                   </div>
@@ -127,55 +173,55 @@ const UserProfile: React.FC = () => {
 
               <div className="space-y-6">
                 <div className="space-y-2">
-                  <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest px-1">Display Name</label>
-                  <input 
-                    type="text" 
+                  <label className={`text-[10px] font-black uppercase tracking-widest px-1 ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Display Name</label>
+                  <input
+                    type="text"
                     value={displayName}
                     onChange={(e) => setDisplayName(e.target.value)}
-                    className="w-full px-5 py-3.5 bg-slate-50 border border-slate-100 rounded-2xl focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 focus:bg-white transition-all text-sm font-medium text-slate-700"
+                    className={`w-full px-5 py-3.5 border rounded-2xl focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all text-sm font-medium ${isDark ? 'bg-slate-700 border-slate-600 text-white placeholder-slate-500 focus:bg-slate-600' : 'bg-slate-50 border-slate-100 text-slate-700 focus:bg-white'}`}
                     placeholder="Your Full Name"
                   />
                 </div>
 
                 <div className="space-y-2">
-                  <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest px-1">Professional Bio</label>
-                  <textarea 
+                  <label className={`text-[10px] font-black uppercase tracking-widest px-1 ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Professional Bio</label>
+                  <textarea
                     value={bio}
                     onChange={(e) => setBio(e.target.value)}
                     rows={4}
-                    className="w-full px-5 py-3.5 bg-slate-50 border border-slate-100 rounded-2xl focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 focus:bg-white transition-all text-sm font-medium text-slate-700 resize-none"
+                    className={`w-full px-5 py-3.5 border rounded-2xl focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all text-sm font-medium resize-none ${isDark ? 'bg-slate-700 border-slate-600 text-white placeholder-slate-500 focus:bg-slate-600' : 'bg-slate-50 border-slate-100 text-slate-700 focus:bg-white'}`}
                     placeholder="Write a brief professional summary..."
                   />
                 </div>
 
                 <div className="grid grid-cols-2 gap-6">
                   <div className="space-y-2">
-                    <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest px-1">Email Address</label>
+                    <label className={`text-[10px] font-black uppercase tracking-widest px-1 ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Email Address</label>
                     <input
                       type="email"
                       value={userEmail}
                       readOnly
-                      className="w-full px-5 py-3.5 bg-slate-100 border border-slate-100 rounded-2xl text-sm font-medium text-slate-400 cursor-not-allowed"
+                      className={`w-full px-5 py-3.5 border rounded-2xl text-sm font-medium cursor-not-allowed ${isDark ? 'bg-slate-700 border-slate-600 text-slate-500' : 'bg-slate-100 border-slate-100 text-slate-400'}`}
                     />
                   </div>
                   <div className="space-y-2">
-                    <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest px-1">Role</label>
+                    <label className={`text-[10px] font-black uppercase tracking-widest px-1 ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Role</label>
                     <input
                       type="text"
                       value={userRole}
                       readOnly
-                      className="w-full px-5 py-3.5 bg-slate-100 border border-slate-100 rounded-2xl text-sm font-medium text-slate-400 cursor-not-allowed"
+                      className={`w-full px-5 py-3.5 border rounded-2xl text-sm font-medium cursor-not-allowed ${isDark ? 'bg-slate-700 border-slate-600 text-slate-500' : 'bg-slate-100 border-slate-100 text-slate-400'}`}
                     />
                   </div>
                 </div>
               </div>
 
-              <button 
+              <button
                 type="submit"
                 disabled={loading}
                 className={`
                   w-full py-4 rounded-2xl font-bold transition-all active:scale-95 flex items-center justify-center gap-3 shadow-lg
-                  ${loading ? 'bg-slate-100 text-slate-400 cursor-not-allowed' : 'bg-blue-600 hover:bg-blue-700 text-white shadow-blue-500/20'}
+                  ${loading ? (isDark ? 'bg-slate-700 text-slate-500 cursor-not-allowed' : 'bg-slate-100 text-slate-400 cursor-not-allowed') : 'bg-blue-600 hover:bg-blue-700 text-white shadow-blue-500/20'}
                 `}
               >
                 {loading ? <RefreshCw className="animate-spin" size={20} /> : <Save size={20} />}
@@ -186,12 +232,12 @@ const UserProfile: React.FC = () => {
 
           {/* Quick Info Sidebar */}
           <div className="space-y-8">
-            <div className="bg-white p-8 rounded-[2.5rem] shadow-xl shadow-slate-200/50 border border-slate-100 space-y-6">
-              <h4 className="text-sm font-black text-slate-400 uppercase tracking-[0.2em]">User Context</h4>
+            <div className={`p-8 rounded-[2.5rem] shadow-xl border space-y-6 ${isDark ? 'bg-slate-800 border-slate-700 shadow-slate-900/50' : 'bg-white border-slate-100 shadow-slate-200/50'}`}>
+              <h4 className={`text-sm font-black uppercase tracking-[0.2em] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>User Context</h4>
               <div className="space-y-4">
-                <InfoItem icon={<MapPin size={16} />} label="Location" value="Main Office, Tokyo" />
-                <InfoItem icon={<Globe size={16} />} label="Language" value="JP / EN" />
-                <InfoItem icon={<Award size={16} />} label="Expertise" value="Staff Logistics" />
+                <InfoItem icon={<MapPin size={16} />} label="Location" value="Main Office, Tokyo" isDark={isDark} />
+                <InfoItem icon={<Globe size={16} />} label="Language" value="JP / EN" isDark={isDark} />
+                <InfoItem icon={<Award size={16} />} label="Expertise" value="Staff Logistics" isDark={isDark} />
               </div>
             </div>
 
@@ -209,20 +255,20 @@ const UserProfile: React.FC = () => {
               </div>
             </div>
           </div>
-        </div>
+        </motion.div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 
-const InfoItem = ({ icon, label, value }: { icon: React.ReactNode, label: string, value: string }) => (
+const InfoItem = ({ icon, label, value, isDark = false }: { icon: React.ReactNode, label: string, value: string, isDark?: boolean }) => (
   <div className="flex items-center gap-4 group">
-    <div className="w-10 h-10 rounded-xl bg-slate-50 flex items-center justify-center text-slate-400 group-hover:bg-blue-50 group-hover:text-blue-500 transition-colors">
+    <div className={`w-10 h-10 rounded-xl flex items-center justify-center transition-colors ${isDark ? 'bg-slate-700 text-slate-500 group-hover:bg-blue-900/50 group-hover:text-blue-400' : 'bg-slate-50 text-slate-400 group-hover:bg-blue-50 group-hover:text-blue-500'}`}>
       {icon}
     </div>
     <div>
-      <p className="text-[9px] font-bold text-slate-400 uppercase tracking-widest leading-none mb-1">{label}</p>
-      <p className="text-sm font-bold text-slate-700">{value}</p>
+      <p className={`text-[9px] font-bold uppercase tracking-widest leading-none mb-1 ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>{label}</p>
+      <p className={`text-sm font-bold ${isDark ? 'text-white' : 'text-slate-700'}`}>{value}</p>
     </div>
   </div>
 );
