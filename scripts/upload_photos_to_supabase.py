@@ -1,6 +1,6 @@
 """
-Upload all photos to Supabase Storage
-=====================================
+Upload all photos to Supabase Storage (using httpx)
+====================================================
 Uploads photos from public/photos/ to Supabase Storage bucket 'photos'
 """
 
@@ -9,14 +9,7 @@ import sys
 from pathlib import Path
 from concurrent.futures import ThreadPoolExecutor, as_completed
 import mimetypes
-
-# Install supabase if not available
-try:
-    from supabase import create_client, Client
-except ImportError:
-    print("Installing supabase-py...")
-    os.system(f"{sys.executable} -m pip install supabase")
-    from supabase import create_client, Client
+import httpx
 
 # Configuration
 SUPABASE_URL = "https://besembwtnuarriscreve.supabase.co"
@@ -24,39 +17,29 @@ SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJ
 BUCKET_NAME = "photos"
 PHOTOS_DIR = Path(__file__).parent.parent / "public" / "photos"
 
-# Initialize Supabase client
-supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY)
-
-def ensure_bucket_exists():
-    """Create the photos bucket if it doesn't exist"""
-    try:
-        # List existing buckets
-        buckets = supabase.storage.list_buckets()
-        bucket_names = [b.name for b in buckets]
-
-        if BUCKET_NAME not in bucket_names:
-            print(f"Creating bucket '{BUCKET_NAME}'...")
-            supabase.storage.create_bucket(
-                BUCKET_NAME,
-                options={
-                    "public": True,  # Make files publicly accessible
-                    "file_size_limit": 5242880,  # 5MB limit per file
-                    "allowed_mime_types": ["image/jpeg", "image/png", "image/gif", "image/webp"]
-                }
-            )
-            print(f"Bucket '{BUCKET_NAME}' created successfully!")
-        else:
-            print(f"Bucket '{BUCKET_NAME}' already exists.")
-        return True
-    except Exception as e:
-        print(f"Error with bucket: {e}")
-        # Try to continue anyway - bucket might exist with different permissions
-        return True
+# HTTP headers for Supabase
+HEADERS = {
+    "apikey": SUPABASE_KEY,
+    "Authorization": f"Bearer {SUPABASE_KEY}",
+}
 
 def get_mime_type(filename):
     """Get MIME type for a file"""
     mime_type, _ = mimetypes.guess_type(filename)
     return mime_type or "image/jpeg"
+
+def get_existing_files():
+    """Get list of files already in the bucket"""
+    try:
+        url = f"{SUPABASE_URL}/storage/v1/object/list/{BUCKET_NAME}"
+        response = httpx.post(url, headers=HEADERS, json={"prefix": "", "limit": 10000}, timeout=30)
+        if response.status_code == 200:
+            files = response.json()
+            return {f["name"] for f in files}
+        return set()
+    except Exception as e:
+        print(f"Warning: Could not list existing files: {e}")
+        return set()
 
 def upload_file(file_path: Path):
     """Upload a single file to Supabase Storage"""
@@ -67,28 +50,26 @@ def upload_file(file_path: Path):
         with open(file_path, "rb") as f:
             file_data = f.read()
 
-        # Upload to Supabase Storage
-        result = supabase.storage.from_(BUCKET_NAME).upload(
-            path=filename,
-            file=file_data,
-            file_options={"content-type": mime_type, "upsert": "true"}
-        )
+        # Upload to Supabase Storage with upsert
+        url = f"{SUPABASE_URL}/storage/v1/object/{BUCKET_NAME}/{filename}"
+        headers = {
+            **HEADERS,
+            "Content-Type": mime_type,
+            "x-upsert": "true"
+        }
 
-        return {"success": True, "filename": filename}
+        response = httpx.put(url, headers=headers, content=file_data, timeout=60)
+
+        if response.status_code in [200, 201]:
+            return {"success": True, "filename": filename}
+        else:
+            error_msg = response.text
+            # Ignore "already exists" errors
+            if "already exists" in error_msg.lower() or "duplicate" in error_msg.lower():
+                return {"success": True, "filename": filename, "skipped": True}
+            return {"success": False, "filename": filename, "error": f"{response.status_code}: {error_msg}"}
     except Exception as e:
-        error_msg = str(e)
-        # Ignore "already exists" errors
-        if "already exists" in error_msg.lower() or "duplicate" in error_msg.lower():
-            return {"success": True, "filename": filename, "skipped": True}
-        return {"success": False, "filename": file_path.name, "error": error_msg}
-
-def get_existing_files():
-    """Get list of files already in the bucket"""
-    try:
-        files = supabase.storage.from_(BUCKET_NAME).list()
-        return {f["name"] for f in files}
-    except:
-        return set()
+        return {"success": False, "filename": file_path.name, "error": str(e)}
 
 def main():
     print("="*60)
@@ -98,9 +79,18 @@ def main():
     print(f"Supabase URL: {SUPABASE_URL}")
     print(f"Bucket: {BUCKET_NAME}")
 
-    # Ensure bucket exists
+    # Check if bucket exists
     print("\n[1/4] Checking bucket...")
-    ensure_bucket_exists()
+    try:
+        url = f"{SUPABASE_URL}/storage/v1/bucket/{BUCKET_NAME}"
+        response = httpx.get(url, headers=HEADERS, timeout=10)
+        if response.status_code == 200:
+            print(f"Bucket '{BUCKET_NAME}' exists and is accessible.")
+        else:
+            print(f"Bucket status: {response.status_code} - {response.text}")
+            print("Proceeding anyway...")
+    except Exception as e:
+        print(f"Warning: Could not check bucket: {e}")
 
     # Get list of photos to upload
     print("\n[2/4] Scanning photos...")
@@ -109,7 +99,7 @@ def main():
     print(f"Found {len(photos)} photos to upload")
 
     # Get existing files to skip
-    print("\n[3/4] Checking existing files...")
+    print("\n[3/4] Checking existing files in bucket...")
     existing = get_existing_files()
     print(f"Already uploaded: {len(existing)} files")
 
@@ -118,7 +108,7 @@ def main():
     print(f"New files to upload: {len(to_upload)}")
 
     if not to_upload:
-        print("\n✅ All photos already uploaded!")
+        print("\nAll photos already uploaded!")
         return
 
     # Upload with progress
@@ -145,25 +135,25 @@ def main():
                 failed += 1
                 errors.append(f"{result['filename']}: {result['error']}")
 
-            # Progress update every 50 files
-            if i % 50 == 0 or i == len(to_upload):
-                print(f"  Progress: {i}/{len(to_upload)} ({i*100//len(to_upload)}%)")
+            # Progress update every 25 files
+            if i % 25 == 0 or i == len(to_upload):
+                print(f"  Progress: {i}/{len(to_upload)} ({i*100//len(to_upload)}%) - Uploaded: {uploaded}, Failed: {failed}")
 
     # Summary
     print("\n" + "="*60)
     print("UPLOAD COMPLETE!")
     print("="*60)
-    print(f"\n✅ Uploaded: {uploaded}")
-    print(f"⏭️  Skipped (existing): {skipped}")
-    print(f"❌ Failed: {failed}")
+    print(f"\nUploaded: {uploaded}")
+    print(f"Skipped (existing): {skipped}")
+    print(f"Failed: {failed}")
 
     if errors:
-        print(f"\nErrors (first 5):")
-        for err in errors[:5]:
+        print(f"\nErrors (first 10):")
+        for err in errors[:10]:
             print(f"  - {err}")
 
     # Print public URL format
-    print(f"\n📷 Public URL format:")
+    print(f"\nPublic URL format:")
     print(f"   {SUPABASE_URL}/storage/v1/object/public/{BUCKET_NAME}/{{filename}}")
 
 if __name__ == "__main__":

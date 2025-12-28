@@ -94,7 +94,7 @@
     "resignDate": "2022-12-28",
     "socialInsStatus": "OK",
     "notes": "2/27ｼｬﾙﾏﾝ苗代102号から自分のアパートに移動",
-    "avatar": "ｸﾞｴﾝｸｱﾝﾌﾝ_顔写真.png",
+    "avatar": "ec2ee185-589e-411e-bab1-55bc0c384ce1.png",
     "id": 4
   },
   {
@@ -231,7 +231,7 @@
     "resignDate": "2023-10-27",
     "socialInsStatus": 44197,
     "notes": "2022/7/2~個人のアパートに移動",
-    "avatar": "PHAM BA BACH.png",
+    "avatar": "dccbf4d3-5606-4679-a2e5-117b9f281665.png",
     "id": 9
   },
   {
@@ -333,7 +333,7 @@
     "hireDate": "2020-11-11",
     "resignDate": "2021-04-30",
     "socialInsStatus": 44197,
-    "avatar": "ｴｶﾞﾐｱﾝﾄﾞﾚ_顔写真.png",
+    "avatar": "011ec2fb-0130-40fc-a176-5c97904fcf7f.png",
     "id": 13
   },
   {
@@ -358,7 +358,7 @@
     "hireDate": "2020-11-16",
     "resignDate": "2020-11-29",
     "socialInsStatus": "1/1予定",
-    "avatar": "ﾙｵﾝｶｯｸｼﾝ_顔写真.png",
+    "avatar": "a308a974-0cee-4def-b6ff-4f27f3b3d9b2.png",
     "id": 14
   },
   {
@@ -385,7 +385,7 @@
     "hireDate": "2020-11-18",
     "resignDate": "2020-12-10",
     "socialInsStatus": "注意",
-    "avatar": "ｸﾞｴﾝﾊﾞﾝｿﾝ_顔写真.png",
+    "avatar": "94bd8f30-65a7-4e7e-90ab-1d4d8f646b33.png",
     "id": 15
   },
   {
@@ -412,7 +412,7 @@
     "hireDate": "2020-11-19",
     "resignDate": "2021-09-25",
     "socialInsStatus": 44197,
-    "avatar": "顔写真_ﾌﾞｲﾊﾞﾝﾙｱﾝ.png",
+    "avatar": "dccccaba-865f-4599-ab52-ffed2edf0829.png",
     "id": 16
   },
   {
@@ -443,7 +443,7 @@
     "hireDate": "2020-11-24",
     "socialInsStatus": 44197,
     "japaneseLevel": "JLPT-N3",
-    "avatar": "顔写真_ｸﾞｴﾝﾃﾞｨﾝﾄｱﾝ.png",
+    "avatar": "a4c7dcd5-101e-4148-812a-a31089b10f1a.png",
     "id": 17
   },
   {
@@ -468,7 +468,7 @@
     "hireDate": "2020-12-01",
     "resignDate": "2022-01-12",
     "socialInsStatus": 44287,
-    "avatar": "近藤満博_顔写真.png",
+    "avatar": "139c82ce-a290-4445-a144-383f3f164d88.png",
     "id": 18
   },
   {
@@ -502,7 +502,7 @@
     "licenseType": "原付",
     "licenseExpiry": "2026/020",
     "commuteMethod": "原付",
-    "avatar": "ﾌﾞｲﾍﾞﾄﾀｲﾝ_顔写真.png",
+    "avatar": "34814f7c-b97e-4cab-aa13-9f0f90fa4d79.png",
     "id": 19
   },
   {
@@ -555,7 +555,7 @@
     "hireDate": "2020-12-01",
     "resignDate": "2024-04-26",
     "socialInsStatus": 44228,
-    "avatar": "IMG_0558 (1).jpg",
+    "avatar": "c486f657-4442-4570-9f18-23e309981d65.jpg",
     "id": 21
   },
   {
@@ -580,7 +580,7 @@
     "hireDate": "2020-12-02",
     "resignDate": "2021-09-24",
     "socialInsStatus": 44197,
-    "avatar": "顔写真_ｸﾞｴﾝﾌｨﾀｵ.png",
+    "avatar": "00f94447-2ef5-44b9-b777-968c8963594f.png",
     "id": 22
   },
   {
@@ -682,7 +682,7 @@
     "hireDate": "2020-12-24",
     "resignDate": "2022-11-10",
     "socialInsStatus": 44228,
-    "avatar": "顔写真_ﾚｰｽｱﾝﾌﾝ.png",
+    "avatar": "db74bbfc-a156-4170-b19d-ca6d419c0433.png",
     "id": 26
   },
   {
@@ -714,7 +714,7 @@
     "hireDate": "2020-12-24",
     "resignDate": "2023-07-07",
     "socialInsStatus": 44228,
-    "avatar": "顔写真_ﾄﾞｰｳﾞｧﾝｷﾞｴｯﾌﾟ.png",
+    "avatar": "d014507f-f5d7-4d09-80ac-d21514767432.png",
     "id": 27
   },
   {
@@ -815,7 +815,7 @@
     "hireDate": "2021-01-05",
     "resignDate": "2021-03-19",
     "socialInsStatus": 44287,
-    "avatar": "顔写真_米須ｼﾞｮﾝ.png",
+    "avatar": "0037dbb3-3f16-4cd1-980a-c1e0ae36c2cc.png",
     "id": 31
   },
   {
@@ -874,7 +874,7 @@
     "licenseType": "原付",
     "licenseExpiry": 45554,
     "commuteMethod": "原付",
-    "avatar": "ｸﾞｴﾝﾄﾞｩｯｸﾀｲﾝ_顔写真.png",
+    "avatar": "fc61c2c0-c2bd-469f-8997-f5d1e83961e2.png",
     "id": 33
   },
   {
@@ -900,7 +900,7 @@
     "hireDate": "2021-01-06",
     "resignDate": "2022-12-16",
     "socialInsStatus": 44197,
-    "avatar": "ﾌｧﾑｳﾞｧﾝｽﾞﾝ_顔写真.png",
+    "avatar": "4fb8444c-07cb-4818-afbd-4c4f26b0d58d.png",
     "id": 34
   },
   {
@@ -930,7 +930,7 @@
     "hireDate": "2021-01-06",
     "resignDate": "2024-06-27",
     "socialInsStatus": 44197,
-    "avatar": "ｸﾞｴﾝﾁﾞｨﾝﾁｮﾝ_顔写真.png",
+    "avatar": "91d91de9-f6eb-483d-a981-8fa04df5ced6.png",
     "id": 35
   },
   {
@@ -956,7 +956,7 @@
     "hireDate": "2021-01-06",
     "resignDate": "2022-08-30",
     "socialInsStatus": 44197,
-    "avatar": "ｸﾞｴﾝﾌｨｰﾄﾞｳｸ_顔写真.png",
+    "avatar": "46635f78-724b-4eb3-bb38-9e312125c07e.png",
     "id": 36
   },
   {
@@ -1012,7 +1012,7 @@
     "hireDate": "2021-01-11",
     "resignDate": "2021-04-09",
     "socialInsStatus": 44256,
-    "avatar": "LUU THANH DAT.jpg",
+    "avatar": "2612278a-7eae-4af8-9e46-12b5ef7c8eea.jpg",
     "id": 38
   },
   {
@@ -1064,7 +1064,7 @@
     "hireDate": "2021-01-11",
     "resignDate": "2022-10-20",
     "socialInsStatus": 44256,
-    "avatar": "TUNG 2.png",
+    "avatar": "ea0edb32-7fab-4b91-b8b7-4262c498d389.png",
     "id": 40
   },
   {
@@ -1088,7 +1088,7 @@
     "hireDate": "2021-01-11",
     "resignDate": "2021-02-25",
     "socialInsStatus": 44207,
-    "avatar": "muto junior kazumi.jpg",
+    "avatar": "8befb219-e427-4f76-9149-0e49a9b30034.jpg",
     "id": 41
   },
   {
@@ -1119,7 +1119,7 @@
     "hireDate": "2021-01-11",
     "socialInsStatus": 44256,
     "japaneseLevel": "JLPT-N3",
-    "avatar": "NGUYEN QUANG QUYEN.jpg",
+    "avatar": "a4cc1e52-e021-452d-adec-0b1070939c1c.jpg",
     "id": 42
   },
   {
@@ -1146,7 +1146,7 @@
     "hireDate": "2021-01-18",
     "resignDate": "2024-12-12",
     "socialInsStatus": "不要",
-    "avatar": "ﾋﾗﾉﾁｮﾎｼﾛ_顔.png",
+    "avatar": "2254d437-15d2-4e68-b50c-0031d7a2091b.png",
     "id": 43
   },
   {
@@ -1176,7 +1176,7 @@
     "address": "岡山県岡山市北区御津金川373番地1",
     "hireDate": "2021-01-25",
     "socialInsStatus": 44287,
-    "avatar": "NGUYEN TUAN ANH.jpeg",
+    "avatar": "4f22b78f-62a4-4056-a395-bb6b2f348176.jpeg",
     "id": 44
   },
   {
@@ -1207,7 +1207,7 @@
     "hireDate": "2021-01-25",
     "resignDate": "2024-12-28",
     "socialInsStatus": 44287,
-    "avatar": "PHAM CONG THANH.jpeg",
+    "avatar": "a9c432d1-ea49-480b-9627-2a0d5b78b032.jpeg",
     "id": 45
   },
   {
@@ -1237,7 +1237,7 @@
     "resignDate": "2024-06-30",
     "socialInsStatus": 44228,
     "notes": "2021/1/25~2021/10/22高雄工業岡山所属　2021/10/25～PATECへ異動",
-    "avatar": "KIEU TRUNG HIEU.jpg",
+    "avatar": "05c62de0-550a-48a7-9b6d-b10951889e34.jpg",
     "id": 46
   },
   {
@@ -1268,7 +1268,7 @@
     "hireDate": "2021-01-25",
     "resignDate": "2023-11-27",
     "socialInsStatus": 44287,
-    "avatar": "顔写真_ﾚｰｳﾞｧﾝｸｱﾝ.png",
+    "avatar": "a58a85f2-dc45-4379-877c-08f36b5c6c0b.png",
     "id": 47
   },
   {
@@ -1299,7 +1299,7 @@
     "hireDate": "2021-01-26",
     "resignDate": "2024-01-18",
     "socialInsStatus": 44287,
-    "avatar": "ティエン_顔写真.png",
+    "avatar": "475ed6c6-9927-4e40-a614-3cdd207b2d38.png",
     "id": 48
   },
   {
@@ -1330,7 +1330,7 @@
     "hireDate": "2021-02-01",
     "resignDate": "2024-05-31",
     "socialInsStatus": 44287,
-    "avatar": "LE VAN THUONG ANH.png",
+    "avatar": "617e53de-6ed2-4c54-aa7c-3480937f72b7.png",
     "id": 49
   },
   {
@@ -1361,7 +1361,7 @@
     "hireDate": "2021-02-01",
     "resignDate": "2023-12-28",
     "socialInsStatus": 44287,
-    "avatar": "ﾌｧﾑｺﾞｯｸｩﾝ_写真.png",
+    "avatar": "2a0039f6-ae8a-4f8b-b314-bb29573b2dd7.png",
     "id": 50
   },
   {
@@ -1388,7 +1388,7 @@
     "hireDate": "2021-02-02",
     "resignDate": "2022-12-28",
     "socialInsStatus": 44287,
-    "avatar": "顔写真_ﾙｵﾝｶﾝｸｧﾝ.png",
+    "avatar": "a8ecd34e-4c75-4614-9a6d-c229ce80b906.png",
     "id": 51
   },
   {
@@ -1441,7 +1441,7 @@
     "hireDate": "2021-02-08",
     "resignDate": "2023-04-26",
     "socialInsStatus": 44287,
-    "avatar": "顔写真_ﾁｬﾝｳﾞｧﾝﾄｩｴ.png",
+    "avatar": "f98dd9e7-93c8-4785-a43d-2fc3cefa4a8f.png",
     "id": 53
   },
   {
@@ -1472,7 +1472,7 @@
     "hireDate": "2021-02-08",
     "resignDate": "2025-08-27",
     "socialInsStatus": 44287,
-    "avatar": "HOANG VAN VU.jpg",
+    "avatar": "b0ac8f28-5dac-4470-ab02-9fd42f11aacc.jpg",
     "id": 54
   },
   {
@@ -1527,7 +1527,7 @@
     "hireDate": "2021-02-15",
     "socialInsStatus": 44287,
     "japaneseLevel": "JLPT-N3",
-    "avatar": "顔写真_ﾏｰｳﾞｧﾝﾄｩｲ.png",
+    "avatar": "86ec1708-32a1-44e1-bf84-f6e2b16567a9.png",
     "id": 56
   },
   {
@@ -1558,7 +1558,7 @@
     "hireDate": "2021-02-16",
     "resignDate": "2025-06-05",
     "socialInsStatus": 44287,
-    "avatar": "顔写真_ﾏｲｳﾞｧﾝﾄﾞｰ.png",
+    "avatar": "484dd6f9-7703-4e88-960a-f3986e58c7c7.png",
     "id": 57
   },
   {
@@ -1592,7 +1592,7 @@
     "licenseType": "原付",
     "licenseExpiry": 46061,
     "commuteMethod": "原付",
-    "avatar": "顔写真_ﾙｵﾝｸｧﾝｸｧﾝ.png",
+    "avatar": "500f83ad-fd3f-4451-8f15-ae2345783d0a.png",
     "id": 58
   },
   {
@@ -1681,7 +1681,7 @@
     "resignDate": "2024-04-17",
     "socialInsStatus": 44317,
     "notes": "2023/1/23～ﾌｪﾆﾃｯｸ岡山からプレテックへ異動",
-    "avatar": "顔写真_ﾌｧﾑﾊﾞﾝﾁｮﾝ.png",
+    "avatar": "03891850-e704-43a7-b7cd-3a694450980f.png",
     "id": 61
   },
   {
@@ -1712,7 +1712,7 @@
     "resignDate": "2024-03-18",
     "socialInsStatus": 44317,
     "notes": "2023/1/9～ﾌｪﾆﾃｯｸ岡山から六甲電子へ異動　2023/3/14で六甲電子退社　2023/4/3からコーリツ入社",
-    "avatar": "ｸﾞｴﾝﾎｰﾎｱﾝ_顔写真.png",
+    "avatar": "f3af3911-17b8-49da-84db-a181af7f771e.png",
     "id": 62
   },
   {
@@ -1736,7 +1736,7 @@
     "hireDate": "2021-03-04",
     "resignDate": "2021-03-11",
     "socialInsStatus": 44317,
-    "avatar": "ｳﾞｰﾃﾞｨﾝﾄｩｱﾝ_顔写真.png",
+    "avatar": "9f07de8f-cfa2-43ec-a226-508213dd0617.png",
     "id": 63
   },
   {
@@ -1763,7 +1763,7 @@
     "hireDate": "2021-03-08",
     "resignDate": "2022-07-20",
     "socialInsStatus": 44317,
-    "avatar": "ﾌﾝｳﾞｧﾝﾅﾑ_顔写真.JPG",
+    "avatar": "18ef8fd1-bc84-4955-afde-9b5f8a6a55e5.jpg",
     "id": 64
   },
   {
@@ -1787,7 +1787,7 @@
     "hireDate": "2021-03-08",
     "resignDate": "2021-06-04",
     "socialInsStatus": 44317,
-    "avatar": "ﾌﾝｳﾞｧﾝﾅﾑ(奥さん)_顔写真.JPG",
+    "avatar": "4a462afb-851a-4375-ba0e-6232e87ec25b.jpg",
     "id": 65
   },
   {
@@ -1814,7 +1814,7 @@
     "hireDate": "2021-03-08",
     "resignDate": "2023-01-25",
     "socialInsStatus": 44317,
-    "avatar": "ﾌｧﾑｶｯｸｿﾝ_顔写真.png",
+    "avatar": "d5a9d2e2-7939-4309-85e8-ab83a1d9fd8e.png",
     "id": 66
   },
   {
@@ -1838,7 +1838,7 @@
     "hireDate": "2021-03-08",
     "resignDate": "2021-07-09",
     "socialInsStatus": 44317,
-    "avatar": "ｸﾞｴﾝﾐﾝｿﾝ_顔写真.jpg",
+    "avatar": "41ede2aa-c9cb-4967-8519-3a4741e15167.jpg",
     "id": 67
   },
   {
@@ -1862,7 +1862,7 @@
     "hireDate": "2021-03-08",
     "resignDate": "2021-08-26",
     "socialInsStatus": 44317,
-    "avatar": "ﾘｭｳﾄｩｱﾝｷﾞｱ_顔写真.jpg",
+    "avatar": "e6442dc8-2c20-48b3-9b82-78b6def02f51.jpg",
     "id": 68
   },
   {
@@ -1887,7 +1887,7 @@
     "hireDate": "2021-03-09",
     "resignDate": "2021-05-14",
     "socialInsStatus": 44317,
-    "avatar": "nguyen manh hao.JPG",
+    "avatar": "224b8f20-9474-4c34-874a-845df0225ca5.jpg",
     "id": 69
   },
   {
@@ -1916,7 +1916,7 @@
     "hireDate": "2021-03-17",
     "resignDate": "2023-02-27",
     "socialInsStatus": 44348,
-    "avatar": "ｳﾞｰﾃﾞｨﾝﾋｴｯﾌﾟ_顔写真2.png",
+    "avatar": "958d8d19-5a0e-47da-8848-5ff2efb10a23.png",
     "id": 70
   },
   {
@@ -1945,7 +1945,7 @@
     "hireDate": "2021-03-17",
     "resignDate": "2023-03-30",
     "socialInsStatus": 44348,
-    "avatar": "ｳﾞｰﾃﾞｨﾝﾋｴｯﾌﾟ_顔写真.png",
+    "avatar": "e533d134-855d-4c45-a185-2d6727234079.png",
     "id": 71
   },
   {
@@ -1969,7 +1969,7 @@
     "hireDate": "2021-03-19",
     "resignDate": "2021-05-31",
     "socialInsStatus": 44348,
-    "avatar": "ﾀﾞｵｳﾞｧﾝﾎｱﾝ_顔写真.png",
+    "avatar": "59530a37-6e9a-4128-81b4-26a20b2cc8e4.png",
     "id": 72
   },
   {
@@ -1993,7 +1993,7 @@
     "hireDate": "2021-03-22",
     "resignDate": "2021-11-20",
     "socialInsStatus": 44348,
-    "avatar": "ﾀﾞｵｳﾞｧﾝﾎｱﾝ_顔写真.png",
+    "avatar": "59530a37-6e9a-4128-81b4-26a20b2cc8e4.png",
     "id": 73
   },
   {
@@ -2048,7 +2048,7 @@
     "hireDate": "2021-03-22",
     "resignDate": "2023-07-20",
     "socialInsStatus": 44348,
-    "avatar": "画像1.jpg",
+    "avatar": "734b350f-4f31-440d-9191-80ceb60c92d4.jpg",
     "id": 75
   },
   {
@@ -2107,7 +2107,7 @@
     "resignDate": "2022-07-22",
     "socialInsStatus": 44348,
     "notes": "高雄宇工業本社⇒瑞陵精機へ異動",
-    "avatar": "ﾊｰﾊｲﾌｨ_顔写真.jpeg",
+    "avatar": "0bd317da-5606-4c16-ba5a-6a276128b861.jpeg",
     "id": 77
   },
   {
@@ -2138,7 +2138,7 @@
     "hireDate": "2021-04-01",
     "resignDate": "2024-07-22",
     "socialInsStatus": 44348,
-    "avatar": "ﾎｱﾝｳﾞｧﾝﾄｩｴﾝ_顔写真.png",
+    "avatar": "8a6ce8e3-6037-441c-a175-9fe2a374a943.png",
     "id": 78
   },
   {
@@ -2162,7 +2162,7 @@
     "hireDate": "2021-04-01",
     "resignDate": "2021-11-05",
     "socialInsStatus": 44348,
-    "avatar": "ﾁｬﾝﾊﾞﾝｻﾝ_顔写真.png",
+    "avatar": "9bc8d8a6-2fb0-4c9a-ba49-5afdce82aa2f.png",
     "id": 79
   },
   {
@@ -2192,7 +2192,7 @@
     "hireDate": "2021-04-01",
     "resignDate": "2023-03-17",
     "socialInsStatus": 44348,
-    "avatar": "ﾚｳﾞｧﾝﾄｧﾄ_顔写真.png",
+    "avatar": "6b67c29b-6859-4e90-917e-6b7353d76ac8.png",
     "id": 80
   },
   {
@@ -2218,7 +2218,7 @@
     "hireDate": "2021-04-05",
     "resignDate": "2022-12-21",
     "socialInsStatus": 44348,
-    "avatar": "ｸﾞｴﾝｶｯｸﾁｭﾝ_顔写真.png",
+    "avatar": "f15a2fcf-7105-4e71-ae77-a2cc5f6699a5.png",
     "id": 81
   },
   {
@@ -2251,7 +2251,7 @@
     "licenseType": "普通免許",
     "licenseExpiry": 45928,
     "commuteMethod": "車",
-    "avatar": "ｸﾞｴﾝｸｱﾝﾌﾝ_顔写真.png",
+    "avatar": "ec2ee185-589e-411e-bab1-55bc0c384ce1.png",
     "id": 82
   },
   {
@@ -2306,7 +2306,7 @@
     "hireDate": "2021-04-05",
     "resignDate": "2021-12-21",
     "socialInsStatus": 44348,
-    "avatar": "ﾅﾝﾌﾞｱﾚｼｬﾝﾄﾞﾚ_顔写真.png",
+    "avatar": "2c03dee5-161a-4733-9716-91b72f29f243.png",
     "id": 84
   },
   {
@@ -2336,7 +2336,7 @@
     "resignDate": "2023-02-27",
     "socialInsStatus": 44348,
     "notes": "2021/4/5～2022/8/？？　2022/9/1~ﾌｪﾆﾃｯｸ岡山へ異動　2023/1/23～ﾌｪﾆﾃｯｸ岡山からプレテックへ異動",
-    "avatar": "ﾄﾞﾝｺﾞｯｸｿﾝ_顔写真.png",
+    "avatar": "7c3fb257-595c-4c77-9cdf-c0c42303e567.png",
     "id": 85
   },
   {
@@ -2367,7 +2367,7 @@
     "hireDate": "2021-04-05",
     "socialInsStatus": 44348,
     "japaneseLevel": "JLPT-N3",
-    "avatar": "ﾏｲﾌﾝｱｲﾝ_顔写真.png",
+    "avatar": "e70e9e3d-1c6d-4dad-927a-87b440cd6e02.png",
     "id": 86
   },
   {
@@ -2394,7 +2394,7 @@
     "hireDate": "2021-04-09",
     "resignDate": "2022-12-20",
     "socialInsStatus": 44348,
-    "avatar": "ﾚﾃﾞｨﾝﾄｩｱﾝ_顔写真.png",
+    "avatar": "7961882d-6e26-4e42-a271-e9405eb71fa9.png",
     "id": 87
   },
   {
@@ -2425,7 +2425,7 @@
     "hireDate": "2021-04-12",
     "socialInsStatus": 44348,
     "notes": "産後23年5月3日~6月27日 育休：6/28～2024年5月5日",
-    "avatar": "ｸﾞｴﾝﾃｨｷﾑﾆｭﾝ_顔写真.png",
+    "avatar": "897a4fbf-5201-406f-85c2-4b0e0e41d2b1.png",
     "id": 88
   },
   {
@@ -2451,7 +2451,7 @@
     "resignDate": "2022-04-27",
     "socialInsStatus": 44348,
     "notes": "ﾋﾙｽﾞｻﾝﾊﾟﾃｨｰｸ203 から個人のアパートに移動",
-    "avatar": "ｶｵﾊﾞﾝﾄｳｴﾝ_顔写真.png",
+    "avatar": "c21afaa3-48f6-4bab-9067-cb0b63f63931.png",
     "id": 89
   },
   {
@@ -2497,7 +2497,7 @@
     "hireDate": "2021-04-13",
     "resignDate": "2021-05-28",
     "socialInsStatus": 44348,
-    "avatar": "THANH SHIZUOKA.JPG",
+    "avatar": "ec370d31-2f1c-41f4-8442-dfe4f54ca434.jpg",
     "id": 91
   },
   {
@@ -2522,7 +2522,7 @@
     "hireDate": "2021-04-15",
     "resignDate": "2022-09-30",
     "socialInsStatus": 44378,
-    "avatar": "ﾁｬﾝｸｵｯｸﾄﾑ_顔写真.jpg",
+    "avatar": "b19cea4e-7a87-4a10-9f42-82a28bafcff7.jpg",
     "id": 92
   },
   {
@@ -2553,7 +2553,7 @@
     "hireDate": "2021-04-19",
     "resignDate": "2025-01-10",
     "socialInsStatus": 44378,
-    "avatar": "DUY .JPG",
+    "avatar": "7bb3aad2-be96-4c96-ae86-f74b2cefe923.jpg",
     "id": 93
   },
   {
@@ -2582,7 +2582,7 @@
     "hireDate": "2021-04-20",
     "resignDate": "2023-03-30",
     "socialInsStatus": 44378,
-    "avatar": "CU .jpg",
+    "avatar": "77e756d0-ae73-4766-aff2-9082b2e24605.jpg",
     "id": 94
   },
   {
@@ -2608,7 +2608,7 @@
     "hireDate": "2021-04-21",
     "resignDate": "2022-10-07",
     "socialInsStatus": 44378,
-    "avatar": "fenitech HUng.jpg",
+    "avatar": "588ef9b6-56f7-44cf-b98c-6345bcb007d6.jpg",
     "id": 95
   },
   {
@@ -2635,7 +2635,7 @@
     "hireDate": "2021-04-22",
     "resignDate": "2023-05-19",
     "socialInsStatus": 44378,
-    "avatar": "ﾁｬﾝﾃﾞｨﾝﾁｬｳ_顔写真.png",
+    "avatar": "6c2904b5-f184-446c-8022-8e62f2df5da6.png",
     "id": 96
   },
   {
@@ -2661,7 +2661,7 @@
     "hireDate": "2021-04-26",
     "resignDate": "2022-10-25",
     "socialInsStatus": 44378,
-    "avatar": "ﾁｬﾝﾊﾞﾝﾌｨｰ_顔写真.jpeg",
+    "avatar": "579ffbc3-322b-493a-85fe-9d65eb038a17.jpeg",
     "id": 97
   },
   {
@@ -2718,7 +2718,7 @@
     "hireDate": "2021-04-26",
     "resignDate": "2022-03-18",
     "socialInsStatus": 44378,
-    "avatar": "ﾁｬﾝﾃﾞｨﾝｳﾞｨﾝ_顔写真.jpeg",
+    "avatar": "a78f70a7-a472-4f14-8af1-9ab7e819b1c0.jpeg",
     "id": 99
   },
   {
@@ -2747,7 +2747,7 @@
     "resignDate": "2023-04-07",
     "socialInsStatus": 44378,
     "notes": "育休22/12/1まで",
-    "avatar": "ｺﾞﾃｨﾏｲ_顔写真.jpg",
+    "avatar": "3d309684-38ec-4404-a45d-ec1366afd5f0.jpg",
     "id": 100
   },
   {
@@ -2775,7 +2775,7 @@
     "hireDate": "2021-04-27",
     "resignDate": "2024-04-04",
     "socialInsStatus": 44378,
-    "avatar": "ｸﾞｴﾝﾊﾞﾝﾎｱ_顔写真.png",
+    "avatar": "aa3c1262-8927-41cf-ab67-d7af4f3c8e64.png",
     "id": 101
   },
   {
@@ -2883,7 +2883,7 @@
     "hireDate": "2021-05-10",
     "resignDate": "2022-08-13",
     "socialInsStatus": 44378,
-    "avatar": "ｸﾞｴﾝｺﾞｯｸｳｴﾝ_顔写真.png",
+    "avatar": "6918ebf1-c14c-4b8f-bbd1-778ae8eae710.png",
     "id": 105
   },
   {
@@ -2908,7 +2908,7 @@
     "hireDate": "2021-05-10",
     "resignDate": "2021-06-30",
     "socialInsStatus": 44378,
-    "avatar": "HA ANH.JPG",
+    "avatar": "37c05c65-2e5f-4b0f-af84-fd331d5eb9b3.jpg",
     "id": 106
   },
   {
@@ -2959,7 +2959,7 @@
     "hireDate": "2021-05-11",
     "resignDate": "2022-01-31",
     "socialInsStatus": 44378,
-    "avatar": "ﾏｳﾞｧﾝｺﾞｯｸ_顔写真.jpg",
+    "avatar": "0d0b15c8-5255-402a-81a5-8583eb21d05d.jpg",
     "id": 108
   },
   {
@@ -2985,7 +2985,7 @@
     "hireDate": "2021-05-11",
     "resignDate": "2021-12-23",
     "socialInsStatus": 44378,
-    "avatar": "スクリーンショット 2021-04-15 185215.png",
+    "avatar": "35d64dd3-bda8-4ac0-bafb-fbd0d87dcab2.png",
     "id": 109
   },
   {
@@ -3042,7 +3042,7 @@
     "hireDate": "2021-05-21",
     "resignDate": "2022-01-07",
     "socialInsStatus": 44409,
-    "avatar": "HOANG XUAN THUY.JPG",
+    "avatar": "950ebd2a-940f-4557-8ca3-ee803ad71370.jpg",
     "id": 111
   },
   {
@@ -3066,7 +3066,7 @@
     "hireDate": "2021-05-24",
     "resignDate": "2021-08-31",
     "socialInsStatus": 44409,
-    "avatar": "TRUONG TRONG LUU.JPG",
+    "avatar": "1e38ff54-3c69-46ba-bebc-e58a762e2933.jpg",
     "id": 112
   },
   {
@@ -3091,7 +3091,7 @@
     "hireDate": "2021-05-25",
     "resignDate": "2021-10-29",
     "socialInsStatus": 44409,
-    "avatar": "VU VAN CHUC.jpg",
+    "avatar": "d49af9d3-648d-4bc9-b409-3e7d80a69c9d.jpg",
     "id": 113
   },
   {
@@ -3116,7 +3116,7 @@
     "hireDate": "2021-05-31",
     "resignDate": "2021-06-10",
     "socialInsStatus": 44409,
-    "avatar": "QUYNH HONSHA .JPG",
+    "avatar": "5e84430b-12f8-4696-b048-c34842ed56ac.jpg",
     "id": 114
   },
   {
@@ -3147,7 +3147,7 @@
     "hireDate": "2021-06-01",
     "resignDate": "2025-11-21",
     "socialInsStatus": 44409,
-    "avatar": "ANH THE.JPG",
+    "avatar": "022c27cb-b7d9-4761-b142-f9690c65db59.jpg",
     "id": 115
   },
   {
@@ -3171,7 +3171,7 @@
     "hireDate": "2021-06-01",
     "resignDate": "2021-06-05",
     "socialInsStatus": 44409,
-    "avatar": "ﾊｼﾓﾄｱﾚｯｸｽ_顔写真.jpeg",
+    "avatar": "388b4280-01a9-4ad5-834f-abe6d15314bd.jpeg",
     "id": 116
   },
   {
@@ -3194,7 +3194,7 @@
     "address": "岡山県岡山市北区御津矢原294-1",
     "hireDate": "2021-06-01",
     "resignDate": "2021-11-25",
-    "avatar": "ANH THE.JPG",
+    "avatar": "022c27cb-b7d9-4761-b142-f9690c65db59.jpg",
     "id": 117
   },
   {
@@ -3218,7 +3218,7 @@
     "hireDate": "2021-06-01",
     "resignDate": "2021-06-05",
     "socialInsStatus": 44409,
-    "avatar": "ﾀﾞﾝﾃｨﾎﾝ_顔写真.jpeg",
+    "avatar": "cadefac6-134f-40ff-9d3b-dc5615ebb7d7.jpeg",
     "id": 118
   },
   {
@@ -3242,7 +3242,7 @@
     "hireDate": "2021-06-01",
     "resignDate": "2021-06-05",
     "socialInsStatus": 44409,
-    "avatar": "nguyen sy duc.jpg",
+    "avatar": "fe062f8c-2f5a-49ea-a32a-476a5136e0de.jpg",
     "id": 119
   },
   {
@@ -3271,7 +3271,7 @@
     "hireDate": "2021-06-03",
     "resignDate": "2023-03-30",
     "socialInsStatus": 44409,
-    "avatar": "MAC HUNG .JPG",
+    "avatar": "fe109e2d-0806-40ec-958e-d5a14bf719a3.jpg",
     "id": 120
   },
   {
@@ -3299,7 +3299,7 @@
     "address": "岡山県井原市高屋町1丁目20-11",
     "hireDate": "2021-06-07",
     "resignDate": "2023-05-02",
-    "avatar": "ﾁｭｵﾝﾃｨﾀﾝﾀｵ_顔写真.jpeg",
+    "avatar": "644d7df1-7f7b-42f0-a453-71a93f3541cb.jpeg",
     "id": 121
   },
   {
@@ -3326,7 +3326,7 @@
     "hireDate": "2021-06-08",
     "resignDate": "2023-01-10",
     "socialInsStatus": 44409,
-    "avatar": "quoc tuan.JPG",
+    "avatar": "6a4ec887-cfa0-41a4-9d69-0ca9473a2679.jpg",
     "id": 122
   },
   {
@@ -3407,7 +3407,7 @@
     "licenseType": "小型二輪",
     "licenseExpiry": 46252,
     "commuteMethod": "原付",
-    "avatar": "ﾄﾞｰｽｱﾝﾋｴﾝ_顔写真.png",
+    "avatar": "768428d2-030a-495a-baa5-9ba80e5b2a20.png",
     "id": 125
   },
   {
@@ -3434,7 +3434,7 @@
     "hireDate": "2021-06-15",
     "resignDate": "2022-12-22",
     "socialInsStatus": 44409,
-    "avatar": "TIEN SHIZUOKA.JPG",
+    "avatar": "00410596-fc33-4a62-ba4f-71e352f6e793.jpg",
     "id": 126
   },
   {
@@ -3465,7 +3465,7 @@
     "hireDate": "2021-06-16",
     "resignDate": "2025-05-30",
     "socialInsStatus": 44409,
-    "avatar": "CAO QUOC DUNG.jpg",
+    "avatar": "e29f976b-63d4-401b-8bbf-87a4bd4c1e77.jpg",
     "id": 127
   },
   {
@@ -3490,7 +3490,7 @@
     "hireDate": "2021-06-16",
     "resignDate": "2022-04-08",
     "socialInsStatus": 44409,
-    "avatar": "TRUONG DINH HUNG.jpg",
+    "avatar": "f2a2acb5-0620-43dd-9bb8-a9d574b3e1da.jpg",
     "id": 128
   },
   {
@@ -3515,7 +3515,7 @@
     "resignDate": "2022-05-18",
     "socialInsStatus": 44409,
     "notes": "3/11最終出勤日、産休終了5/18で退社",
-    "avatar": "ｸﾞｴﾝﾃｨｺﾞｸﾘﾝ_顔写真.png",
+    "avatar": "bc387850-8e4f-49a5-a379-5a55ed0a565d.png",
     "id": 129
   },
   {
@@ -3540,7 +3540,7 @@
     "address": "愛知県弥富市前ヶ須町東勘助138",
     "hireDate": "2021-06-21",
     "resignDate": "2022-04-29",
-    "avatar": "ｳﾞｧﾝﾃｪﾙｵﾝ_顔写真.png",
+    "avatar": "dc08d00a-d388-47dc-b5d5-e6e7ddbc0a56.png",
     "id": 130
   },
   {
@@ -3564,7 +3564,7 @@
     "address": "愛知県弥富市前ヶ須町東勘助138",
     "hireDate": "2021-06-21",
     "resignDate": "2022-02-10",
-    "avatar": "ｸﾞｴﾝｳﾞｨｴﾝﾎｱﾝ_顔写真.png",
+    "avatar": "d42ec098-50a8-4f94-83a4-0ba3556bebaf.png",
     "id": 131
   },
   {
@@ -3591,7 +3591,7 @@
     "address": "鹿児島県姶良郡湧水町木場255番地1",
     "hireDate": "2021-06-22",
     "resignDate": "2023-05-10",
-    "avatar": "ﾀﾞﾝｳﾞｧﾝﾀﾞｲ_顔写真.jpg",
+    "avatar": "8e087ac1-0b8e-4637-ae94-c9a20d08bdb2.jpg",
     "id": 132
   },
   {
@@ -3615,7 +3615,7 @@
     "hireDate": "2021-06-24",
     "resignDate": "2021-12-29",
     "socialInsStatus": 44378,
-    "avatar": "ﾚｰﾌｨﾎｱﾝ_顔写真.JPG",
+    "avatar": "e899a842-86d9-4869-b9ef-633704191a57.jpg",
     "id": 133
   },
   {
@@ -3638,7 +3638,7 @@
     "address": "岡山県井原市高屋町1丁目20-11",
     "hireDate": "2021-07-01",
     "resignDate": "2022-01-23",
-    "avatar": "ﾎｱﾝｳﾞｧﾝﾆｨ_顔画像.jpg",
+    "avatar": "95eff3d7-1bfa-4981-8d6e-2b01ecbc76c7.jpg",
     "id": 134
   },
   {
@@ -3687,7 +3687,7 @@
     "address": "岡山県井原市大池町3715番地折口",
     "hireDate": "2021-07-07",
     "resignDate": "2022-10-14",
-    "avatar": "ｳﾞｰｳﾞｧﾝﾌｫﾝ_顔写真.png",
+    "avatar": "d5aa399e-04a0-4557-a2c8-bd9778edc6db.png",
     "id": 136
   },
   {
@@ -3767,7 +3767,7 @@
     "address": "岡山県岡山市北区御津矢原297-1",
     "hireDate": "2021-07-08",
     "resignDate": "2024-01-30",
-    "avatar": "OKAYAMA QUAN.jpg",
+    "avatar": "820f2bba-9449-4523-90f2-5d37f047d09a.jpg",
     "id": 139
   },
   {
@@ -3823,7 +3823,7 @@
     "hireDate": "2021-07-15",
     "resignDate": "2024-03-15",
     "notes": "正社員に",
-    "avatar": "PHAM VAN LONG OKYA.jpeg",
+    "avatar": "4cfe2e2e-c25a-47d8-8824-cc63f5baafba.jpeg",
     "id": 141
   },
   {
@@ -3875,7 +3875,7 @@
     "hireDate": "2021-07-19",
     "resignDate": "2022-04-01",
     "socialInsStatus": 44470,
-    "avatar": "ｸﾞｴﾝｽﾜﾝﾀﾝ_顔写真.jpeg",
+    "avatar": "8d6868b9-7cd8-4970-9afe-8a29197202d8.jpeg",
     "id": 143
   },
   {
@@ -3904,7 +3904,7 @@
     "hireDate": "2021-07-19",
     "resignDate": "2023-04-20",
     "socialInsStatus": 44470,
-    "avatar": "河野依里香_顔写真.jpeg",
+    "avatar": "c3933a8f-70ad-4ee2-8ba2-3cbc86cac46a.jpeg",
     "id": 144
   },
   {
@@ -3962,7 +3962,7 @@
     "hireDate": "2021-07-26",
     "resignDate": "2022-11-25",
     "socialInsStatus": 44470,
-    "avatar": "TRAN NHATY SON.png",
+    "avatar": "a8c16342-5993-4770-bb8e-7160adc059fe.png",
     "id": 146
   },
   {
@@ -4050,7 +4050,7 @@
     "resignDate": "2024-01-15",
     "socialInsStatus": 44470,
     "notes": "2021/8/10~ﾌｪﾆﾃｯｸｾﾐｺﾝﾀﾞｸﾀｰ岡山　2023/2/27~ﾌﾟﾚﾃｯｸに異動",
-    "avatar": "ANH THE.png",
+    "avatar": "96b59c06-251f-4676-a3ae-e0404e2fbb51.png",
     "id": 149
   },
   {
@@ -4103,7 +4103,7 @@
     "hireDate": "2021-08-16",
     "resignDate": "2022-02-25",
     "socialInsStatus": 44470,
-    "avatar": "NGUYEN TRONG DU.png",
+    "avatar": "8725ef69-c78c-49a0-a692-e44c42e61c93.png",
     "id": 151
   },
   {
@@ -4272,7 +4272,7 @@
     "hireDate": "2021-08-16",
     "resignDate": "2023-03-30",
     "socialInsStatus": 44470,
-    "avatar": "画像1.jpg",
+    "avatar": "734b350f-4f31-440d-9191-80ceb60c92d4.jpg",
     "id": 157
   },
   {
@@ -4355,7 +4355,7 @@
     "postalCode": "709-2134",
     "address": "岡山県岡山市北区御津下田77-3",
     "hireDate": "2021-08-23",
-    "avatar": "bui thi yen.jpg",
+    "avatar": "59a27bcc-d836-412b-bf77-c4b9ea4c1561.jpg",
     "id": 160
   },
   {
@@ -4459,7 +4459,7 @@
     "hireDate": "2021-08-26",
     "resignDate": "2023-03-30",
     "socialInsStatus": 44501,
-    "avatar": "NGUYEN DINH DAN.png",
+    "avatar": "e56842e2-179a-43dc-b7f0-2a5cf6072366.png",
     "id": 164
   },
   {
@@ -4487,7 +4487,7 @@
     "resignDate": "2022-11-24",
     "socialInsStatus": 44501,
     "notes": "～6/11　静岡　6/23～　瑞陵   7/2 2D->4H",
-    "avatar": "NGO VAN DUC.png",
+    "avatar": "64b6b70f-22ca-4ccf-b7be-3ad0b833d147.png",
     "id": 165
   },
   {
@@ -4574,7 +4574,7 @@
     "resignDate": "2023-04-30",
     "socialInsStatus": 44501,
     "notes": "2021/9/6～　ｾｲﾋﾞﾃｯｸ　2022/9/12～ﾌｪﾆﾃｯｸｾﾐｺﾝﾀﾞｸﾀｰへ異動",
-    "avatar": "NGUYEN NGOC TIEN ANH THE.JPG",
+    "avatar": "6719e1af-5d2c-44c1-8974-fa3f1efef026.jpg",
     "id": 168
   },
   {
@@ -4688,7 +4688,7 @@
     "address": "愛知県半田市上池町5丁目37-1",
     "hireDate": "2021-09-20",
     "resignDate": "2021-09-27",
-    "avatar": "ANH HUY HUNG.png",
+    "avatar": "8b3d5052-6798-4b26-8597-3c37db6990a7.png",
     "id": 172
   },
   {
@@ -4742,7 +4742,7 @@
     "hireDate": "2021-09-21",
     "resignDate": "2022-12-20",
     "socialInsStatus": 44531,
-    "avatar": "ﾏｲｽｱﾝﾌｫﾝ_顔写真.png",
+    "avatar": "9b41ece5-c8f0-4f2f-8183-c992b3fcf2c6.png",
     "id": 174
   },
   {
@@ -4906,7 +4906,7 @@
     "address": "静岡県袋井市久能2810番地1",
     "hireDate": "2021-09-27",
     "resignDate": "2021-09-29",
-    "avatar": "NGUYEN VAN TRUNG.jpg",
+    "avatar": "93527fbf-ce18-4da3-aea0-43aabf130b3e.jpg",
     "id": 180
   },
   {
@@ -5304,7 +5304,7 @@
     "hireDate": "2021-10-11",
     "resignDate": "2022-07-29",
     "socialInsStatus": 44531,
-    "avatar": "ﾎﾜﾝｳﾞｧﾝﾌｨ_顔写真.png",
+    "avatar": "30b746c2-83c2-4b13-a72f-2d1dcdf1e0df.png",
     "id": 194
   },
   {
@@ -5356,7 +5356,7 @@
     "hireDate": "2021-10-11",
     "resignDate": "2024-05-29",
     "socialInsStatus": 44531,
-    "avatar": "hoang van bac.jpeg",
+    "avatar": "e97dbf92-b2ee-4dfe-9736-35df068a8a33.jpeg",
     "id": 196
   },
   {
@@ -5638,7 +5638,7 @@
     "hireDate": "2021-10-20",
     "resignDate": "2022-03-18",
     "socialInsStatus": 22.01,
-    "avatar": "スクリーンショット 2021-10-11 110705.png",
+    "avatar": "98da9348-3759-4fd5-8762-6678bd22c5f5.png",
     "id": 206
   },
   {
@@ -5666,7 +5666,7 @@
     "hireDate": "2021-10-23",
     "resignDate": "2024-01-30",
     "socialInsStatus": 22.01,
-    "avatar": "nguyen sy duc.jpg",
+    "avatar": "fe062f8c-2f5a-49ea-a32a-476a5136e0de.jpg",
     "id": 207
   },
   {
@@ -5692,7 +5692,7 @@
     "hireDate": "2021-10-25",
     "resignDate": "2022-08-30",
     "socialInsStatus": 22.01,
-    "avatar": "ta manh trong.jpg",
+    "avatar": "c1859aca-c2b5-42e2-baf5-15dd6f8f327f.jpg",
     "id": 208
   },
   {
@@ -5805,7 +5805,7 @@
     "hireDate": "2021-10-27",
     "resignDate": "2022-09-14",
     "socialInsStatus": 22.01,
-    "avatar": "画像1.png",
+    "avatar": "e02ac585-f84c-4cfe-8bce-08d8c84130de.png",
     "id": 212
   },
   {
@@ -5884,7 +5884,7 @@
     "hireDate": "2021-11-01",
     "resignDate": "2022-04-15",
     "socialInsStatus": 22.01,
-    "avatar": "image0[12852].jpeg",
+    "avatar": "370a3824-82aa-48be-8b18-0eca2a254b16.jpeg",
     "id": 215
   },
   {
@@ -5943,7 +5943,7 @@
     "hireDate": "2021-11-01",
     "resignDate": "2023-12-28",
     "socialInsStatus": 22.01,
-    "avatar": "画像1.jpg",
+    "avatar": "734b350f-4f31-440d-9191-80ceb60c92d4.jpg",
     "id": 217
   },
   {
@@ -6049,7 +6049,7 @@
     "hireDate": "2021-11-22",
     "resignDate": "2024-07-30",
     "socialInsStatus": 22.02,
-    "avatar": "ヴィン.jpg",
+    "avatar": "9e717044-1f17-45c1-85c1-e4b3c64a462b.jpg",
     "id": 221
   },
   {
@@ -6080,7 +6080,7 @@
     "hireDate": "2021-11-23",
     "resignDate": "2024-09-17",
     "socialInsStatus": 22.02,
-    "avatar": "PHAM DUC BAO.png",
+    "avatar": "3e3a3325-ebb3-4b11-abef-08957e2428f9.png",
     "id": 222
   },
   {
@@ -6484,7 +6484,7 @@
     "hireDate": "2021-12-16",
     "resignDate": "2022-01-25",
     "socialInsStatus": 22.03,
-    "avatar": "le huu thang.jpg",
+    "avatar": "d7e8257e-82ab-4db8-85e7-3e1e7a080979.jpg",
     "id": 237
   },
   {
@@ -6514,7 +6514,7 @@
     "hireDate": "2021-12-20",
     "resignDate": "2024-01-26",
     "socialInsStatus": 22.01,
-    "avatar": "スクリーンショット 2024-03-18 162035.png",
+    "avatar": "4205aa1f-0795-4dc9-bfba-06a39cd69174.png",
     "id": 238
   },
   {
@@ -6834,7 +6834,7 @@
     "address": "岡山県岡山市北区御津矢原307",
     "hireDate": "2022-01-06",
     "socialInsStatus": 22.03,
-    "avatar": "スクリーンショット 2024-03-25 153950.png",
+    "avatar": "cc604aa8-0ac7-46ba-928d-bfc75d0f70e5.png",
     "id": 250
   },
   {
@@ -6912,7 +6912,7 @@
     "hireDate": "2021-06-14",
     "socialInsStatus": 44409,
     "commuteMethod": "自転車",
-    "avatar": "H ANH THE.JPG",
+    "avatar": "6dffe62c-8a56-41d0-b7ee-70fff1bcd83d.jpg",
     "id": 253
   },
   {
@@ -7021,7 +7021,7 @@
     "hireDate": "2022-01-12",
     "resignDate": "2022-04-04",
     "socialInsStatus": 22.03,
-    "avatar": "ﾚｻﾞ顔写真.png",
+    "avatar": "655c0e82-6026-4d68-81b2-acbd8e86a306.png",
     "id": 257
   },
   {
@@ -7052,7 +7052,7 @@
     "hireDate": "2022-01-12",
     "resignDate": "2023-04-28",
     "socialInsStatus": 22.03,
-    "avatar": "ｽﾘｬ顔写真２.png",
+    "avatar": "27122635-66e9-4f2a-bede-f6e39022bdc7.png",
     "id": 258
   },
   {
@@ -7112,7 +7112,7 @@
     "hireDate": "2022-01-14",
     "resignDate": "2023-04-28",
     "socialInsStatus": 22.03,
-    "avatar": "NGUYEN MINH TAN.png",
+    "avatar": "3f5431c1-4b06-4f2e-917c-aefb7f34dc04.png",
     "id": 260
   },
   {
@@ -7332,7 +7332,7 @@
     "hireDate": "2022-01-18",
     "resignDate": "2022-08-29",
     "socialInsStatus": 22.04,
-    "avatar": "tran trong tu.JPG",
+    "avatar": "ad8e2181-75ec-46b1-9c37-51d45b7b4fa5.jpg",
     "id": 268
   },
   {
@@ -7353,7 +7353,7 @@
     "visaType": "技術・人文知識・国際業務",
     "hireDate": "2022-01-18",
     "resignDate": "2022-01-21",
-    "avatar": "ｱﾘ_顔写真.png",
+    "avatar": "c93b55d4-1ba2-49cf-a3d8-efbfc1356ca5.png",
     "id": 269
   },
   {
@@ -7384,7 +7384,7 @@
     "hireDate": "2022-01-18",
     "resignDate": "2025-08-20",
     "socialInsStatus": 22.04,
-    "avatar": "スクリーンショット (2).png",
+    "avatar": "dbdd642b-d239-45a2-9cfd-daa545e651ab.png",
     "id": 270
   },
   {
@@ -7637,7 +7637,7 @@
     "hireDate": "2022-01-27",
     "resignDate": "2022-04-11",
     "socialInsStatus": 22.04,
-    "avatar": "do van trong.JPG",
+    "avatar": "45dbd827-473d-4e8f-a6c8-0e050ae792a7.jpg",
     "id": 279
   },
   {
@@ -7715,7 +7715,7 @@
     "hireDate": "2022-02-02",
     "resignDate": "2022-06-07",
     "socialInsStatus": "なし",
-    "avatar": "dao xuan tinh.jpg",
+    "avatar": "4c35705b-cfcb-4451-b752-5d2fa03bf849.jpg",
     "id": 282
   },
   {
@@ -7746,7 +7746,7 @@
     "hireDate": "2022-02-02",
     "resignDate": "2024-05-21",
     "socialInsStatus": 22.02,
-    "avatar": "ﾘｻﾞﾙ顔写真.png",
+    "avatar": "5f7f37ff-9505-48ee-90b6-bde39c57823a.png",
     "id": 283
   },
   {
@@ -7950,7 +7950,7 @@
     "hireDate": "2022-02-08",
     "socialInsStatus": 22.04,
     "japaneseLevel": "JLPT-N4",
-    "avatar": "HOANG ANH TUAN .png",
+    "avatar": "fbe26f0f-3247-4b53-8a91-3df06bdd0165.png",
     "id": 290
   },
   {
@@ -7978,7 +7978,7 @@
     "hireDate": "2022-02-09",
     "resignDate": "2024-01-30",
     "socialInsStatus": 22.04,
-    "avatar": "スクリーンショット 2024-03-25 153950.png",
+    "avatar": "cc604aa8-0ac7-46ba-928d-bfc75d0f70e5.png",
     "id": 291
   },
   {
@@ -8009,7 +8009,7 @@
     "hireDate": "2022-02-10",
     "resignDate": "2023-05-12",
     "socialInsStatus": 22.04,
-    "avatar": "Ảnh chân dung.jpg",
+    "avatar": "c6f9c286-9abb-4847-bc06-ef99c6d627ac.jpg",
     "id": 292
   },
   {
@@ -8088,7 +8088,7 @@
     "hireDate": "2022-02-16",
     "resignDate": "2022-11-10",
     "socialInsStatus": 22.04,
-    "avatar": "le huy tuan.JPG",
+    "avatar": "f9754e6b-a78d-4548-8cc0-9e38e5825e6f.jpg",
     "id": 295
   },
   {
@@ -8168,7 +8168,7 @@
     "hireDate": "2022-02-21",
     "resignDate": "2022-03-18",
     "socialInsStatus": "なし",
-    "avatar": "Nakama Luis kouichi.jpg",
+    "avatar": "281b66c0-1c92-47b8-acd4-68bc2a335d43.jpg",
     "id": 298
   },
   {
@@ -8503,7 +8503,7 @@
     "hireDate": "2022-03-08",
     "resignDate": "2022-06-07",
     "socialInsStatus": 22.05,
-    "avatar": "OKAYAMA QUAN.jpg",
+    "avatar": "820f2bba-9449-4523-90f2-5d37f047d09a.jpg",
     "id": 310
   },
   {
@@ -8617,7 +8617,7 @@
     "hireDate": "2022-03-14",
     "resignDate": "2023-01-25",
     "socialInsStatus": 22.05,
-    "avatar": "vu van nghia.png",
+    "avatar": "86995db5-caaf-441e-95dc-72d9d0100fe3.png",
     "id": 314
   },
   {
@@ -8847,7 +8847,7 @@
     "hireDate": "2022-03-25",
     "resignDate": "2022-10-20",
     "socialInsStatus": 44713,
-    "avatar": "image0[21177].jpeg",
+    "avatar": "848f94e9-79a4-4960-b405-aba93ec5b967.jpeg",
     "id": 322
   },
   {
@@ -8879,7 +8879,7 @@
     "resignDate": "2023-12-25",
     "socialInsStatus": "22.06.01",
     "notes": "新日本ホイール 2022/4/29退社　5/10より高雄静岡へ配属",
-    "avatar": "あああ.png",
+    "avatar": "878b8582-91d0-405b-a53e-7bcb3f962d79.png",
     "id": 323
   },
   {
@@ -8910,7 +8910,7 @@
     "hireDate": "2022-03-29",
     "resignDate": "2025-03-11",
     "socialInsStatus": "22.04.01",
-    "avatar": "le thanh luan.png",
+    "avatar": "29bbf4d8-65e1-422c-bd54-cc6c007a5bb1.png",
     "id": 324
   },
   {
@@ -8965,7 +8965,7 @@
     "hireDate": "2022-03-31",
     "resignDate": "2022-09-27",
     "socialInsStatus": "22.06.01",
-    "avatar": "cv leminhquang_568fb7c19aea3d91917e269ee71adc2d.pdf - 個人 - Microsoft​ Edge 2022_03_09 18_04_05 (2).png",
+    "avatar": "39f7bb88-c9dc-409b-8425-8d8365a80ae8.png",
     "id": 326
   },
   {
@@ -9022,7 +9022,7 @@
     "hireDate": "2022-04-04",
     "resignDate": "2023-06-28",
     "socialInsStatus": "22.05.01",
-    "avatar": "Tuanphong.pdf - 個人 - Microsoft​ Edge 2022_03_14 16_34_02 (2).png",
+    "avatar": "101517b7-8d2c-48c2-9885-ac73483c08f6.png",
     "id": 328
   },
   {
@@ -9054,7 +9054,7 @@
     "resignDate": "2025-04-15",
     "socialInsStatus": "22.04.01",
     "japaneseLevel": "JLPT-N3",
-    "avatar": "スクリーンショット 2022-03-31 182537.png",
+    "avatar": "f17bb0d9-c638-458e-b6f8-4e20ddaf76a2.png",
     "id": 329
   },
   {
@@ -9085,7 +9085,7 @@
     "hireDate": "2022-04-08",
     "resignDate": "2025-12-26",
     "socialInsStatus": "22.06.01",
-    "avatar": "スクリーンショット 2022-04-01 155424.png",
+    "avatar": "c9b565ac-7ac8-4754-800f-681ff9eaeedc.png",
     "id": 330
   },
   {
@@ -9162,7 +9162,7 @@
     "hireDate": "2022-04-12",
     "resignDate": "2024-01-30",
     "socialInsStatus": "22.05.01",
-    "avatar": "あああさｓｄ.png",
+    "avatar": "ab4c6414-c822-4583-9bdc-881636e8f292.png",
     "id": 333
   },
   {
@@ -9419,7 +9419,7 @@
     "hireDate": "2022-04-25",
     "resignDate": "2023-01-20",
     "socialInsStatus": "22.07.01",
-    "avatar": "スクリーンショット 2022-04-07 095734.png",
+    "avatar": "b67fc579-71cf-42c1-9788-39f3a61b690a.png",
     "id": 342
   },
   {
@@ -9449,7 +9449,7 @@
     "address": "岡山県岡山市北区御津矢原311",
     "hireDate": "2022-05-09",
     "socialInsStatus": "22.07.01",
-    "avatar": "277446278_321334240096415_2507211804023987079_n-đã chuyển đổi.pdf - 個人 - Microsoft​ Edge 2022_04_04 17_46_05.png",
+    "avatar": "f95a5ccc-58e1-4666-a1e7-9bcfb4717d7c.png",
     "id": 343
   },
   {
@@ -9480,7 +9480,7 @@
     "hireDate": "2022-05-09",
     "resignDate": "2025-03-17",
     "socialInsStatus": "22.07.01",
-    "avatar": "PHAN VAN CUONG.jpeg",
+    "avatar": "db81f05a-bf37-4dc9-b40e-b66cc87fd9b8.jpeg",
     "id": 344
   },
   {
@@ -9689,7 +9689,7 @@
     "hireDate": "2022-05-11",
     "resignDate": "2022-05-20",
     "socialInsStatus": "22.07.01",
-    "avatar": "VU TUAN ANH.png",
+    "avatar": "5db44044-89d9-461b-9867-f35c61524724.png",
     "id": 351
   },
   {
@@ -9955,7 +9955,7 @@
     "hireDate": "2022-05-23",
     "resignDate": "2022-09-20",
     "socialInsStatus": "22.07.01",
-    "avatar": "キャプチャ2.PNG",
+    "avatar": "1abea1c2-cd4c-41c9-a2d9-f0c19d5644d0.png",
     "id": 360
   },
   {
@@ -9980,7 +9980,7 @@
     "resignDate": "2022-11-29",
     "socialInsStatus": "22.07.01",
     "notes": "2022/4/28～2022/5/19　請負従事　2022/5/23～　三幸技研へ派遣開始",
-    "avatar": "pdf24_merged (1).pdf - 個人 - Microsoft​ Edge 2022_04_07 16_50_12.png",
+    "avatar": "a30ac84f-9dac-47cb-8777-a429c323f5ef.png",
     "id": 361
   },
   {
@@ -10117,7 +10117,7 @@
     "address": "大阪府八尾市高安町南1-69-6",
     "hireDate": "2022-05-27",
     "socialInsStatus": "22.07.01",
-    "avatar": "image3[23955].jpeg",
+    "avatar": "106eab2f-07d1-4e8d-84d4-e0730c8c9599.jpeg",
     "id": 366
   },
   {
@@ -10176,7 +10176,7 @@
     "resignDate": "2024-01-26",
     "socialInsStatus": 44774,
     "notes": "ﾌｪﾆﾃｯｸ岡山工場　退社　⇒　2022/5/31ﾌｪﾆﾃｯｸ鹿児島へ再入社",
-    "avatar": "ﾀﾞｵｳﾞｧﾝﾎｱﾝ_顔写真.png",
+    "avatar": "59530a37-6e9a-4128-81b4-26a20b2cc8e4.png",
     "id": 368
   },
   {
@@ -10236,7 +10236,7 @@
     "resignDate": "2024-06-14",
     "socialInsStatus": 44713,
     "notes": "2022/4/27コーリツ退社　2022/6/1　コーリツに再入社",
-    "avatar": "ｶｵﾊﾞﾝﾄｳｴﾝ_顔写真.png",
+    "avatar": "c21afaa3-48f6-4bab-9067-cb0b63f63931.png",
     "id": 370
   },
   {
@@ -10266,7 +10266,7 @@
     "resignDate": "2023-01-13",
     "socialInsStatus": 44713,
     "notes": "2022/4/1コーリツ退社　2022/6/1　コーリツに再入社",
-    "avatar": "ｸﾞｴﾝｽﾜﾝﾀﾝ_顔写真.jpeg",
+    "avatar": "8d6868b9-7cd8-4970-9afe-8a29197202d8.jpeg",
     "id": 371
   },
   {
@@ -10357,7 +10357,7 @@
     "address": "愛知県弥富市鯏浦町中六109-1",
     "hireDate": "2022-06-01",
     "socialInsStatus": 44774,
-    "avatar": "スクリーンショット 2022-05-26 152703.png",
+    "avatar": "30c70e22-ca77-43d4-8061-99de1bd5a2ad.png",
     "id": 374
   },
   {
@@ -10387,7 +10387,7 @@
     "address": "岡山県岡山市北区御津矢原299-2",
     "hireDate": "2022-06-06",
     "notes": "請負より異動",
-    "avatar": "ﾌｪﾘ顔写真.png",
+    "avatar": "a54804d4-e0eb-49cb-b29a-fdd60fa1aa21.png",
     "id": 375
   },
   {
@@ -10417,7 +10417,7 @@
     "address": "岡山県岡山市北区御津矢原370",
     "hireDate": "2022-06-06",
     "notes": "請負より異動",
-    "avatar": "ｲﾌﾃｨｱﾙ顔.png",
+    "avatar": "f6b0fe97-e0a9-4cea-a8da-abe6dd88e800.png",
     "id": 376
   },
   {
@@ -10479,7 +10479,7 @@
     "hireDate": "2022-06-06",
     "resignDate": "2024-06-14",
     "notes": "請負より異動",
-    "avatar": "ﾅｳﾌｧﾙ顔写真.png",
+    "avatar": "dbdeb0ea-0156-4ac0-99e8-20185be20731.png",
     "id": 378
   },
   {
@@ -10534,7 +10534,7 @@
     "hireDate": "2022-06-13",
     "resignDate": "2023-10-20",
     "socialInsStatus": "22.08.01",
-    "avatar": "スクリーンショット 2022-03-30 161048.png",
+    "avatar": "4a27c787-9106-417c-a01a-052a25a7bf19.png",
     "id": 380
   },
   {
@@ -10619,7 +10619,7 @@
     "hireDate": "2022-06-14",
     "resignDate": "2022-10-22",
     "socialInsStatus": "22.08.01",
-    "avatar": "キャプチャ1.PNG",
+    "avatar": "c632a8da-5db3-4055-ace1-c3822ef40049.png",
     "id": 383
   },
   {
@@ -10650,7 +10650,7 @@
     "hireDate": "2022-06-14",
     "resignDate": "2024-09-11",
     "notes": "請負より異動",
-    "avatar": "DUC OKAYAMA.jpg",
+    "avatar": "1b543e41-7460-4aa0-96bd-31196f0a72a4.jpg",
     "id": 384
   },
   {
@@ -10709,7 +10709,7 @@
     "hireDate": "2022-06-15",
     "resignDate": "2023-04-28",
     "socialInsStatus": "22.08.01",
-    "avatar": "スクリーンショット 2022-05-25 175854.png",
+    "avatar": "3145e063-7c13-446f-86fb-4044f9ebe26a.png",
     "id": 386
   },
   {
@@ -11010,7 +11010,7 @@
     "hireDate": "2022-07-19",
     "resignDate": "2024-06-11",
     "socialInsStatus": "22.10.01",
-    "avatar": "ﾁｬﾝﾃﾞｨﾝｳﾞｨﾝ_顔写真.jpeg",
+    "avatar": "a78f70a7-a472-4f14-8af1-9ab7e819b1c0.jpeg",
     "id": 396
   },
   {
@@ -11041,7 +11041,7 @@
     "hireDate": "2022-07-20",
     "socialInsStatus": "22.09.01",
     "notes": "7/11請負入社。7/20～派遣異動",
-    "avatar": "スクリーンショット 2022-05-24 113141.png",
+    "avatar": "c8c63114-6955-4a0a-8fa5-767471b69be3.png",
     "id": 397
   },
   {
@@ -11072,7 +11072,7 @@
     "hireDate": "2022-07-20",
     "socialInsStatus": "22.09.01",
     "notes": "7/11請負入社。7/20～派遣異動",
-    "avatar": "スクリーンショット 2022-07-06 100033.png",
+    "avatar": "5a6e210c-0bee-430e-ad34-67caa106854c.png",
     "id": 398
   },
   {
@@ -11103,7 +11103,7 @@
     "hireDate": "2022-07-20",
     "socialInsStatus": "22.09.01",
     "notes": "7/11請負入社。7/20～派遣異動",
-    "avatar": "スクリーンショット 2022-05-24 113620.png",
+    "avatar": "bbadd5ea-f8ef-4ff3-b98b-a6ddef73f5a9.png",
     "id": 399
   },
   {
@@ -11163,7 +11163,7 @@
     "address": "岡山県岡山市北区御津矢原298-1",
     "hireDate": "2022-07-20",
     "socialInsStatus": "22.09.01",
-    "avatar": "スクリーンショット 2022-05-25 175647.png",
+    "avatar": "09dab8bd-f7e9-41f2-a334-2e9f8439b812.png",
     "id": 401
   },
   {
@@ -11226,7 +11226,7 @@
     "hireDate": "2022-07-20",
     "resignDate": "2023-09-15",
     "socialInsStatus": "22.09.01",
-    "avatar": "スクリーンショット 2022-05-24 125258.png",
+    "avatar": "4208f02b-6c7d-4af1-afae-ae39e852e8cf.png",
     "id": 403
   },
   {
@@ -11258,7 +11258,7 @@
     "resignDate": "2024-12-28",
     "socialInsStatus": "22.09.01",
     "notes": "請負より異動",
-    "avatar": "ｼｬﾊﾙ顔写真.jpg",
+    "avatar": "50ae6039-936e-4317-9244-d04b54283228.jpg",
     "id": 404
   },
   {
@@ -11322,7 +11322,7 @@
     "resignDate": "2024-11-06",
     "socialInsStatus": "22.08.01",
     "notes": "請負より異動",
-    "avatar": "NGUYEN THANH BINH.jpeg",
+    "avatar": "c69fa766-464f-4ac7-ab19-3cfe9ce51cfa.jpeg",
     "id": 406
   },
   {
@@ -11384,7 +11384,7 @@
     "hireDate": "2022-07-28",
     "resignDate": "2023-04-26",
     "socialInsStatus": "22.08.01",
-    "avatar": "VO VAN THA.png",
+    "avatar": "6e202d8d-4760-44ec-aa95-d92b40490224.png",
     "id": 408
   },
   {
@@ -11412,7 +11412,7 @@
     "hireDate": "2022-08-02",
     "resignDate": "2024-12-27",
     "socialInsStatus": "22.10.01",
-    "avatar": "ｸﾞｴﾝﾊﾞﾝﾎｱ_顔写真.png",
+    "avatar": "aa3c1262-8927-41cf-ab67-d7af4f3c8e64.png",
     "id": 409
   },
   {
@@ -11444,7 +11444,7 @@
     "resignDate": "2025-01-27",
     "socialInsStatus": "22.10.01",
     "notes": "請負より異動　2024/4/30までユアサ本社配属　2024/5/7よりユアサ御津に異動",
-    "avatar": "nguyen duy thang.jpg",
+    "avatar": "d19c4874-0688-4890-84f8-c957168e7dc0.jpg",
     "id": 410
   },
   {
@@ -11562,7 +11562,7 @@
     "hireDate": "2022-08-22",
     "resignDate": "2023-09-29",
     "socialInsStatus": "22.10.01",
-    "avatar": "スクリーンショット 2022-08-09 170608.png",
+    "avatar": "b0e2cdd9-7db9-49a5-b1dd-c6f1c7d83f8a.png",
     "id": 414
   },
   {
@@ -11589,7 +11589,7 @@
     "hireDate": "2022-08-25",
     "resignDate": "2024-04-19",
     "socialInsStatus": "22.10.01",
-    "avatar": "VU THUONG QUYEN.jpg",
+    "avatar": "b88527bd-61f2-4084-85f4-4260e28b5c24.jpg",
     "id": 415
   },
   {
@@ -11621,7 +11621,7 @@
     "resignDate": "2023-11-16",
     "socialInsStatus": "21.08.01",
     "notes": "請負より異動",
-    "avatar": "スクリーンショット 2022-04-21 095457.png",
+    "avatar": "8d1b46d5-96bc-4097-afe9-8c0f5c274a8d.png",
     "id": 416
   },
   {
@@ -11742,7 +11742,7 @@
     "hireDate": "2022-08-25",
     "resignDate": "2023-05-17",
     "socialInsStatus": "22.10.01",
-    "avatar": "ｸﾞｴﾝﾊﾞﾝｿﾝ_顔写真.png",
+    "avatar": "94bd8f30-65a7-4e7e-90ab-1d4d8f646b33.png",
     "id": 420
   },
   {
@@ -11897,7 +11897,7 @@
     "hireDate": "2022-09-01",
     "resignDate": "2024-02-19",
     "socialInsStatus": "22.10.01",
-    "avatar": "IMG_0789 (1).JPG",
+    "avatar": "ed866ed8-1e51-4906-82e4-41d553148cff.jpg",
     "id": 425
   },
   {
@@ -12015,7 +12015,7 @@
     "hireDate": "2022-09-08",
     "resignDate": "2024-02-07",
     "socialInsStatus": "22.10.01",
-    "avatar": "IMG_0796 (1).JPG",
+    "avatar": "3771c136-290c-4b37-8715-a494ed120145.jpg",
     "id": 429
   },
   {
@@ -12046,7 +12046,7 @@
     "hireDate": "2022-09-08",
     "resignDate": "2023-11-02",
     "notes": "請負より異動",
-    "avatar": "スクリーンショット 2022-04-21 095415.png",
+    "avatar": "f5177663-569c-488d-ba34-1a439ccb419c.png",
     "id": 430
   },
   {
@@ -12164,7 +12164,7 @@
     "hireDate": "2022-09-14",
     "resignDate": "2025-01-20",
     "socialInsStatus": "22.10.01",
-    "avatar": "CHU DUC THANH.jpg",
+    "avatar": "bb17876e-0272-448b-a9e4-2b4424225267.jpg",
     "id": 434
   },
   {
@@ -12338,7 +12338,7 @@
     "hireDate": "2022-09-23",
     "resignDate": "2025-05-27",
     "socialInsStatus": "22.10.01",
-    "avatar": "NGUYEN HOANG QUOC.JPG",
+    "avatar": "315769fb-006b-4eed-b5ba-3af26c09a94e.jpg",
     "id": 440
   },
   {
@@ -12369,7 +12369,7 @@
     "hireDate": "2022-09-23",
     "resignDate": "2025-05-30",
     "socialInsStatus": "22.10.01",
-    "avatar": "NGUYEN HOANG HUY.JPG",
+    "avatar": "f084dbf1-052e-434a-8ead-6d0c1b7cfaca.jpg",
     "id": 441
   },
   {
@@ -12400,7 +12400,7 @@
     "hireDate": "2022-09-23",
     "resignDate": "2023-12-15",
     "socialInsStatus": "22.10.01",
-    "avatar": "PHAN MINH THANH.JPG",
+    "avatar": "7ecd0d24-53df-4b61-b55e-c31a996e1772.jpg",
     "id": 442
   },
   {
@@ -12461,7 +12461,7 @@
     "hireDate": "2022-09-26",
     "resignDate": "2023-09-29",
     "socialInsStatus": "22.10.01",
-    "avatar": "hoang van tu.jpg",
+    "avatar": "3aa433fd-60ca-46f8-8bfc-39bbc93493ab.jpg",
     "id": 444
   },
   {
@@ -12488,7 +12488,7 @@
     "hireDate": "2022-09-27",
     "resignDate": "2024-03-16",
     "socialInsStatus": "22.10.01",
-    "avatar": "ﾌﾝｳﾞｧﾝﾅﾑ_顔写真.JPG",
+    "avatar": "18ef8fd1-bc84-4955-afde-9b5f8a6a55e5.jpg",
     "id": 445
   },
   {
@@ -12512,7 +12512,7 @@
     "hireDate": "2022-09-30",
     "resignDate": "2022-10-05",
     "socialInsStatus": "22.10.01",
-    "avatar": "ẢNH CHÂN DUNG_LÊ VĂN LƯƠNG.jpg",
+    "avatar": "9a191367-5d0a-4502-adf2-5a22d5ad8ae4.jpg",
     "id": 446
   },
   {
@@ -12629,7 +12629,7 @@
     "hireDate": "2022-10-03",
     "resignDate": "2022-12-29",
     "socialInsStatus": "22.10.3",
-    "avatar": "DO VAN TRINH.jpg",
+    "avatar": "f107980a-4717-45b3-8f9b-cefb9f14b022.jpg",
     "id": 450
   },
   {
@@ -12735,7 +12735,7 @@
     "hireDate": "2022-10-07",
     "resignDate": "2022-12-13",
     "socialInsStatus": "22.11.01",
-    "avatar": "VU DUC THIET.jpg",
+    "avatar": "31d41163-eb3a-41eb-8b39-c3864a26f07e.jpg",
     "id": 454
   },
   {
@@ -13054,7 +13054,7 @@
     "hireDate": "2022-11-21",
     "resignDate": "2023-07-05",
     "socialInsStatus": "22.12.1",
-    "avatar": "スクリーンショット 2022-11-10 121222.png",
+    "avatar": "bcd30d23-e04b-4586-bbb7-be6d494f69c6.png",
     "id": 465
   },
   {
@@ -13137,7 +13137,7 @@
     "hireDate": "2022-12-01",
     "resignDate": "2023-02-28",
     "socialInsStatus": "23.1.1",
-    "avatar": "NGUYEN THANH DAT.jpg",
+    "avatar": "1f39662c-e925-4245-8ec4-f19efedacc82.jpg",
     "id": 468
   },
   {
@@ -13253,7 +13253,7 @@
     "hireDate": "2022-12-01",
     "resignDate": "2024-07-25",
     "socialInsStatus": "23.1.1",
-    "avatar": "スクリーンショット 2022-12-06 163942.png",
+    "avatar": "7321b644-0309-4839-ad64-e6e5519be876.png",
     "id": 472
   },
   {
@@ -13434,7 +13434,7 @@
     "address": "岐阜県恵那市長島町中野480-6",
     "hireDate": "2022-12-12",
     "socialInsStatus": "23.1.1",
-    "avatar": "318446924_1150889768878765_1926223285999797682_n (1).jpg",
+    "avatar": "4b2c104f-922d-4151-9c74-907af60da441.jpg",
     "id": 478
   },
   {
@@ -13769,7 +13769,7 @@
     "hireDate": "2023-01-13",
     "resignDate": "2025-08-20",
     "socialInsStatus": "23.2.1",
-    "avatar": "324851334_1606862553098644_5724468316743830238_n (1).jpg",
+    "avatar": "cb5acf82-ebe5-4613-8575-8d943ad56c7b.jpg",
     "id": 489
   },
   {
@@ -13860,7 +13860,7 @@
     "hireDate": "2023-01-19",
     "resignDate": "2024-09-27",
     "socialInsStatus": "23.2.1",
-    "avatar": "VU HOANG AN.png",
+    "avatar": "af2255f7-388f-48c0-9c1e-57fc111cea03.png",
     "id": 492
   },
   {
@@ -13890,7 +13890,7 @@
     "address": "静岡県袋井市久能2810番地1",
     "hireDate": "2023-01-19",
     "socialInsStatus": "23.2.1",
-    "avatar": "スクリーンショット 2023-01-13 115020.png",
+    "avatar": "e9dc3783-1bee-45b6-bc0c-169425af8de8.png",
     "id": 493
   },
   {
@@ -13917,7 +13917,7 @@
     "hireDate": "2023-01-23",
     "resignDate": "2023-05-15",
     "socialInsStatus": "23.1.23",
-    "avatar": "ｸﾞｴﾝﾃｨｺﾞｸﾘﾝ_顔写真.png",
+    "avatar": "bc387850-8e4f-49a5-a379-5a55ed0a565d.png",
     "id": 494
   },
   {
@@ -14116,7 +14116,7 @@
     "hireDate": "2023-02-02",
     "resignDate": "2023-07-28",
     "socialInsStatus": "23.2.2",
-    "avatar": "あｓだｓｆｄ.jpg",
+    "avatar": "57030d23-5582-4d9f-800d-1c3792562469.jpg",
     "id": 501
   },
   {
@@ -14299,7 +14299,7 @@
     "hireDate": "2023-02-21",
     "resignDate": "2024-07-30",
     "socialInsStatus": "23.3.1",
-    "avatar": "PHAM HONG CUONG.jpg",
+    "avatar": "16be1cf6-2c9d-4c8b-8504-78126d6a96d7.jpg",
     "id": 507
   },
   {
@@ -14385,7 +14385,7 @@
     "hireDate": "2023-02-22",
     "resignDate": "2024-06-28",
     "socialInsStatus": "23.3.1",
-    "avatar": "スクリーンショット 2023-03-30 115421.png",
+    "avatar": "7fffd9e2-b351-41ed-8f15-ee0a7fa5efc0.png",
     "id": 510
   },
   {
@@ -14499,7 +14499,7 @@
     "hireDate": "2023-02-22",
     "resignDate": "2025-04-15",
     "socialInsStatus": "23.3.1",
-    "avatar": "330081855_682511797007608_3328198783332706400_n (1).jpg",
+    "avatar": "6b2e1b6f-8e04-4398-b835-42b82908c50f.jpg",
     "id": 514
   },
   {
@@ -14561,7 +14561,7 @@
     "hireDate": "2023-02-22",
     "resignDate": "2024-10-15",
     "socialInsStatus": "23.3.1",
-    "avatar": "331124842_586775402986769_2869147278386349847_n,.jpg",
+    "avatar": "4c211c43-aeae-43da-be2b-420ca610adb2.jpg",
     "id": 516
   },
   {
@@ -14686,7 +14686,7 @@
     "hireDate": "2023-02-27",
     "resignDate": "2024-01-26",
     "socialInsStatus": "23.3.1",
-    "avatar": "キャプチャs.PNG",
+    "avatar": "bc279fbc-4de6-4593-94b5-b242586a3ea4.png",
     "id": 520
   },
   {
@@ -14898,7 +14898,7 @@
     "hireDate": "2023-03-01",
     "resignDate": "2023-12-26",
     "socialInsStatus": "23.4.1",
-    "avatar": "vu van nghia.png",
+    "avatar": "86995db5-caaf-441e-95dc-72d9d0100fe3.png",
     "id": 527
   },
   {
@@ -15090,7 +15090,7 @@
     "licenseType": "原付",
     "licenseExpiry": 46199,
     "commuteMethod": "原付",
-    "avatar": "ｸﾞｴﾝｶｯｸﾁｭﾝ_顔写真.png",
+    "avatar": "f15a2fcf-7105-4e71-ae77-a2cc5f6699a5.png",
     "id": 533
   },
   {
@@ -15120,7 +15120,7 @@
     "hireDate": "2023-03-08",
     "resignDate": "2023-04-27",
     "socialInsStatus": "23.4.1",
-    "avatar": "VAN DOAN.jpg",
+    "avatar": "894b48b9-2313-430b-8f23-4714c67d8907.jpg",
     "id": 534
   },
   {
@@ -15152,7 +15152,7 @@
     "licenseType": "普通免許",
     "licenseExpiry": 45588,
     "commuteMethod": "車",
-    "avatar": "ｸﾞｴﾝｽﾜﾝﾀﾝ_顔写真.jpeg",
+    "avatar": "8d6868b9-7cd8-4970-9afe-8a29197202d8.jpeg",
     "id": 535
   },
   {
@@ -15209,7 +15209,7 @@
     "hireDate": "2023-03-09",
     "resignDate": "2024-04-26",
     "socialInsStatus": "23.4.1",
-    "avatar": "スクリーンショット 2023-03-30 102535.png",
+    "avatar": "389f0629-e3c7-44d1-b60e-dc82f5262067.png",
     "id": 537
   },
   {
@@ -15385,7 +15385,7 @@
     "address": "山口県防府市大字浜方716-15",
     "hireDate": "2023-03-22",
     "socialInsStatus": "23.4.1",
-    "avatar": "LE DINH BINH.JPG",
+    "avatar": "39af9226-c1c6-45ff-8d28-b3411420fa5e.jpg",
     "id": 543
   },
   {
@@ -15415,7 +15415,7 @@
     "hireDate": "2023-03-27",
     "resignDate": "2023-05-12",
     "socialInsStatus": "23.4.1",
-    "avatar": "NGUYEN VAN QUANG.png",
+    "avatar": "5685032f-128d-40e6-aae6-0be9ba35d5b5.png",
     "id": 544
   },
   {
@@ -15780,7 +15780,7 @@
     "hireDate": "2023-04-10",
     "resignDate": "2025-08-31",
     "socialInsStatus": "23.5.1",
-    "avatar": "PHAM DUY QUANG.png",
+    "avatar": "306b4ea1-b7dd-48ed-b3a6-5e33f4ded30e.png",
     "id": 556
   },
   {
@@ -15841,7 +15841,7 @@
     "hireDate": "2023-04-18",
     "resignDate": "2025-07-23",
     "socialInsStatus": "23.5.1",
-    "avatar": "HUNG KAWAHARA.png",
+    "avatar": "4803e58f-4084-4d84-ab6c-6a05450951c3.png",
     "id": 558
   },
   {
@@ -15901,7 +15901,7 @@
     "hireDate": "2023-04-24",
     "resignDate": "2023-09-21",
     "socialInsStatus": "23.5.1",
-    "avatar": "スクリーンショット 2023-04-18 105527.png",
+    "avatar": "96d13a2a-d139-4b17-87c5-3ed60484d173.png",
     "id": 560
   },
   {
@@ -15931,7 +15931,7 @@
     "hireDate": "2023-04-27",
     "resignDate": "2023-05-19",
     "socialInsStatus": "23.5.1",
-    "avatar": "TRAN NGOC HOAI.png",
+    "avatar": "a93d1384-6c99-4a5f-8131-ffa7200ae3e6.png",
     "id": 561
   },
   {
@@ -16148,7 +16148,7 @@
     "licenseType": "原付",
     "licenseExpiry": 45677,
     "commuteMethod": "原付",
-    "avatar": "ﾌｧﾑｳﾞｧﾝｽﾞﾝ_顔写真.png",
+    "avatar": "4fb8444c-07cb-4818-afbd-4c4f26b0d58d.png",
     "id": 568
   },
   {
@@ -16670,7 +16670,7 @@
     "hireDate": "2023-06-26",
     "resignDate": "2024-01-12",
     "socialInsStatus": "23.6.26",
-    "avatar": "TIEN SHIZUOKA.JPG",
+    "avatar": "00410596-fc33-4a62-ba4f-71e352f6e793.jpg",
     "id": 585
   },
   {
@@ -16764,7 +16764,7 @@
     "socialInsStatus": 22.05,
     "notes": "新日本ホイール 2023/4/21退社　加藤木材工業本社に移動　2023/7/31～コーリツ本社へ異動",
     "commuteMethod": "自転車",
-    "avatar": "NGUYEN KHAC THIEN .png",
+    "avatar": "e42ca177-2824-4197-8fad-7c48471f777e.png",
     "id": 588
   },
   {
@@ -16860,7 +16860,7 @@
     "licenseType": "普通免許",
     "licenseExpiry": 46195,
     "commuteMethod": "車",
-    "avatar": "スクリーンショット 2023-11-27 172910.png",
+    "avatar": "a3ae8d8e-9016-4822-b079-4c5dd2afa6a0.png",
     "id": 591
   },
   {
@@ -17044,7 +17044,7 @@
     "hireDate": "2023-07-25",
     "resignDate": "2023-12-15",
     "socialInsStatus": "23.7.25",
-    "avatar": "スクリーンショット 2023-06-29 091310.png",
+    "avatar": "57d7e7e4-9f85-4ef0-8c3e-30f18b7de639.png",
     "id": 597
   },
   {
@@ -17126,7 +17126,7 @@
     "hireDate": "2023-07-26",
     "resignDate": "2023-10-20",
     "socialInsStatus": "23.7.26",
-    "avatar": "スクリーンショット 2023-07-19 134652.png",
+    "avatar": "1961e587-cc0c-4069-ab56-5c6ca410cbbc.png",
     "id": 600
   },
   {
@@ -17275,7 +17275,7 @@
     "hireDate": "2023-08-01",
     "socialInsStatus": "23.8.1",
     "commuteMethod": "自転車",
-    "avatar": "363603551_1661964427627741_427208982397189128_n (1).png",
+    "avatar": "682787a4-6f2a-4eb2-8721-59d4faf92670.png",
     "id": 605
   },
   {
@@ -17676,7 +17676,7 @@
     "address": "愛知県小牧市応時1丁目66番地",
     "hireDate": "2023-06-05",
     "socialInsStatus": "23.6.5",
-    "avatar": "ảnh chân dung.jpg",
+    "avatar": "e797a520-074a-4705-92db-4cf10d53e43a.jpg",
     "id": 618
   },
   {
@@ -17860,7 +17860,7 @@
     "hireDate": "2023-08-21",
     "resignDate": "2025-01-17",
     "socialInsStatus": "23.8.21",
-    "avatar": "スクリーンショット 2023-07-19 111934.png",
+    "avatar": "9b95c15b-ac56-498a-ba7c-42a87d634e71.png",
     "id": 624
   },
   {
@@ -17973,7 +17973,7 @@
     "hireDate": "2023-09-06",
     "resignDate": "2023-09-12",
     "socialInsStatus": "23.9.6",
-    "avatar": "フォト 2023_08_29 17_48_32.png",
+    "avatar": "eccebffc-e75d-41cf-a8e3-83e33b687660.png",
     "id": 628
   },
   {
@@ -18033,7 +18033,7 @@
     "hireDate": "2023-09-11",
     "resignDate": "2024-03-22",
     "socialInsStatus": "23.9.11",
-    "avatar": "370772671_1031916584611517_2620963508969176903_n (1).jpg",
+    "avatar": "53fc5855-7f17-408e-80d3-a7a4bc2e0e26.jpg",
     "id": 630
   },
   {
@@ -18405,7 +18405,7 @@
     "address": "岡山県岡山市北区御津矢原307番地",
     "hireDate": "2023-09-28",
     "socialInsStatus": "23.9.28",
-    "avatar": "379456381_1010926053447857_5679138038500871805_n (1).jpg",
+    "avatar": "f83cd3ef-f6c9-4b8c-b3f6-0ba4b1b99758.jpg",
     "id": 642
   },
   {
@@ -18436,7 +18436,7 @@
     "hireDate": "2023-09-28",
     "resignDate": "2025-11-28",
     "socialInsStatus": "23.10.1",
-    "avatar": "379348639_1222225158448805_7387028372539541251_n (1).jpg",
+    "avatar": "e95047c8-e465-4381-9f9b-c11d8d59e3b7.jpg",
     "id": 643
   },
   {
@@ -18467,7 +18467,7 @@
     "hireDate": "2023-09-28",
     "resignDate": "2024-12-18",
     "socialInsStatus": "23.9.28",
-    "avatar": "ゴーマイントゥアン.PNG",
+    "avatar": "49a10b79-da2d-4fd4-aa10-77b176a9fd9c.png",
     "id": 644
   },
   {
@@ -18493,7 +18493,7 @@
     "address": "愛知県豊田市美里1-14-18",
     "hireDate": "2023-10-02",
     "socialInsStatus": "23.10.2",
-    "avatar": "スクリーンショット 2023-09-29 092538.png",
+    "avatar": "7909fc88-78f2-4db5-9cb8-97d91ba851ef.png",
     "id": 645
   },
   {
@@ -18663,7 +18663,7 @@
     "address": "愛知県名古屋市港区惟信町1丁目26-1",
     "hireDate": "2023-10-17",
     "socialInsStatus": "23.10.17",
-    "avatar": "Web キャプチャ_10-10-2023_155215_.jpeg",
+    "avatar": "b4a1d82e-e459-45ba-84db-e9bdb316705d.jpeg",
     "id": 651
   },
   {
@@ -18722,7 +18722,7 @@
     "licenseType": "普通免許",
     "licenseExpiry": 45910,
     "commuteMethod": "車",
-    "avatar": "スクリーンショット 2023-10-31 132632.png",
+    "avatar": "9ee39330-e824-4b80-b78f-66fb7c9d1f8a.png",
     "id": 653
   },
   {
@@ -18752,7 +18752,7 @@
     "hireDate": "2023-10-26",
     "resignDate": "2024-07-12",
     "socialInsStatus": "23.10.26",
-    "avatar": "スクリーンショット 2023-09-19 171649.png",
+    "avatar": "6cf19cc7-f5f8-4fa7-9fc3-a29aac49d140.png",
     "id": 654
   },
   {
@@ -18842,7 +18842,7 @@
     "hireDate": "2023-11-01",
     "resignDate": "2024-09-13",
     "socialInsStatus": "23.11.1",
-    "avatar": "スクリーンショット 2023-10-19 172738.png",
+    "avatar": "e32677b5-0ae2-4319-aa38-ffced849f88a.png",
     "id": 657
   },
   {
@@ -18966,7 +18966,7 @@
     "hireDate": "2023-11-01",
     "socialInsStatus": "23.11.1",
     "japaneseLevel": "JLPT-N4",
-    "avatar": "387338011_1048057969552396_4602839977970110253_n (1).jpg",
+    "avatar": "6f53579f-91e9-4008-8039-0b18177dc748.jpg",
     "id": 661
   },
   {
@@ -19055,7 +19055,7 @@
     "address": "愛知県豊田市神池町２丁目1236-98",
     "hireDate": "2023-11-02",
     "socialInsStatus": "23.11.2",
-    "avatar": "9. Anh chan dung.jpg",
+    "avatar": "11621f71-6320-46c5-9f28-41ac0be23c76.jpg",
     "id": 664
   },
   {
@@ -19176,7 +19176,7 @@
     "hireDate": "2023-11-06",
     "resignDate": "2024-02-13",
     "socialInsStatus": "23.11.6",
-    "avatar": "スクリーンショット 2022-08-09 170608.png",
+    "avatar": "b0e2cdd9-7db9-49a5-b1dd-c6f1c7d83f8a.png",
     "id": 668
   },
   {
@@ -19203,7 +19203,7 @@
     "address": "岡山県井原市大江町3715番地",
     "hireDate": "2023-11-13",
     "socialInsStatus": "23.11.13",
-    "avatar": "ﾁｬﾝﾊﾞﾝﾌｨｰ_顔写真.jpeg",
+    "avatar": "579ffbc3-322b-493a-85fe-9d65eb038a17.jpeg",
     "id": 669
   },
   {
@@ -19234,7 +19234,7 @@
     "resignDate": "2025-02-10",
     "socialInsStatus": "23.11.13",
     "commuteMethod": "自転車",
-    "avatar": "スクリーンショット 2023-10-19 170707.png",
+    "avatar": "cb15348c-ee03-48fe-b5c2-b27dbaea0554.png",
     "id": 670
   },
   {
@@ -19266,7 +19266,7 @@
     "licenseType": "原付",
     "licenseExpiry": 46404,
     "commuteMethod": "原付",
-    "avatar": "スクリーンショット 2023-10-19 110431.png",
+    "avatar": "31913666-9e07-409c-b92c-344f836c73f6.png",
     "id": 671
   },
   {
@@ -19390,7 +19390,7 @@
     "hireDate": "2023-11-21",
     "socialInsStatus": "23.11.21",
     "japaneseLevel": "JLPT-N3",
-    "avatar": "NGUYEN VAN THANH.png",
+    "avatar": "e3b368c6-2984-484e-bcc9-628adabea521.png",
     "id": 675
   },
   {
@@ -19420,7 +19420,7 @@
     "hireDate": "2023-11-24",
     "resignDate": "2024-06-28",
     "socialInsStatus": "23.11.24",
-    "avatar": "スクリーンショット 2023-11-28 110135.png",
+    "avatar": "4e151e7a-e845-4b81-ab62-a6124a339341.png",
     "id": 676
   },
   {
@@ -19566,7 +19566,7 @@
     "hireDate": "2023-12-01",
     "resignDate": "2024-07-07",
     "socialInsStatus": "23.12.1",
-    "avatar": "スクリーンショット 2023-11-27 172910.png",
+    "avatar": "a3ae8d8e-9016-4822-b079-4c5dd2afa6a0.png",
     "id": 681
   },
   {
@@ -19598,7 +19598,7 @@
     "resignDate": "2025-02-05",
     "socialInsStatus": "23.12.1",
     "japaneseLevel": "JLPT-N4",
-    "avatar": "スクリーンショット 2023-11-27 173308.png",
+    "avatar": "36130de8-2441-4b48-85d5-257eafaa5be5.png",
     "id": 682
   },
   {
@@ -19630,7 +19630,7 @@
     "resignDate": "2025-03-05",
     "socialInsStatus": "23.12.1",
     "notes": "2024/1/22海南2から本社に異動",
-    "avatar": "スクリーンショット 2023-11-27 173202.png",
+    "avatar": "4871a3a2-6f5e-4183-874f-4bd7ce6ce1e7.png",
     "id": 683
   },
   {
@@ -19659,7 +19659,7 @@
     "address": "岐阜県恵那市大井町2087-170",
     "hireDate": "2023-12-01",
     "socialInsStatus": "23.12.1",
-    "avatar": "スクリーンショット 2023-11-27 173045.png",
+    "avatar": "53d3c983-0549-413a-aa89-7667b93d7403.png",
     "id": 684
   },
   {
@@ -19718,7 +19718,7 @@
     "address": "愛知県弥富市平島町喜右味名78-1",
     "hireDate": "2023-12-01",
     "socialInsStatus": "23.12.1",
-    "avatar": "スクリーンショット 2023-11-27 172612.png",
+    "avatar": "cf2e0f2b-cc96-4e01-8d3d-f2b5a16215b1.png",
     "id": 686
   },
   {
@@ -19748,7 +19748,7 @@
     "address": "岡山県岡山市北区御津矢原370",
     "hireDate": "2023-12-04",
     "socialInsStatus": "23.12.4",
-    "avatar": "スクリーンショット 2023-11-27 173236.png",
+    "avatar": "1919fff0-a681-4d49-8da0-a06219755f19.png",
     "id": 687
   },
   {
@@ -19779,7 +19779,7 @@
     "hireDate": "2023-12-04",
     "resignDate": "2025-02-15",
     "socialInsStatus": "23.12.4",
-    "avatar": "スクリーンショット 2023-11-27 173008.png",
+    "avatar": "c0590a30-9faa-411a-a553-82fd53ec1959.png",
     "id": 688
   },
   {
@@ -19810,7 +19810,7 @@
     "hireDate": "2023-12-04",
     "resignDate": "2025-03-14",
     "socialInsStatus": "23.12.4",
-    "avatar": "スクリーンショット 2023-11-27 172706.png",
+    "avatar": "5d8d1a03-0dac-49d3-93b5-19e1507e36cc.png",
     "id": 689
   },
   {
@@ -19841,7 +19841,7 @@
     "hireDate": "2023-12-04",
     "resignDate": "2025-03-14",
     "socialInsStatus": "23.12.4",
-    "avatar": "スクリーンショット 2023-11-27 173122.png",
+    "avatar": "fa399aa3-8598-4a7a-befc-82eec148ce7a.png",
     "id": 690
   },
   {
@@ -19872,7 +19872,7 @@
     "hireDate": "2023-12-04",
     "socialInsStatus": "23.12.4",
     "japaneseLevel": "JLPT-N4",
-    "avatar": "スクリーンショット 2023-11-27 172837.png",
+    "avatar": "46d5965f-6bd9-4067-8de1-00eab8e7cb98.png",
     "id": 691
   },
   {
@@ -19903,7 +19903,7 @@
     "hireDate": "2023-12-04",
     "socialInsStatus": "23.12.4",
     "japaneseLevel": "JLPT-N4",
-    "avatar": "スクリーンショット 2023-11-27 172800.png",
+    "avatar": "3b1c5889-c0db-4db5-a051-6189899463f7.png",
     "id": 692
   },
   {
@@ -20091,7 +20091,7 @@
     "hireDate": "2023-12-18",
     "socialInsStatus": "22.08.01",
     "notes": "請負より異動あり。",
-    "avatar": "スクリーンショット 2022-05-24 112700.png",
+    "avatar": "1021b136-23e6-49c1-94b1-594c8c1a69b9.png",
     "id": 698
   },
   {
@@ -20202,7 +20202,7 @@
     "address": "岡山県岡山市北区御津下田77-3",
     "hireDate": "2024-01-15",
     "socialInsStatus": "24.1.15",
-    "avatar": "スクリーンショット 2022-04-21 095457.png",
+    "avatar": "8d1b46d5-96bc-4097-afe9-8c0f5c274a8d.png",
     "id": 702
   },
   {
@@ -20707,7 +20707,7 @@
     "address": "大阪府和泉市富秋町3丁目11番25",
     "hireDate": "2024-02-01",
     "resignDate": "2024-04-26",
-    "avatar": "パスポート (002).jpg",
+    "avatar": "256b6a13-2dce-4c2f-94be-65900c7bc794.jpg",
     "id": 719
   },
   {
@@ -20767,7 +20767,7 @@
     "address": "愛知県弥富市前ヶ須町勘助走34-1",
     "hireDate": "2024-02-05",
     "socialInsStatus": "24.2.5",
-    "avatar": "PHAM BA BACH.png",
+    "avatar": "dccbf4d3-5606-4679-a2e5-117b9f281665.png",
     "id": 721
   },
   {
@@ -21148,7 +21148,7 @@
     "licenseType": "原付",
     "licenseExpiry": 46453,
     "commuteMethod": "原付",
-    "avatar": "280309982_579218246774821_9000873488507474595_n (1).jpg",
+    "avatar": "776cebd0-0038-4bf1-ac9f-62d459d0b072.jpg",
     "id": 734
   },
   {
@@ -21208,7 +21208,7 @@
     "resignDate": "2024-11-13",
     "socialInsStatus": "24.3.12",
     "commuteMethod": "自転車",
-    "avatar": "vu van nghia.png",
+    "avatar": "86995db5-caaf-441e-95dc-72d9d0100fe3.png",
     "id": 736
   },
   {
@@ -21593,7 +21593,7 @@
     "hireDate": "2024-03-21",
     "resignDate": "2024-04-11",
     "socialInsStatus": "加入なし",
-    "avatar": "nguyen sy duc.jpg",
+    "avatar": "fe062f8c-2f5a-49ea-a32a-476a5136e0de.jpg",
     "id": 749
   },
   {
@@ -21772,7 +21772,7 @@
     "licenseType": "普通免許",
     "licenseExpiry": 46313,
     "commuteMethod": "原付",
-    "avatar": "スクリーンショット 2024-03-18 162035.png",
+    "avatar": "4205aa1f-0795-4dc9-bfba-06a39cd69174.png",
     "id": 755
   },
   {
@@ -21798,7 +21798,7 @@
     "address": "大阪府大阪市住之江区御崎3-3-20",
     "hireDate": "2024-04-11",
     "socialInsStatus": "2024.4.11",
-    "avatar": "ｸﾞｴﾝﾊﾞﾝﾎｱ_顔写真.png",
+    "avatar": "aa3c1262-8927-41cf-ab67-d7af4f3c8e64.png",
     "id": 756
   },
   {
@@ -22008,7 +22008,7 @@
     "resignDate": "2025-03-10",
     "socialInsStatus": "2024.4.17",
     "commuteMethod": "自転車",
-    "avatar": "スクリーンショット 2024-04-15 121230.png",
+    "avatar": "3afdfc25-c0d7-4288-9a3e-42e4641c06e0.png",
     "id": 763
   },
   {
@@ -22072,7 +22072,7 @@
     "licenseType": "普通免許",
     "licenseExpiry": 46224,
     "commuteMethod": "車",
-    "avatar": "280309982_579218246774821_9000873488507474595_n (1).jpg",
+    "avatar": "776cebd0-0038-4bf1-ac9f-62d459d0b072.jpg",
     "id": 765
   },
   {
@@ -22320,7 +22320,7 @@
     "hireDate": "2024-05-13",
     "socialInsStatus": "2024.5.13",
     "commuteMethod": "自転車",
-    "avatar": "スクリーンショット 2024-05-07 122114.png",
+    "avatar": "7f9eb9b0-e3aa-41de-9762-fe65d9a5f401.png",
     "id": 773
   },
   {
@@ -22345,7 +22345,7 @@
     "hireDate": "2024-05-27",
     "resignDate": "2024-08-20",
     "socialInsStatus": "2024.5.27",
-    "avatar": "ｸﾞｴﾝﾊﾞﾝﾎｱ_顔写真.png",
+    "avatar": "aa3c1262-8927-41cf-ab67-d7af4f3c8e64.png",
     "id": 774
   },
   {
@@ -22408,7 +22408,7 @@
     "hireDate": "2024-06-03",
     "resignDate": "2024-10-18",
     "socialInsStatus": "2024.6.3",
-    "avatar": "IMG_0558 (1).jpg",
+    "avatar": "c486f657-4442-4570-9f18-23e309981d65.jpg",
     "id": 776
   },
   {
@@ -22440,7 +22440,7 @@
     "licenseType": "普通免許",
     "licenseExpiry": 45590,
     "commuteMethod": "車",
-    "avatar": "370772671_1031916584611517_2620963508969176903_n (1).jpg",
+    "avatar": "53fc5855-7f17-408e-80d3-a7a4bc2e0e26.jpg",
     "id": 777
   },
   {
@@ -22674,7 +22674,7 @@
     "hireDate": "2024-06-27",
     "resignDate": "2025-09-26",
     "socialInsStatus": "2024.6.27",
-    "avatar": "スクリーンショット 2024-07-18 110134.png",
+    "avatar": "9ed753a4-11b2-48ea-9599-b2bb08ea969b.png",
     "id": 785
   },
   {
@@ -22796,7 +22796,7 @@
     "licenseType": "普通免許",
     "licenseExpiry": 46620,
     "commuteMethod": "車",
-    "avatar": "TRUONG DINH HUNG.jpg",
+    "avatar": "f2a2acb5-0620-43dd-9bb8-a9d574b3e1da.jpg",
     "id": 789
   },
   {
@@ -22826,7 +22826,7 @@
     "hireDate": "2024-07-08",
     "resignDate": "2024-08-21",
     "socialInsStatus": "2024.7.8",
-    "avatar": "スクリーンショット 2024-06-18 180940.png",
+    "avatar": "b7db55ad-56ab-40d6-8fe4-50694a854407.png",
     "id": 790
   },
   {
@@ -23058,7 +23058,7 @@
     "hireDate": "2024-07-22",
     "socialInsStatus": 44287,
     "japaneseLevel": "JLPT-N3",
-    "avatar": "LE VAN THUONG ANH.png",
+    "avatar": "617e53de-6ed2-4c54-aa7c-3480937f72b7.png",
     "id": 798
   },
   {
@@ -23147,7 +23147,7 @@
     "hireDate": "2024-08-01",
     "resignDate": "2024-12-24",
     "socialInsStatus": 45505,
-    "avatar": "ﾀﾞｵｳﾞｧﾝﾎｱﾝ_顔写真.png",
+    "avatar": "59530a37-6e9a-4128-81b4-26a20b2cc8e4.png",
     "id": 801
   },
   {
@@ -23300,7 +23300,7 @@
     "address": "愛知県春日井市高山町4丁目13-13",
     "hireDate": "2023-08-02",
     "socialInsStatus": "23.8.2",
-    "avatar": "Web キャプチャ_31-7-2023_94414_.jpeg",
+    "avatar": "4d0d0257-5668-4a91-bd70-cda53142f7b7.jpeg",
     "id": 806
   },
   {
@@ -23412,7 +23412,7 @@
     "hireDate": "2024-08-06",
     "resignDate": "2025-05-30",
     "socialInsStatus": 45510,
-    "avatar": "DUY .JPG",
+    "avatar": "7bb3aad2-be96-4c96-ae86-f74b2cefe923.jpg",
     "id": 810
   },
   {
@@ -23442,7 +23442,7 @@
     "hireDate": "2024-08-06",
     "socialInsStatus": 45510,
     "notes": "請負より異動あり。",
-    "avatar": "PHAM-VINH-QUANG-機械工学技術.pdf および他 1 ページ - 個人 - Microsoft​ Edge 2023_08_25 17_06_12.png",
+    "avatar": "7f018a6f-d0a4-4a47-a4bd-a77995e91795.png",
     "id": 811
   },
   {
@@ -23472,7 +23472,7 @@
     "address": "愛知県碧南市三度山町47番地",
     "hireDate": "2024-10-01",
     "socialInsStatus": 45566,
-    "avatar": "Captura de pantalla 2024-08-06 092941.png",
+    "avatar": "de0cddb6-3144-45b1-a471-8925c1f4c7a9.png",
     "id": 812
   },
   {
@@ -23535,7 +23535,7 @@
     "licenseType": "普通免許",
     "licenseExpiry": 46345,
     "commuteMethod": "車",
-    "avatar": "ｸﾞｴﾝﾁﾞｨﾝﾁｮﾝ_顔写真.png",
+    "avatar": "91d91de9-f6eb-483d-a981-8fa04df5ced6.png",
     "id": 814
   },
   {
@@ -24101,7 +24101,7 @@
     "resignDate": "2025-04-07",
     "socialInsStatus": 45541,
     "notes": "2024/9/6～2025/3/26までPATEC　2025/3/27～六甲電子に異動",
-    "avatar": "ẢNH CHÂN DUNG_LÊ VĂN LƯƠNG.jpg",
+    "avatar": "9a191367-5d0a-4502-adf2-5a22d5ad8ae4.jpg",
     "id": 833
   },
   {
@@ -24329,7 +24329,7 @@
     "address": "山口県防府市大字浜方716-15",
     "hireDate": "2024-10-01",
     "socialInsStatus": 45566,
-    "avatar": "ヴィン.jpg",
+    "avatar": "9e717044-1f17-45c1-85c1-e4b3c64a462b.jpg",
     "id": 841
   },
   {
@@ -24676,7 +24676,7 @@
     "hireDate": "2024-12-16",
     "resignDate": "2025-09-05",
     "socialInsStatus": 45642,
-    "avatar": "画像1.jpg",
+    "avatar": "734b350f-4f31-440d-9191-80ceb60c92d4.jpg",
     "id": 853
   },
   {
@@ -24733,7 +24733,7 @@
     "address": "愛知県豊田市美里1-14-18",
     "hireDate": "2024-11-01",
     "socialInsStatus": 45597,
-    "avatar": "スクリーンショット 2023-10-19 172738.png",
+    "avatar": "e32677b5-0ae2-4319-aa38-ffced849f88a.png",
     "id": 855
   },
   {
@@ -24793,7 +24793,7 @@
     "address": "岡山県岡山市北区御津矢原311",
     "hireDate": "2024-11-06",
     "socialInsStatus": 45602,
-    "avatar": "462550942_2930480857091417_2845341459589019447_n (1).jpg",
+    "avatar": "e977ba1b-d55e-4ae2-9a03-2ff151de2186.jpg",
     "id": 857
   },
   {
@@ -25030,7 +25030,7 @@
     "hireDate": "2024-12-09",
     "resignDate": "2025-06-26",
     "socialInsStatus": 45635,
-    "avatar": "無題1.png",
+    "avatar": "576b8f0f-0f28-4499-b8e5-03f5658fd334.png",
     "id": 865
   },
   {
@@ -25090,7 +25090,7 @@
     "address": "愛知県大府市若草町2丁目160番地",
     "hireDate": "2024-08-28",
     "socialInsStatus": 45532,
-    "avatar": "スクリーンショット 2022-12-06 163942.png",
+    "avatar": "7321b644-0309-4839-ad64-e6e5519be876.png",
     "id": 867
   },
   {
@@ -25235,7 +25235,7 @@
     "address": "愛知県半田市庚申町2-6-7",
     "hireDate": "2024-11-01",
     "socialInsStatus": 45597,
-    "avatar": "ﾁｬﾝﾃﾞｨﾝｳﾞｨﾝ_顔写真.jpeg",
+    "avatar": "a78f70a7-a472-4f14-8af1-9ab7e819b1c0.jpeg",
     "id": 872
   },
   {
@@ -25264,7 +25264,7 @@
     "address": "愛知県高浜市神明町2-2-36",
     "hireDate": "2025-01-06",
     "socialInsStatus": 45663,
-    "avatar": "ｸﾞｴﾝﾎｰﾎｱﾝ_顔写真.png",
+    "avatar": "f3af3911-17b8-49da-84db-a181af7f771e.png",
     "id": 873
   },
   {
@@ -25527,7 +25527,7 @@
     "hireDate": "2024-12-23",
     "resignDate": "2025-05-20",
     "socialInsStatus": 45649,
-    "avatar": "nguyen sy duc.jpg",
+    "avatar": "fe062f8c-2f5a-49ea-a32a-476a5136e0de.jpg",
     "id": 882
   },
   {
@@ -25558,7 +25558,7 @@
     "hireDate": "2024-12-23",
     "socialInsStatus": 45649,
     "notes": "請負より異動",
-    "avatar": "スクリーンショット 2024-12-14 164405.png",
+    "avatar": "3d76c915-3e90-461b-bf43-c4de6b0fbbf4.png",
     "id": 883
   },
   {
@@ -25589,7 +25589,7 @@
     "hireDate": "2024-12-23",
     "socialInsStatus": 45649,
     "notes": "請負より異動",
-    "avatar": "スクリーンショット 2024-12-14 164249.png",
+    "avatar": "0623286b-67e3-4ce3-b615-2c11bae321a6.png",
     "id": 884
   },
   {
@@ -25709,7 +25709,7 @@
     "hireDate": "2025-01-13",
     "resignDate": "2025-12-16",
     "socialInsStatus": 45670,
-    "avatar": "PHAM CONG THANH.jpeg",
+    "avatar": "a9c432d1-ea49-480b-9627-2a0d5b78b032.jpeg",
     "id": 888
   },
   {
@@ -26185,7 +26185,7 @@
     "address": "愛知県弥富市平島中4-125",
     "hireDate": "2025-01-23",
     "socialInsStatus": 45680,
-    "avatar": "LAI VAN SON.png",
+    "avatar": "a1f78151-9072-48b1-8438-0847d70f0700.png",
     "id": 904
   },
   {
@@ -26215,7 +26215,7 @@
     "address": "岡山県岡山市北区御津矢原298-1",
     "hireDate": "2025-01-28",
     "socialInsStatus": 45685,
-    "avatar": "DUONG TUAN KIET.png",
+    "avatar": "90dc6488-6b30-430f-a7d8-d86b488810fc.png",
     "id": 905
   },
   {
@@ -26245,7 +26245,7 @@
     "address": "岡山県岡山市北区御津矢原298-1",
     "hireDate": "2025-01-28",
     "socialInsStatus": 45685,
-    "avatar": "LE VAN HIEU.png",
+    "avatar": "a05a9cc8-e1dd-4205-9a6c-623e55663872.png",
     "id": 906
   },
   {
@@ -26366,7 +26366,7 @@
     "address": "岡山県岡山市北区御津矢原294-1",
     "hireDate": "2025-02-10",
     "socialInsStatus": 45698,
-    "avatar": "DUY .JPG",
+    "avatar": "7bb3aad2-be96-4c96-ae86-f74b2cefe923.jpg",
     "id": 910
   },
   {
@@ -27004,7 +27004,7 @@
     "hireDate": "2025-02-19",
     "socialInsStatus": 45707,
     "japaneseLevel": "JLPT-N4",
-    "avatar": "DUY .JPG",
+    "avatar": "7bb3aad2-be96-4c96-ae86-f74b2cefe923.jpg",
     "id": 931
   },
   {
@@ -27034,7 +27034,7 @@
     "address": "愛知県弥富市平島町五反割101-1",
     "hireDate": "2025-02-19",
     "socialInsStatus": 45707,
-    "avatar": "ダウンロード.jpg",
+    "avatar": "cff1f3fa-239c-4159-93d5-77fcd9b52bc7.jpg",
     "id": 932
   },
   {
@@ -27151,7 +27151,7 @@
     "address": "愛知県半田市長根町3-1",
     "hireDate": "2025-03-05",
     "socialInsStatus": 45721,
-    "avatar": "ｸﾞｴﾝﾁﾞｨﾝﾁｮﾝ_顔写真.png",
+    "avatar": "91d91de9-f6eb-483d-a981-8fa04df5ced6.png",
     "id": 936
   },
   {
@@ -27211,7 +27211,7 @@
     "address": "愛知県半田市一ノ草町201-11",
     "hireDate": "2025-03-10",
     "socialInsStatus": 45726,
-    "avatar": "ｸﾞｴﾝｶｯｸﾁｭﾝ_顔写真.png",
+    "avatar": "f15a2fcf-7105-4e71-ae77-a2cc5f6699a5.png",
     "id": 938
   },
   {
@@ -27271,7 +27271,7 @@
     "hireDate": "2025-03-10",
     "socialInsStatus": 45726,
     "notes": "2024/11/4～2025/3/7まで請負配属　2025/3/10～高雄工業岡山で派遣に切替",
-    "avatar": "スクリーンショット 2025-02-28 141300.png",
+    "avatar": "330ef8a4-069f-4b6a-9c78-97fef571f282.png",
     "id": 940
   },
   {
@@ -27328,7 +27328,7 @@
     "hireDate": "2025-03-17",
     "resignDate": "2025-10-22",
     "socialInsStatus": 45733,
-    "avatar": "スクリーンショット 2025-03-05 123541.png",
+    "avatar": "ffc5c23d-315f-48af-a471-80798b7d043b.png",
     "id": 942
   },
   {
@@ -27357,7 +27357,7 @@
     "address": "愛知県半田市東洋町2丁目46番地",
     "hireDate": "2025-04-01",
     "socialInsStatus": 45748,
-    "avatar": "ﾌﾞｲﾍﾞﾄﾀｲﾝ_顔写真.png",
+    "avatar": "34814f7c-b97e-4cab-aa13-9f0f90fa4d79.png",
     "id": 943
   },
   {
@@ -28054,7 +28054,7 @@
     "address": "愛知県刈谷市小垣江町石ノ戸86-3",
     "hireDate": "2025-05-06",
     "socialInsStatus": 45783,
-    "avatar": "スクリーンショット 2023-10-19 170707.png",
+    "avatar": "cb15348c-ee03-48fe-b5c2-b27dbaea0554.png",
     "id": 967
   },
   {
@@ -28113,7 +28113,7 @@
     "address": "愛知県半田市一ノ草町201-11",
     "hireDate": "2025-05-19",
     "socialInsStatus": 45796,
-    "avatar": "nguyen duy thang.jpg",
+    "avatar": "d19c4874-0688-4890-84f8-c957168e7dc0.jpg",
     "id": 969
   },
   {
@@ -28231,7 +28231,7 @@
     "hireDate": "2024-08-06",
     "socialInsStatus": 45510,
     "notes": "請負より異動　2024/8/6～2025/5/9までPATEC　2025/5/19～コーリツへ異動",
-    "avatar": "DO-DUC-TRUNG業務履歴書 (1) - Excel 2023_08_25 16_33_38.png",
+    "avatar": "ea110306-c9fc-4f60-9e00-570fc29675bf.png",
     "id": 973
   },
   {
@@ -28315,7 +28315,7 @@
     "address": "岐阜県恵那市大井町1120-303",
     "hireDate": "2025-06-02",
     "socialInsStatus": 45810,
-    "avatar": "NINH NGOC HIEU.jpg",
+    "avatar": "26a747f4-b224-4671-9560-61c88d2ed373.jpg",
     "id": 976
   },
   {
@@ -28344,7 +28344,7 @@
     "address": "岐阜県恵那市大井町1120-303",
     "hireDate": "2025-06-02",
     "socialInsStatus": 45810,
-    "avatar": "NGUYEN VAN TRUNG.jpg",
+    "avatar": "93527fbf-ce18-4da3-aea0-43aabf130b3e.jpg",
     "id": 977
   },
   {
@@ -28404,7 +28404,7 @@
     "address": "愛知県弥富市前ケ須町西勘助207番地",
     "hireDate": "2025-06-04",
     "socialInsStatus": 45812,
-    "avatar": "LE DINH DONG.jpg",
+    "avatar": "fed5f45f-6c5e-41a5-82a5-13078e26314f.jpg",
     "id": 979
   },
   {
@@ -28462,7 +28462,7 @@
     "address": "静岡県袋井市堀越3-7-1",
     "hireDate": "2025-06-09",
     "socialInsStatus": 45817,
-    "avatar": "BUI QUANG DUNG.jpg",
+    "avatar": "49738d7e-f3e9-447e-8e88-eb2da67ec83f.jpg",
     "id": 981
   },
   {
@@ -28542,7 +28542,7 @@
     "address": "大阪府大阪市阿倍野区天王寺町北3-9-23",
     "hireDate": "2025-06-18",
     "socialInsStatus": 45826,
-    "avatar": "画像1.jpg",
+    "avatar": "734b350f-4f31-440d-9191-80ceb60c92d4.jpg",
     "id": 984
   },
   {
@@ -28710,7 +28710,7 @@
     "address": "愛知県弥富市平島町甲新田82番地１",
     "hireDate": "2025-07-07",
     "socialInsStatus": 45845,
-    "avatar": "CAO QUOC DUNG.jpg",
+    "avatar": "e29f976b-63d4-401b-8bbf-87a4bd4c1e77.jpg",
     "id": 990
   },
   {
@@ -28800,7 +28800,7 @@
     "address": "愛知県豊明市二村台6-1-1",
     "hireDate": "2025-07-21",
     "socialInsStatus": 45859,
-    "avatar": "Aプチャ.PNG",
+    "avatar": "9ec92cb4-e943-47a3-8497-5fcb3192c865.png",
     "id": 993
   },
   {
@@ -28996,7 +28996,7 @@
     "address": "兵庫県西宮市中島町7-5",
     "hireDate": "2025-07-29",
     "socialInsStatus": 45867,
-    "avatar": "ẢNH CHÂN DUNG_LÊ VĂN LƯƠNG.jpg",
+    "avatar": "9a191367-5d0a-4502-adf2-5a22d5ad8ae4.jpg",
     "id": 1000
   },
   {
@@ -29108,7 +29108,7 @@
     "address": "大阪府堺市堺区神南辺町1-19",
     "hireDate": "2025-08-04",
     "socialInsStatus": 45873,
-    "avatar": "スクリーンショット 2024-03-25 153950.png",
+    "avatar": "cc604aa8-0ac7-46ba-928d-bfc75d0f70e5.png",
     "id": 1004
   },
   {
@@ -29347,7 +29347,7 @@
     "address": "愛知県春日井市妙慶町2丁目8",
     "hireDate": "2025-07-08",
     "socialInsStatus": 45846,
-    "avatar": "PHAN VAN CUONG.jpeg",
+    "avatar": "db81f05a-bf37-4dc9-b40e-b66cc87fd9b8.jpeg",
     "id": 1012
   },
   {
@@ -29518,7 +29518,7 @@
     "address": "愛知県弥富市平島町中新田194-1",
     "hireDate": "2025-09-01",
     "socialInsStatus": 45901,
-    "avatar": "スクリーンショット (2).png",
+    "avatar": "dbdd642b-d239-45a2-9cfd-daa545e651ab.png",
     "id": 1018
   },
   {
@@ -29659,7 +29659,7 @@
     "address": "愛知県弥富市平島町五反割63-14",
     "hireDate": "2025-09-16",
     "socialInsStatus": 45916,
-    "avatar": "スクリーンショット 2025-07-28 111535.png",
+    "avatar": "5c73a250-b349-4d27-9580-c8b100629fb5.png",
     "id": 1023
   },
   {
@@ -30059,7 +30059,7 @@
     "address": "愛知県高浜市本郷町１丁目３番地１",
     "hireDate": "2025-10-22",
     "socialInsStatus": 45952,
-    "avatar": "ﾄﾞｰｽｱﾝﾋｴﾝ_顔写真.png",
+    "avatar": "768428d2-030a-495a-baa5-9ba80e5b2a20.png",
     "id": 1037
   },
   {
@@ -30341,7 +30341,7 @@
     "address": "岡山県岡山市北区御津矢原370",
     "hireDate": "2025-11-12",
     "socialInsStatus": 45973,
-    "avatar": "nguyen van vu.png",
+    "avatar": "4feef02f-6a69-4a9d-a83b-ac92b8d1a68d.png",
     "id": 1047
   },
   {
@@ -30516,7 +30516,7 @@
     "visaExpiry": "2028-12-02",
     "visaType": "技術・人文知識・国際業務",
     "hireDate": "2025-12-15",
-    "avatar": "TRUNG .png",
+    "avatar": "e47979a9-56df-472d-ba8e-927054274b59.png",
     "id": 1054
   },
   {
@@ -30574,7 +30574,7 @@
     "visaExpiry": "2028-12-13",
     "visaType": "技術・人文知識・国際業務",
     "hireDate": "2025-12-17",
-    "avatar": "quoc tuan.JPG",
+    "avatar": "6a4ec887-cfa0-41a4-9d69-0ca9473a2679.jpg",
     "id": 1057
   },
   {
@@ -31535,7 +31535,7 @@
     "hireDate": "2021-08-01",
     "resignDate": "2022-08-24",
     "notes": "2022/8/25～高雄岡山へ異動",
-    "avatar": "スクリーンショット 2022-04-21 095457.png",
+    "avatar": "8d1b46d5-96bc-4097-afe9-8c0f5c274a8d.png",
     "id": 1107
   },
   {
@@ -31557,7 +31557,7 @@
     "hireDate": "2021-08-01",
     "resignDate": "2022-08-13",
     "notes": "2022/9/5～高雄岡山へ異動",
-    "avatar": "スクリーンショット 2022-04-21 095415.png",
+    "avatar": "f5177663-569c-488d-ba34-1a439ccb419c.png",
     "id": 1108
   },
   {
@@ -31642,7 +31642,7 @@
     "hireDate": "2021-12-21",
     "resignDate": "2022-03-28",
     "notes": "3/29よりビザ切替済の為、高雄岡山へ異動",
-    "avatar": "le thanh luan.png",
+    "avatar": "29bbf4d8-65e1-422c-bd54-cc6c007a5bb1.png",
     "id": 1112
   },
   {
@@ -31662,7 +31662,7 @@
     "postalCode": "709-2107",
     "address": "岡山県岡山市北区御津矢原370",
     "hireDate": "2022-01-12",
-    "avatar": "ﾌｪﾘ顔写真.png",
+    "avatar": "a54804d4-e0eb-49cb-b29a-fdd60fa1aa21.png",
     "id": 1113
   },
   {
@@ -31682,7 +31682,7 @@
     "postalCode": "709-2107",
     "address": "岡山県岡山市北区御津矢原370",
     "hireDate": "2022-01-25",
-    "avatar": "ｲﾌﾃｨｱﾙ顔.png",
+    "avatar": "f6b0fe97-e0a9-4cea-a8da-abe6dd88e800.png",
     "id": 1114
   },
   {
@@ -31723,7 +31723,7 @@
     "postalCode": "709-2107",
     "address": "岡山県岡山市北区御津矢原294-1",
     "hireDate": "2022-02-15",
-    "avatar": "ﾅｳﾌｧﾙ顔写真.png",
+    "avatar": "dbdeb0ea-0156-4ac0-99e8-20185be20731.png",
     "id": 1116
   },
   {
@@ -31745,7 +31745,7 @@
     "hireDate": "2022-02-15",
     "resignDate": "2022-05-19",
     "notes": "帰国後派遣へ異動5/19まで勤務",
-    "avatar": "ｼｬﾊﾙ顔写真.jpg",
+    "avatar": "50ae6039-936e-4317-9244-d04b54283228.jpg",
     "id": 1117
   },
   {
@@ -31788,7 +31788,7 @@
     "hireDate": "2022-03-02",
     "resignDate": "2022-07-22",
     "notes": "2022/7/25~高雄工業岡山(派遣)",
-    "avatar": "NGUYEN THANH BINH.jpeg",
+    "avatar": "c69fa766-464f-4ac7-ab19-3cfe9ce51cfa.jpeg",
     "id": 1119
   },
   {
@@ -31831,7 +31831,7 @@
     "address": "岡山県岡山市北区御津矢原288番地1",
     "hireDate": "2022-04-04",
     "notes": "～　ユアサ工機入社(派遣)",
-    "avatar": "nguyen duy thang.jpg",
+    "avatar": "d19c4874-0688-4890-84f8-c957168e7dc0.jpg",
     "id": 1121
   },
   {
@@ -31851,7 +31851,7 @@
     "address": "岡山県岡山市北区御津矢原297-1",
     "hireDate": "2022-04-28",
     "notes": "2022/4/28～2022/5/19　請負従事　2022/5/23～　三幸技研へ派遣開始",
-    "avatar": "pdf24_merged (1).pdf - 個人 - Microsoft​ Edge 2022_04_07 16_50_12.png",
+    "avatar": "a30ac84f-9dac-47cb-8777-a429c323f5ef.png",
     "id": 1122
   },
   {
@@ -31872,7 +31872,7 @@
     "address": "岡山県岡山市北区御津矢原2169番地2",
     "hireDate": "2022-05-23",
     "notes": "2022/6/14～高雄工業静岡入社(派遣)",
-    "avatar": "DUC OKAYAMA.jpg",
+    "avatar": "1b543e41-7460-4aa0-96bd-31196f0a72a4.jpg",
     "id": 1123
   },
   {
@@ -31980,7 +31980,7 @@
     "hireDate": "2022-05-31",
     "resignDate": "2023-12-17",
     "notes": "2023.12.18高雄岡山に異動",
-    "avatar": "スクリーンショット 2022-05-24 112700.png",
+    "avatar": "1021b136-23e6-49c1-94b1-594c8c1a69b9.png",
     "id": 1128
   },
   {
@@ -32003,7 +32003,7 @@
     "postalCode": "709-2107",
     "address": "岡山県岡山市北区御津矢原299-2",
     "hireDate": "2022-05-31",
-    "avatar": "スクリーンショット 2022-05-24 112044.png",
+    "avatar": "944c8c73-d325-4e31-bad2-3652f70b9040.png",
     "id": 1129
   },
   {
@@ -32311,7 +32311,7 @@
     "address": "岡山県岡山市北区御津矢原299-2",
     "hireDate": "2022-07-11",
     "resignDate": "2022-07-19",
-    "avatar": "スクリーンショット 2022-05-24 113141.png",
+    "avatar": "c8c63114-6955-4a0a-8fa5-767471b69be3.png",
     "id": 1143
   },
   {
@@ -32329,7 +32329,7 @@
     "address": "岡山県岡山市北区御津矢原294-1",
     "hireDate": "2022-07-11",
     "resignDate": "2022-07-19",
-    "avatar": "スクリーンショット 2022-07-06 100033.png",
+    "avatar": "5a6e210c-0bee-430e-ad34-67caa106854c.png",
     "id": 1144
   },
   {
@@ -32347,7 +32347,7 @@
     "address": "岡山県岡山市北区御津矢原299-2",
     "hireDate": "2022-07-11",
     "resignDate": "2022-07-19",
-    "avatar": "スクリーンショット 2022-05-24 113620.png",
+    "avatar": "bbadd5ea-f8ef-4ff3-b98b-a6ddef73f5a9.png",
     "id": 1145
   },
   {
@@ -32393,7 +32393,7 @@
     "address": "岡山県岡山市北区御津矢原294-1",
     "hireDate": "2022-10-04",
     "notes": "2022/10/4～2024/12/20まで請負　2024/12/23～高雄工業岡山に派遣開始",
-    "avatar": "スクリーンショット 2024-12-14 164405.png",
+    "avatar": "3d76c915-3e90-461b-bf43-c4de6b0fbbf4.png",
     "id": 1147
   },
   {
@@ -32615,7 +32615,7 @@
     "address": "岡山県岡山市北区御津矢原311",
     "hireDate": "2023-07-12",
     "resignDate": "2025-11-21",
-    "avatar": "LE VAN HIEU.png",
+    "avatar": "a05a9cc8-e1dd-4205-9a6c-623e55663872.png",
     "id": 1157
   },
   {
@@ -32662,7 +32662,7 @@
     "address": "岡山県岡山市北区御津矢原298-1",
     "hireDate": "2023-08-29",
     "notes": "2023/8/29～2024/8？？まで請負配属　2024/8/6～PATECに移動",
-    "avatar": "PHAM-VINH-QUANG-機械工学技術.pdf および他 1 ページ - 個人 - Microsoft​ Edge 2023_08_25 17_06_12.png",
+    "avatar": "7f018a6f-d0a4-4a47-a4bd-a77995e91795.png",
     "id": 1159
   },
   {
@@ -32686,7 +32686,7 @@
     "address": "岡山県岡山市北区御津矢原298-1",
     "hireDate": "2023-08-29",
     "notes": "2023/8/29～2024/8/2まで請負配属　2024/8/6～PATECに移動",
-    "avatar": "DO-DUC-TRUNG業務履歴書 (1) - Excel 2023_08_25 16_33_38.png",
+    "avatar": "ea110306-c9fc-4f60-9e00-570fc29675bf.png",
     "id": 1160
   },
   {
@@ -32733,7 +32733,7 @@
     "address": "岡山県岡山市北区御津矢原370",
     "hireDate": "2023-10-06",
     "resignDate": "2024-09-06",
-    "avatar": "スクリーンショット 2023-10-31 132632.png",
+    "avatar": "9ee39330-e824-4b80-b78f-66fb7c9d1f8a.png",
     "id": 1162
   },
   {
@@ -32825,7 +32825,7 @@
     "address": "岡山市北区御津矢原370",
     "hireDate": "2024-01-08",
     "notes": "2024/1/8～2024/12/20まで請負　2024/12/23～高雄工業岡山に派遣開始",
-    "avatar": "スクリーンショット 2024-12-14 164249.png",
+    "avatar": "0623286b-67e3-4ce3-b615-2c11bae321a6.png",
     "id": 1166
   },
   {
@@ -32894,7 +32894,7 @@
     "postalCode": "709-2107",
     "address": "岡山県岡山市北区御津矢原339",
     "hireDate": "2024-03-11",
-    "avatar": "リンタン.png",
+    "avatar": "1548c3d6-379b-45b1-a125-5991004a2fa2.png",
     "id": 1169
   },
   {
@@ -32939,7 +32939,7 @@
     "postalCode": "709-2107",
     "address": "岡山県岡山市北区御津矢原339",
     "hireDate": "2024-03-11",
-    "avatar": "ｱｽﾗﾑ.png",
+    "avatar": "606bed9b-cb76-4297-be0b-8b0fffa2c436.png",
     "id": 1171
   },
   {
@@ -32962,7 +32962,7 @@
     "postalCode": "709-2107",
     "address": "岡山県岡山市北区御津矢原339",
     "hireDate": "2024-03-11",
-    "avatar": "イルファン.png",
+    "avatar": "5ebcfdb4-ae85-4aaf-aa6c-79319566455e.png",
     "id": 1172
   },
   {
@@ -32985,7 +32985,7 @@
     "postalCode": "709-2107",
     "address": "岡山県岡山市北区御津矢原339",
     "hireDate": "2024-03-11",
-    "avatar": "ﾄﾏｽ.png",
+    "avatar": "7f0d1c4c-7529-43ef-856c-eab3a3ba6fb4.png",
     "id": 1173
   },
   {
@@ -33139,7 +33139,7 @@
     "address": "岡山県岡山市北区御津矢原311",
     "hireDate": "2024-11-04",
     "notes": "2024/11/4～2025/3/9まで請負　2025/3/10より派遣岡山に異動",
-    "avatar": "スクリーンショット 2025-02-28 141300.png",
+    "avatar": "330ef8a4-069f-4b6a-9c78-97fef571f282.png",
     "id": 1180
   },
   {
@@ -33518,7 +33518,7 @@
     "hireDate": "2025-05-21",
     "resignDate": "2025-09-26",
     "notes": "2021/8/23高雄岡山28H勤務　育休復帰より異動",
-    "avatar": "bui thi yen.jpg",
+    "avatar": "59a27bcc-d836-412b-bf77-c4b9ea4c1561.jpg",
     "id": 1197
   },
   {
