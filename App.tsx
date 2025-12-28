@@ -132,10 +132,10 @@ const App: React.FC = () => {
 
   // FAB actions for quick access
   const fabActions = useMemo(() => [
-    { icon: <Users size={20} />, label: 'Add GenzaiX', onClick: () => { navigate('/genzaix'); handleAddStaff(); } },
-    { icon: <Briefcase size={20} />, label: 'Add Ukeoi', onClick: () => { navigate('/ukeoi'); handleAddStaff(); } },
-    { icon: <FileText size={20} />, label: 'New Resume', onClick: handleAddResume },
-    { icon: <Download size={20} />, label: 'Export DB', onClick: () => navigate('/database') },
+    { id: 'add-genzaix', icon: <Users size={20} />, label: 'Add GenzaiX', onClick: () => { navigate('/genzaix'); handleAddStaff(); } },
+    { id: 'add-ukeoi', icon: <Briefcase size={20} />, label: 'Add Ukeoi', onClick: () => { navigate('/ukeoi'); handleAddStaff(); } },
+    { id: 'new-resume', icon: <FileText size={20} />, label: 'New Resume', onClick: handleAddResume },
+    { id: 'export-db', icon: <Download size={20} />, label: 'Export DB', onClick: () => navigate('/database') },
   ], [navigate]);
 
   const currentType: StaffType = activeView === 'genzaix' ? 'GenzaiX' : 'Ukeoi';
