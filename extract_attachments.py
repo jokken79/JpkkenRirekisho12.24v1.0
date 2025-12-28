@@ -2,8 +2,8 @@ import win32com.client
 import os
 
 # CONFIGURACIÓN
-DB_PATH = r"D:\RirekishoDBaseAntigua\ユニバーサル企画㈱データベースv24.1.1_be.accdb"
-OUTPUT_DIR = r"D:\staffhub-uns-pro\public\photos"
+DB_PATH = r"C:\Users\Jpkken\Downloads\ユニバーサル企画㈱データベースv25.3.24_be.accdb"
+OUTPUT_DIR = r"C:\Users\Jpkken\JpkkenRirekisho12.24v1.0\public\photos"
 TABLE_NAME = "T_履歴書"
 PHOTO_FIELD = "写真"
 
