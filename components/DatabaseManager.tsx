@@ -117,15 +117,25 @@ const DatabaseManager: React.FC = () => {
         for (const row of rows.slice(1)) {
           if (!row[1]) continue;
           const empId = String(row[1]);
+
+          // Combine address and apartment
+          const address = row[26] || '';
+          const apartment = row[27] || '';
+          const fullAddress = [address, apartment].filter(Boolean).join(' ');
+
+          // Build notes with extra info not in schema
+          const noteParts = [];
+          if (row[3]) noteParts.push(`派遣先: ${row[3]}`);
+          if (row[4]) noteParts.push(`配属先: ${row[4]}`);
+          if (row[5]) noteParts.push(`ライン: ${row[5]}`);
+          if (row[6]) noteParts.push(`仕事内容: ${row[6]}`);
+          if (row[35]) noteParts.push(row[35]);
+          const notes = noteParts.length > 0 ? noteParts.join('\n') : null;
+
           await staffService.create({
             type: 'GenzaiX',
-            status: row[0] || 'Active',
+            status: row[0] || '在職中',
             emp_id: empId,
-            dispatch_id: row[2] || null,
-            dispatch_company: row[3] || null,
-            department: row[4] || null,
-            line: row[5] || null,
-            job_content: row[6] || null,
             full_name: row[7] || '',
             full_name_kana: row[8] || '',
             gender: row[9] || '',
@@ -133,27 +143,19 @@ const DatabaseManager: React.FC = () => {
             birth_date: excelDateToJSDate(row[11]),
             age: parseIntSafe(row[12]),
             hourly_wage: parseIntSafe(row[13]),
-            wage_revision: row[14] || null,
             billing_unit: parseIntSafe(row[15]),
-            billing_revision: row[16] || null,
             profit_margin: parseIntSafe(row[17]),
             standard_remuneration: parseIntSafe(row[18]),
             health_ins: parseIntSafe(row[19]),
             nursing_ins: parseIntSafe(row[20]),
             pension: parseIntSafe(row[21]),
             visa_expiry: excelDateToJSDate(row[22]),
-            visa_alert: row[23] || null,
             visa_type: row[24] || null,
             postal_code: row[25] || null,
-            address: row[26] || null,
-            apartment: row[27] || null,
-            is_shaku: row[28] === '社宅' || row[28] === true,
+            address: fullAddress || null,
+            is_shaku: row[28] === '社宅' || row[28] === true || !!row[28],
             hire_date: excelDateToJSDate(row[29]),
-            resign_date: excelDateToJSDate(row[30]),
-            move_in_date: excelDateToJSDate(row[31]),
-            move_out_date: excelDateToJSDate(row[32]),
-            social_ins_status: row[33] || null,
-            notes: row[34] || null,
+            notes: notes,
             photo: `${empId}.jpg`
           });
           importedCount++;
@@ -165,11 +167,22 @@ const DatabaseManager: React.FC = () => {
         for (const row of rows.slice(1)) {
           if (!row[1]) continue;
           const empId = String(row[1]);
+
+          // Combine address and apartment
+          const address = row[22] || '';
+          const apartment = row[23] || '';
+          const fullAddress = [address, apartment].filter(Boolean).join(' ');
+
+          // Build notes with extra info not in schema
+          const noteParts = [];
+          if (row[2]) noteParts.push(`請負業務: ${row[2]}`);
+          if (row[35]) noteParts.push(row[35]);
+          const notes = noteParts.length > 0 ? noteParts.join('\n') : null;
+
           await staffService.create({
             type: 'Ukeoi',
-            status: row[0] || 'Active',
+            status: row[0] || '在職中',
             emp_id: empId,
-            dispatch_id: row[2] || null,
             full_name: row[3] || '',
             full_name_kana: row[4] || '',
             gender: row[5] || '',
@@ -177,32 +190,22 @@ const DatabaseManager: React.FC = () => {
             birth_date: excelDateToJSDate(row[7]),
             age: parseIntSafe(row[8]),
             hourly_wage: parseIntSafe(row[9]),
-            wage_revision: row[10] || null,
             standard_remuneration: parseIntSafe(row[11]),
             health_ins: parseIntSafe(row[12]),
             nursing_ins: parseIntSafe(row[13]),
             pension: parseIntSafe(row[14]),
-            department: row[15] || null,
-            line: row[16] || null,
             profit_margin: parseIntSafe(row[17]),
             visa_expiry: excelDateToJSDate(row[18]),
-            visa_alert: row[19] || null,
             visa_type: row[20] || null,
             postal_code: row[21] || null,
-            address: row[22] || null,
-            apartment: row[23] || null,
-            is_shaku: row[24] === '社宅' || row[24] === true,
+            address: fullAddress || null,
+            is_shaku: row[24] === '社宅' || row[24] === true || !!row[24],
             hire_date: excelDateToJSDate(row[25]),
-            resign_date: excelDateToJSDate(row[26]),
-            move_in_date: excelDateToJSDate(row[27]),
-            move_out_date: excelDateToJSDate(row[28]),
             bank_account_holder: row[29] || null,
             bank_name: row[30] || null,
-            bank_branch: row[31] || null,
-            bank_account_type: row[32] || null,
+            bank_branch: row[32] || null,
             bank_account_number: row[33] || null,
-            social_ins_status: row[34] || null,
-            notes: row[35] || null,
+            notes: notes,
             photo: `${empId}.jpg`
           });
           importedCount++;
@@ -337,6 +340,19 @@ const DatabaseManager: React.FC = () => {
 
       for (const staff of staffData) {
         try {
+          // Build notes with extra info not in schema
+          const noteParts = [];
+          if (staff.dispatchCompany) noteParts.push(`派遣先: ${staff.dispatchCompany}`);
+          if (staff.department) noteParts.push(`配属先: ${staff.department}`);
+          if (staff.assignmentLine) noteParts.push(`ライン: ${staff.assignmentLine}`);
+          if (staff.jobContent) noteParts.push(`仕事内容: ${staff.jobContent}`);
+          if (staff.contractWork) noteParts.push(`請負業務: ${staff.contractWork}`);
+          if (staff.notes) noteParts.push(staff.notes);
+          const notes = noteParts.length > 0 ? noteParts.join('\n') : null;
+
+          // Combine address and apartment
+          const fullAddress = [staff.address, staff.apartment].filter(Boolean).join(' ');
+
           // Map JSON fields to database fields (snake_case)
           await staffService.create({
             type: staff.type || 'GenzaiX',
@@ -348,12 +364,6 @@ const DatabaseManager: React.FC = () => {
             nationality: staff.nationality || '',
             birth_date: staff.birthDate || null,
             age: staff.age || null,
-            dispatch_id: staff.dispatchId || null,
-            dispatch_company: staff.dispatchCompany || null,
-            department: staff.department || null,
-            line: staff.assignmentLine || null,
-            job_content: staff.jobContent || null,
-            contract_work: staff.contractWork || null,
             hourly_wage: staff.hourlyWage || null,
             billing_unit: staff.billingUnit || null,
             profit_margin: staff.profitMargin || null,
@@ -364,13 +374,15 @@ const DatabaseManager: React.FC = () => {
             visa_expiry: staff.visaExpiry || null,
             visa_type: staff.visaType || null,
             postal_code: staff.postalCode || null,
-            address: staff.address || null,
-            apartment: staff.apartment || null,
+            address: fullAddress || null,
             hire_date: staff.hireDate || null,
-            resign_date: staff.resignDate || null,
-            social_ins_status: staff.socialInsStatus || null,
-            notes: staff.notes || null,
-            photo: staff.avatar || null, // Map 'avatar' from JSON to 'photo' in DB
+            is_shaku: staff.isShaku || false,
+            bank_name: staff.bankName || null,
+            bank_branch: staff.bankBranch || null,
+            bank_account_number: staff.bankAccountNumber || null,
+            bank_account_holder: staff.bankAccountHolder || null,
+            notes: notes,
+            photo: staff.avatar || null,
           });
           importedCount++;
         } catch (err) {
