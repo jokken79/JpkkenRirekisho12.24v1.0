@@ -1,6 +1,6 @@
 
 import React, { useState, useRef } from 'react';
-import { Database, Download, ShieldCheck, RefreshCw, FileCode, Cloud, Upload, FileSpreadsheet, CheckCircle2, AlertCircle, Users } from 'lucide-react';
+import { Database, Download, ShieldCheck, RefreshCw, FileCode, Cloud, Upload, FileSpreadsheet, CheckCircle2, AlertCircle, Users, Trash2 } from 'lucide-react';
 import { read, utils } from 'xlsx';
 import { staffService, resumeService } from '../lib/dataService';
 import { isSupabaseConfigured } from '../lib/supabase';
@@ -44,6 +44,7 @@ const parseDateSafe = (value: any): string | null => {
 const DatabaseManager: React.FC = () => {
   const [isExporting, setIsExporting] = useState(false);
   const [isImporting, setIsImporting] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
   const [importStatus, setImportStatus] = useState<{ success: boolean; message: string } | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const legacyFileInputRef = useRef<HTMLInputElement>(null);
@@ -52,6 +53,24 @@ const DatabaseManager: React.FC = () => {
   const staffCount = useStaffCount() || 0;
   const resumeCount = useResumeCount() || 0;
   const isConnected = isSupabaseConfigured();
+
+  // Delete all staff data
+  const handleDeleteAllStaff = async () => {
+    if (!confirm('本当にすべてのスタッフデータを削除しますか？この操作は元に戻せません。')) {
+      return;
+    }
+    setIsDeleting(true);
+    setImportStatus(null);
+    try {
+      const deleted = await staffService.deleteAll();
+      setImportStatus({ success: true, message: `${deleted}件のスタッフデータを削除しました。` });
+    } catch (error: any) {
+      console.error('Delete failed:', error);
+      setImportStatus({ success: false, message: `削除エラー: ${error.message}` });
+    } finally {
+      setIsDeleting(false);
+    }
+  };
 
   const excelDateToJSDate = (serial: number | string): string | null => {
     if (!serial) return null;
@@ -564,6 +583,29 @@ const DatabaseManager: React.FC = () => {
                 <span className="font-bold text-slate-700">{resumeCount}件</span>
               </div>
             </div>
+          </div>
+
+          {/* Delete All Staff Card */}
+          <div className="bg-white p-8 rounded-[2.5rem] shadow-xl shadow-slate-200/50 border border-slate-100 flex flex-col items-center text-center space-y-6 relative overflow-hidden group">
+            <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-red-400 to-rose-500" />
+            <div className="w-20 h-20 bg-red-50 text-red-600 rounded-3xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+              <Trash2 size={40} strokeWidth={1.5} />
+            </div>
+            <div className="space-y-2">
+              <h3 className="text-xl font-bold text-slate-800">全スタッフ削除</h3>
+              <p className="text-sm text-slate-400 px-4">すべてのスタッフデータを削除（再インポート前に使用）</p>
+            </div>
+            <button
+              onClick={handleDeleteAllStaff}
+              disabled={isDeleting || !isConnected || staffCount === 0}
+              className={`
+                w-full py-4 rounded-2xl font-bold transition-all active:scale-95 flex items-center justify-center gap-3 shadow-lg
+                ${isDeleting || !isConnected || staffCount === 0 ? 'bg-slate-100 text-slate-400 cursor-not-allowed' : 'bg-red-600 hover:bg-red-700 text-white shadow-red-500/20'}
+              `}
+            >
+              {isDeleting ? <RefreshCw className="animate-spin" size={20} /> : <Trash2 size={20} />}
+              {isDeleting ? '削除中...' : `${staffCount}件を削除`}
+            </button>
           </div>
         </div>
       </div>

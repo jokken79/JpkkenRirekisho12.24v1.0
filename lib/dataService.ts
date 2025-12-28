@@ -80,6 +80,30 @@ export const staffService = {
     if (error) throw error;
   },
 
+  async deleteAll(type?: 'GenzaiX' | 'Ukeoi'): Promise<number> {
+    // Get all staff IDs first
+    let query = supabase.from('staff').select('id');
+    if (type) {
+      query = query.eq('type', type);
+    }
+    const { data: staff, error: fetchError } = await query;
+    if (fetchError) throw fetchError;
+    if (!staff || staff.length === 0) return 0;
+
+    // Delete in batches of 100
+    const batchSize = 100;
+    let deleted = 0;
+    for (let i = 0; i < staff.length; i += batchSize) {
+      const batch = staff.slice(i, i + batchSize);
+      const ids = batch.map(s => s.id);
+      let deleteQuery = supabase.from('staff').delete().in('id', ids);
+      const { error } = await deleteQuery;
+      if (error) throw error;
+      deleted += batch.length;
+    }
+    return deleted;
+  },
+
   async search(term: string, type?: 'GenzaiX' | 'Ukeoi'): Promise<Staff[]> {
     const safeTerm = sanitizeSearchTerm(term);
     if (!safeTerm) return [];
