@@ -10,7 +10,12 @@ import {
   NavigateToNextCellParams,
   CellPosition,
   ICellRendererParams,
+  ModuleRegistry,
+  AllCommunityModule,
 } from 'ag-grid-community';
+
+// Register AG Grid modules (required for v35+)
+ModuleRegistry.registerModules([AllCommunityModule]);
 import { motion, AnimatePresence } from 'framer-motion';
 import { useStaff, staffService } from '../lib/useSupabase';
 import { StaffType, StaffMember, TableField } from '../types';
