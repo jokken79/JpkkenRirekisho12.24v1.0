@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useCallback, useEffect } from 'react';
+import React, { useState, useMemo, useCallback, useEffect, useRef } from 'react';
 import {
   useReactTable,
   getCoreRowModel,
@@ -6,11 +6,11 @@ import {
   getPaginationRowModel,
   getSortedRowModel,
   flexRender,
-  createColumnHelper,
   ColumnDef,
   SortingState,
   ColumnFiltersState,
   VisibilityState,
+  RowSelectionState,
   FilterFn,
 } from '@tanstack/react-table';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -30,14 +30,23 @@ import {
   ChevronsLeft,
   ChevronsRight,
   Settings2,
-  Search,
   X,
-  Filter,
   AlertTriangle,
+  Download,
+  FileSpreadsheet,
+  Printer,
+  Copy,
+  Eye,
+  Clock,
+  Users,
+  DollarSign,
+  TrendingUp,
+  Calendar,
 } from 'lucide-react';
 import { Badge } from './ui/badge';
 import { Button } from './ui/button';
 import { SearchInput } from './ui/input';
+import { Checkbox } from './ui/checkbox';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -47,6 +56,14 @@ import {
   DropdownMenuTrigger,
   DropdownMenuCheckboxItem,
 } from './ui/dropdown-menu';
+import {
+  ContextMenu,
+  ContextMenuContent,
+  ContextMenuItem,
+  ContextMenuSeparator,
+  ContextMenuShortcut,
+  ContextMenuTrigger,
+} from './ui/context-menu';
 import {
   Select,
   SelectContent,
@@ -137,6 +154,9 @@ function VisaAlertBadge({ expiryDate }: { expiryDate?: string }) {
   return <span className="text-slate-600">{expiryDate}</span>;
 }
 
+// Quick filter type
+type QuickFilter = 'all' | 'active' | 'terminated' | 'visa-expiring';
+
 interface Props {
   type: StaffType;
   searchTerm: string;
@@ -146,6 +166,7 @@ interface Props {
 const StaffTable: React.FC<Props> = ({ type, searchTerm, onEdit }) => {
   const allStaff = useStaff(type);
   const fields = type === 'GenzaiX' ? GENZAIX_FIELDS : UKEOI_FIELDS;
+  const tableRef = useRef<HTMLTableElement>(null);
 
   // Table state
   const [sorting, setSorting] = useState<SortingState>([]);
@@ -153,11 +174,14 @@ const StaffTable: React.FC<Props> = ({ type, searchTerm, onEdit }) => {
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
   const [globalFilter, setGlobalFilter] = useState('');
   const [pageSize, setPageSize] = useState(20);
+  const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
+  const [quickFilter, setQuickFilter] = useState<QuickFilter>('all');
 
   // Delete confirmation dialog state
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [deleteTarget, setDeleteTarget] = useState<{ id: string; name: string } | null>(null);
   const [deleteLoading, setDeleteLoading] = useState(false);
+  const [bulkDeleteMode, setBulkDeleteMode] = useState(false);
 
   // Sync external search term
   useEffect(() => {
@@ -190,9 +214,105 @@ const StaffTable: React.FC<Props> = ({ type, searchTerm, onEdit }) => {
     localStorage.setItem('staffTable-pageSize', String(pageSize));
   }, [pageSize]);
 
+  // Apply quick filter
+  const filteredData = useMemo(() => {
+    if (!allStaff) return [];
+
+    return allStaff.filter(staff => {
+      if (quickFilter === 'all') return true;
+
+      const status = (staff.status || '').toLowerCase();
+      const visaExpiry = staff.visa_expiry || staff.visaExpiry;
+
+      switch (quickFilter) {
+        case 'active':
+          return status.includes('現在') || status.includes('在籍') || status.includes('active');
+        case 'terminated':
+          return status.includes('退') || status.includes('終了') || status.includes('terminated');
+        case 'visa-expiring': {
+          if (!visaExpiry) return false;
+          const expiry = new Date(visaExpiry);
+          const now = new Date();
+          const days = Math.ceil((expiry.getTime() - now.getTime()) / (1000 * 60 * 60 * 24));
+          return days <= 90 && days >= 0;
+        }
+        default:
+          return true;
+      }
+    });
+  }, [allStaff, quickFilter]);
+
+  // Calculate statistics
+  const stats = useMemo(() => {
+    if (!filteredData) return { total: 0, active: 0, avgWage: 0, visaExpiring: 0 };
+
+    const active = filteredData.filter(s => {
+      const status = (s.status || '').toLowerCase();
+      return status.includes('現在') || status.includes('在籍') || status.includes('active');
+    }).length;
+
+    const wages = filteredData.map(s => s.hourly_wage || s.hourlyWage || 0).filter(w => w > 0);
+    const avgWage = wages.length > 0 ? Math.round(wages.reduce((a, b) => a + b, 0) / wages.length) : 0;
+
+    const visaExpiring = filteredData.filter(s => {
+      const visaExpiry = s.visa_expiry || s.visaExpiry;
+      if (!visaExpiry) return false;
+      const expiry = new Date(visaExpiry);
+      const now = new Date();
+      const days = Math.ceil((expiry.getTime() - now.getTime()) / (1000 * 60 * 60 * 24));
+      return days <= 90 && days >= 0;
+    }).length;
+
+    return { total: filteredData.length, active, avgWage, visaExpiring };
+  }, [filteredData]);
+
+  // Calculate selected rows stats
+  const selectedStats = useMemo(() => {
+    const selectedRows = Object.keys(rowSelection).map(id => filteredData.find(s => String(s.id) === id)).filter(Boolean) as Staff[];
+    if (selectedRows.length === 0) return null;
+
+    const wages = selectedRows.map(s => s.hourly_wage || s.hourlyWage || 0).filter(w => w > 0);
+    const avgWage = wages.length > 0 ? Math.round(wages.reduce((a, b) => a + b, 0) / wages.length) : 0;
+
+    const profits = selectedRows.map(s => s.profit_margin || s.profitMargin || 0).filter(p => p > 0);
+    const totalProfit = profits.reduce((a, b) => a + b, 0);
+
+    const ages = selectedRows.map(s => s.age || 0).filter(a => a > 0);
+    const avgAge = ages.length > 0 ? (ages.reduce((a, b) => a + b, 0) / ages.length).toFixed(1) : '0';
+
+    return { count: selectedRows.length, avgWage, totalProfit, avgAge };
+  }, [rowSelection, filteredData]);
+
   // Build columns from field definitions
   const columns = useMemo<ColumnDef<Staff>[]>(() => {
     const cols: ColumnDef<Staff>[] = [];
+
+    // Selection checkbox column
+    cols.push({
+      id: 'select',
+      header: ({ table }) => (
+        <div className="flex items-center justify-center">
+          <Checkbox
+            checked={table.getIsAllPageRowsSelected()}
+            indeterminate={table.getIsSomePageRowsSelected()}
+            onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+            aria-label="Select all"
+          />
+        </div>
+      ),
+      cell: ({ row }) => (
+        <div className="flex items-center justify-center">
+          <Checkbox
+            checked={row.getIsSelected()}
+            onCheckedChange={(value) => row.toggleSelected(!!value)}
+            aria-label="Select row"
+          />
+        </div>
+      ),
+      size: 48,
+      enableSorting: false,
+      enableHiding: false,
+    });
 
     // Row number column
     cols.push({
@@ -214,13 +334,10 @@ const StaffTable: React.FC<Props> = ({ type, searchTerm, onEdit }) => {
       header: '写真',
       cell: ({ row }) => {
         const photo = getRowValue(row.original, 'photo');
-        const empId = getRowValue(row.original, 'empId') || getRowValue(row.original, 'emp_id');
         const fullName = getRowValue(row.original, 'fullName') || getRowValue(row.original, 'full_name');
-        // Only use photo field if it exists - don't fallback to empId.jpg
-        const photoFile = photo || '';
         return (
           <AvatarDisplay
-            filename={photoFile}
+            filename={photo || ''}
             alt={fullName || 'Employee'}
             size="sm"
           />
@@ -251,7 +368,7 @@ const StaffTable: React.FC<Props> = ({ type, searchTerm, onEdit }) => {
             )}
           </button>
         ),
-        cell: ({ getValue, row }) => {
+        cell: ({ getValue }) => {
           const value = getValue();
 
           // Special rendering for status
@@ -319,6 +436,10 @@ const StaffTable: React.FC<Props> = ({ type, searchTerm, onEdit }) => {
                 <Edit3 className="h-4 w-4 mr-2" />
                 Edit Details
               </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => handleCopyRow(row.original)}>
+                <Copy className="h-4 w-4 mr-2" />
+                Copy Data
+              </DropdownMenuItem>
               <DropdownMenuSeparator />
               <DropdownMenuItem
                 onClick={() => {
@@ -344,43 +465,198 @@ const StaffTable: React.FC<Props> = ({ type, searchTerm, onEdit }) => {
 
   const openDeleteDialog = (id: string, name: string) => {
     setDeleteTarget({ id, name });
+    setBulkDeleteMode(false);
     setDeleteDialogOpen(true);
   };
 
   const handleDelete = async () => {
-    if (!deleteTarget) return;
-    setDeleteLoading(true);
-    try {
-      await staffService.delete(deleteTarget.id);
-    } catch (error) {
-      console.error('Failed to delete staff:', error);
-      // Error will be shown via toast or handled by caller
-    } finally {
-      setDeleteLoading(false);
-      setDeleteDialogOpen(false);
-      setDeleteTarget(null);
+    if (bulkDeleteMode) {
+      // Bulk delete
+      setDeleteLoading(true);
+      try {
+        const selectedIds = Object.keys(rowSelection);
+        await Promise.all(selectedIds.map(id => staffService.delete(id)));
+        setRowSelection({});
+      } catch (error) {
+        console.error('Failed to bulk delete staff:', error);
+      } finally {
+        setDeleteLoading(false);
+        setDeleteDialogOpen(false);
+        setBulkDeleteMode(false);
+      }
+    } else if (deleteTarget) {
+      // Single delete
+      setDeleteLoading(true);
+      try {
+        await staffService.delete(deleteTarget.id);
+      } catch (error) {
+        console.error('Failed to delete staff:', error);
+      } finally {
+        setDeleteLoading(false);
+        setDeleteDialogOpen(false);
+        setDeleteTarget(null);
+      }
     }
   };
 
+  const handleBulkDelete = () => {
+    const count = Object.keys(rowSelection).length;
+    setDeleteTarget({ id: '', name: `${count} employees` });
+    setBulkDeleteMode(true);
+    setDeleteDialogOpen(true);
+  };
+
+  const handleCopyRow = async (row: Staff) => {
+    const name = getRowValue(row, 'fullName') || getRowValue(row, 'full_name');
+    const empId = getRowValue(row, 'empId') || getRowValue(row, 'emp_id');
+    const department = row.department || '';
+    const text = `${name} (${empId}) - ${department}`;
+    try {
+      await navigator.clipboard.writeText(text);
+    } catch (error) {
+      console.error('Failed to copy:', error);
+    }
+  };
+
+  // Export functions
+  const handleExportCSV = async (selectedOnly: boolean = false) => {
+    const dataToExport = selectedOnly
+      ? Object.keys(rowSelection).map(id => filteredData.find(s => String(s.id) === id)).filter(Boolean)
+      : filteredData;
+
+    if (!dataToExport.length) return;
+
+    const headers = fields.map(f => f.label);
+    const rows = dataToExport.map(row =>
+      fields.map(f => {
+        const value = getRowValue(row, f.key);
+        return value ? String(value) : '';
+      })
+    );
+
+    const csvContent = [
+      headers.join(','),
+      ...rows.map(row => row.map(cell => `"${cell.replace(/"/g, '""')}"`).join(','))
+    ].join('\n');
+
+    const blob = new Blob(['\ufeff' + csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `${type}_Staff_${new Date().toISOString().slice(0, 10)}.csv`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  };
+
+  const handlePrint = (selectedOnly: boolean = false) => {
+    const dataToExport = selectedOnly
+      ? Object.keys(rowSelection).map(id => filteredData.find(s => String(s.id) === id)).filter(Boolean)
+      : filteredData;
+
+    if (!dataToExport.length) return;
+
+    const printContent = `
+      <!DOCTYPE html>
+      <html>
+      <head>
+        <title>${type} Staff List</title>
+        <style>
+          body { font-family: sans-serif; font-size: 10px; padding: 20px; }
+          table { border-collapse: collapse; width: 100%; }
+          th, td { border: 1px solid #ddd; padding: 6px; text-align: left; }
+          th { background: #f5f5f5; font-weight: bold; }
+          h1 { font-size: 16px; margin-bottom: 10px; }
+          .meta { color: #666; margin-bottom: 15px; }
+        </style>
+      </head>
+      <body>
+        <h1>${type === 'GenzaiX' ? '派遣社員' : '請負社員'} List</h1>
+        <div class="meta">Exported: ${new Date().toLocaleString('ja-JP')}</div>
+        <table>
+          <thead>
+            <tr>
+              <th>#</th>
+              ${fields.slice(0, 10).map(f => `<th>${f.label}</th>`).join('')}
+            </tr>
+          </thead>
+          <tbody>
+            ${dataToExport.map((row, i) => `
+              <tr>
+                <td>${i + 1}</td>
+                ${fields.slice(0, 10).map(f => `<td>${getRowValue(row, f.key) || '-'}</td>`).join('')}
+              </tr>
+            `).join('')}
+          </tbody>
+        </table>
+      </body>
+      </html>
+    `;
+
+    const printWindow = window.open('', '_blank');
+    if (printWindow) {
+      printWindow.document.write(printContent);
+      printWindow.document.close();
+      printWindow.print();
+    }
+  };
+
+  // Keyboard shortcuts
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      const isMac = navigator.platform.toUpperCase().indexOf('MAC') >= 0;
+      const modKey = isMac ? e.metaKey : e.ctrlKey;
+
+      // Ctrl/Cmd + A - Select all
+      if (modKey && e.key === 'a' && document.activeElement?.closest('table')) {
+        e.preventDefault();
+        table.toggleAllRowsSelected(true);
+      }
+
+      // Escape - Clear selection
+      if (e.key === 'Escape') {
+        if (Object.keys(rowSelection).length > 0) {
+          setRowSelection({});
+        } else if (globalFilter) {
+          setGlobalFilter('');
+        }
+      }
+
+      // Delete/Backspace with selection
+      if ((e.key === 'Delete' || (modKey && e.key === 'Backspace')) && Object.keys(rowSelection).length > 0) {
+        e.preventDefault();
+        handleBulkDelete();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [rowSelection, globalFilter]);
+
   // Create table instance
   const table = useReactTable({
-    data: allStaff || [],
+    data: filteredData || [],
     columns,
     state: {
       sorting,
       columnFilters,
       columnVisibility,
       globalFilter,
+      rowSelection,
     },
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
     onColumnVisibilityChange: setColumnVisibility,
     onGlobalFilterChange: setGlobalFilter,
+    onRowSelectionChange: setRowSelection,
     getCoreRowModel: getCoreRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     getSortedRowModel: getSortedRowModel(),
     globalFilterFn,
+    enableRowSelection: true,
+    getRowId: (row) => String(row.id),
     initialState: {
       pagination: {
         pageSize,
@@ -392,6 +668,8 @@ const StaffTable: React.FC<Props> = ({ type, searchTerm, onEdit }) => {
   useEffect(() => {
     table.setPageSize(pageSize);
   }, [pageSize, table]);
+
+  const selectedCount = Object.keys(rowSelection).length;
 
   // Loading state
   if (!allStaff) {
@@ -422,61 +700,203 @@ const StaffTable: React.FC<Props> = ({ type, searchTerm, onEdit }) => {
       animate="animate"
       className="flex-1 flex flex-col overflow-hidden bg-slate-100"
     >
-      {/* Toolbar */}
-      <div className="flex items-center justify-between gap-4 p-4 bg-white border-b border-slate-200">
-        {/* Search */}
-        <div className="flex items-center gap-3 flex-1 max-w-md">
-          <SearchInput
-            placeholder="Search employees..."
-            value={globalFilter}
-            onChange={(e) => setGlobalFilter(e.target.value)}
-            onClear={() => setGlobalFilter('')}
-            className="w-full"
-          />
-        </div>
+      {/* Enhanced Toolbar */}
+      <div className="sticky top-0 z-30 bg-white border-b border-slate-200 shadow-sm">
+        {/* Primary toolbar */}
+        <div className="flex items-center justify-between gap-4 px-6 py-4">
+          {/* Left: Search + Quick Filters */}
+          <div className="flex items-center gap-3 flex-1">
+            <SearchInput
+              placeholder="Search employees..."
+              value={globalFilter}
+              onChange={(e) => setGlobalFilter(e.target.value)}
+              onClear={() => setGlobalFilter('')}
+              className="w-80"
+            />
 
-        {/* Filters and Settings */}
-        <div className="flex items-center gap-2">
-          {/* Column Visibility */}
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="outline" size="sm">
-                <Settings2 className="h-4 w-4 mr-2" />
-                Columns
+            {/* Quick filter buttons */}
+            <div className="flex items-center gap-1 ml-4">
+              <Button
+                variant={quickFilter === 'all' ? 'default' : 'ghost'}
+                size="sm"
+                onClick={() => setQuickFilter('all')}
+              >
+                All
+                <span className="ml-1.5 px-1.5 py-0.5 text-xs bg-white/20 rounded">
+                  {allStaff?.length || 0}
+                </span>
               </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="w-56 max-h-80 overflow-auto">
-              <DropdownMenuLabel>Toggle Columns</DropdownMenuLabel>
-              <DropdownMenuSeparator />
-              {table
-                .getAllColumns()
-                .filter((col) => col.getCanHide())
-                .map((column) => (
-                  <DropdownMenuCheckboxItem
-                    key={column.id}
-                    checked={column.getIsVisible()}
-                    onCheckedChange={(value) => column.toggleVisibility(!!value)}
-                  >
-                    {(column.columnDef.meta as any)?.field?.label || column.id}
-                  </DropdownMenuCheckboxItem>
-                ))}
-            </DropdownMenuContent>
-          </DropdownMenu>
+              <Button
+                variant={quickFilter === 'active' ? 'default' : 'ghost'}
+                size="sm"
+                onClick={() => setQuickFilter('active')}
+                className="gap-2"
+              >
+                <span className="w-2 h-2 rounded-full bg-emerald-500" />
+                Active
+              </Button>
+              <Button
+                variant={quickFilter === 'terminated' ? 'default' : 'ghost'}
+                size="sm"
+                onClick={() => setQuickFilter('terminated')}
+                className="gap-2"
+              >
+                <span className="w-2 h-2 rounded-full bg-slate-400" />
+                Terminated
+              </Button>
+              <Button
+                variant={quickFilter === 'visa-expiring' ? 'default' : 'ghost'}
+                size="sm"
+                onClick={() => setQuickFilter('visa-expiring')}
+                className="gap-2"
+              >
+                <AlertTriangle className="h-4 w-4 text-amber-500" />
+                Visa Alert
+                {stats.visaExpiring > 0 && (
+                  <Badge variant="danger" size="sm">{stats.visaExpiring}</Badge>
+                )}
+              </Button>
+            </div>
+          </div>
 
-          {/* Page Size */}
-          <Select value={String(pageSize)} onValueChange={(v) => setPageSize(Number(v))}>
-            <SelectTrigger className="w-[120px]">
-              <SelectValue />
-            </SelectTrigger>
-            <SelectContent>
-              {[5, 10, 20, 50, 100].map((size) => (
-                <SelectItem key={size} value={String(size)}>
-                  {size} rows
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
+          {/* Right: Export + Column Settings */}
+          <div className="flex items-center gap-2">
+            {/* Export Dropdown */}
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="outline" size="sm">
+                  <Download className="h-4 w-4 mr-2" />
+                  Export
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-56">
+                <DropdownMenuLabel>Export Data</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem onClick={() => handleExportCSV(false)}>
+                  <FileSpreadsheet className="h-4 w-4 mr-2" />
+                  Download CSV (All)
+                </DropdownMenuItem>
+                {selectedCount > 0 && (
+                  <DropdownMenuItem onClick={() => handleExportCSV(true)}>
+                    <FileSpreadsheet className="h-4 w-4 mr-2" />
+                    Download CSV ({selectedCount} selected)
+                  </DropdownMenuItem>
+                )}
+                <DropdownMenuSeparator />
+                <DropdownMenuItem onClick={() => handlePrint(false)}>
+                  <Printer className="h-4 w-4 mr-2" />
+                  Print All
+                </DropdownMenuItem>
+                {selectedCount > 0 && (
+                  <DropdownMenuItem onClick={() => handlePrint(true)}>
+                    <Printer className="h-4 w-4 mr-2" />
+                    Print Selected ({selectedCount})
+                  </DropdownMenuItem>
+                )}
+              </DropdownMenuContent>
+            </DropdownMenu>
+
+            {/* Column Visibility */}
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="outline" size="sm">
+                  <Settings2 className="h-4 w-4 mr-2" />
+                  Columns
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-56 max-h-80 overflow-auto">
+                <DropdownMenuLabel>Toggle Columns</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                {table
+                  .getAllColumns()
+                  .filter((col) => col.getCanHide())
+                  .map((column) => (
+                    <DropdownMenuCheckboxItem
+                      key={column.id}
+                      checked={column.getIsVisible()}
+                      onCheckedChange={(value) => column.toggleVisibility(!!value)}
+                    >
+                      {(column.columnDef.meta as any)?.field?.label || column.id}
+                    </DropdownMenuCheckboxItem>
+                  ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
+
+            {/* Page Size */}
+            <Select value={String(pageSize)} onValueChange={(v) => setPageSize(Number(v))}>
+              <SelectTrigger className="w-[120px]">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                {[10, 20, 50, 100, 200].map((size) => (
+                  <SelectItem key={size} value={String(size)}>
+                    {size} rows
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
         </div>
+
+        {/* Selection Toolbar */}
+        <AnimatePresence>
+          {selectedCount > 0 && (
+            <motion.div
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: 'auto', opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              className="overflow-hidden"
+            >
+              <div className="flex items-center gap-4 px-6 py-3 bg-blue-50 border-t border-blue-100">
+                <div className="flex items-center gap-2">
+                  <div className="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center">
+                    <span className="text-sm font-bold text-white">{selectedCount}</span>
+                  </div>
+                  <span className="text-sm font-medium text-blue-900">selected</span>
+                </div>
+
+                <div className="w-px h-6 bg-blue-200" />
+
+                <div className="flex items-center gap-2">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => handleExportCSV(true)}
+                    className="bg-white"
+                  >
+                    <Download className="h-4 w-4 mr-2" />
+                    Export
+                  </Button>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => handlePrint(true)}
+                    className="bg-white"
+                  >
+                    <Printer className="h-4 w-4 mr-2" />
+                    Print
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={handleBulkDelete}
+                    className="text-red-600 hover:text-red-700 hover:bg-red-50"
+                  >
+                    <Trash2 className="h-4 w-4 mr-2" />
+                    Delete
+                  </Button>
+                </div>
+
+                <button
+                  onClick={() => setRowSelection({})}
+                  className="ml-auto p-2 rounded-lg text-blue-400 hover:text-blue-600 hover:bg-blue-100 transition-colors"
+                >
+                  <X className="h-4 w-4" />
+                </button>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
 
       {/* Table */}
@@ -485,12 +905,12 @@ const StaffTable: React.FC<Props> = ({ type, searchTerm, onEdit }) => {
           variants={fadeInUp}
           className="min-w-max bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden"
         >
-          <table className="w-full border-collapse">
+          <table ref={tableRef} className="w-full border-collapse" tabIndex={0}>
             <thead className="bg-slate-50 border-b border-slate-200">
               {table.getHeaderGroups().map((headerGroup) => (
                 <tr key={headerGroup.id}>
                   {headerGroup.headers.map((header, idx) => {
-                    const isFrozen = idx <= 3; // Freeze first 4 columns (#, photo, status, empId)
+                    const isFrozen = idx <= 4; // Freeze first 5 columns (select, #, photo, status, empId)
                     return (
                       <th
                         key={header.id}
@@ -498,9 +918,10 @@ const StaffTable: React.FC<Props> = ({ type, searchTerm, onEdit }) => {
                           'px-4 py-4 text-left text-[11px] font-bold text-slate-500 uppercase tracking-widest border-r border-slate-200',
                           isFrozen && 'sticky bg-slate-50 z-20',
                           idx === 0 && 'left-0',
-                          idx === 1 && 'left-[50px]',
-                          idx === 2 && 'left-[110px]',
-                          idx === 3 && 'left-[206px] shadow-[2px_0_5px_-2px_rgba(0,0,0,0.05)]'
+                          idx === 1 && 'left-[48px]',
+                          idx === 2 && 'left-[98px]',
+                          idx === 3 && 'left-[158px]',
+                          idx === 4 && 'left-[254px] shadow-[2px_0_5px_-2px_rgba(0,0,0,0.05)]'
                         )}
                         style={{ width: header.getSize() }}
                       >
@@ -529,31 +950,80 @@ const StaffTable: React.FC<Props> = ({ type, searchTerm, onEdit }) => {
                   </td>
                 </tr>
               ) : (
-                table.getRowModel().rows.map((row) => (
-                  <tr
-                    key={row.id}
-                    className="hover:bg-blue-50/30 group transition-colors"
-                  >
-                    {row.getVisibleCells().map((cell, idx) => {
-                      const isFrozen = idx <= 3; // Freeze first 4 columns (#, photo, status, empId)
-                      return (
-                        <td
-                          key={cell.id}
-                          className={cn(
-                            'px-4 py-4 text-sm text-slate-600 border-r border-slate-100',
-                            isFrozen && 'sticky bg-white group-hover:bg-blue-50/30 z-10',
-                            idx === 0 && 'left-0',
-                            idx === 1 && 'left-[50px]',
-                            idx === 2 && 'left-[110px]',
-                            idx === 3 && 'left-[206px] shadow-[2px_0_5px_-2px_rgba(0,0,0,0.05)]'
-                          )}
-                          style={{ width: cell.column.getSize() }}
-                        >
-                          {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                        </td>
-                      );
-                    })}
-                  </tr>
+                table.getRowModel().rows.map((row, rowIndex) => (
+                  <ContextMenu key={row.id}>
+                    <ContextMenuTrigger asChild>
+                      <tr
+                        className={cn(
+                          'group transition-all duration-150 cursor-pointer',
+                          row.getIsSelected()
+                            ? 'bg-blue-50/80 before:absolute before:left-0 before:top-0 before:bottom-0 before:w-1 before:bg-blue-600'
+                            : rowIndex % 2 === 0 ? 'bg-white' : 'bg-slate-50/50',
+                          !row.getIsSelected() && 'hover:bg-blue-50/30'
+                        )}
+                        onClick={() => row.toggleSelected()}
+                      >
+                        {row.getVisibleCells().map((cell, idx) => {
+                          const isFrozen = idx <= 4;
+                          return (
+                            <td
+                              key={cell.id}
+                              className={cn(
+                                'px-4 py-4 text-sm text-slate-600 border-r border-slate-100',
+                                isFrozen && 'sticky z-10',
+                                isFrozen && (row.getIsSelected()
+                                  ? 'bg-blue-50/80'
+                                  : rowIndex % 2 === 0 ? 'bg-white' : 'bg-slate-50/50'),
+                                isFrozen && !row.getIsSelected() && 'group-hover:bg-blue-50/30',
+                                idx === 0 && 'left-0',
+                                idx === 1 && 'left-[48px]',
+                                idx === 2 && 'left-[98px]',
+                                idx === 3 && 'left-[158px]',
+                                idx === 4 && 'left-[254px] shadow-[2px_0_5px_-2px_rgba(0,0,0,0.05)]'
+                              )}
+                              style={{ width: cell.column.getSize() }}
+                              onClick={(e) => e.stopPropagation()}
+                            >
+                              {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                            </td>
+                          );
+                        })}
+                      </tr>
+                    </ContextMenuTrigger>
+                    <ContextMenuContent>
+                      <ContextMenuItem onClick={() => onEdit(row.original as StaffMember)}>
+                        <Edit3 className="h-4 w-4 mr-3 text-slate-400" />
+                        Edit Details
+                        <ContextMenuShortcut>E</ContextMenuShortcut>
+                      </ContextMenuItem>
+                      <ContextMenuItem onClick={() => handleCopyRow(row.original)}>
+                        <Copy className="h-4 w-4 mr-3 text-slate-400" />
+                        Copy Data
+                        <ContextMenuShortcut>C</ContextMenuShortcut>
+                      </ContextMenuItem>
+                      <ContextMenuSeparator />
+                      <ContextMenuItem onClick={() => handleExportCSV(true)}>
+                        <Download className="h-4 w-4 mr-3 text-slate-400" />
+                        Export Selected
+                      </ContextMenuItem>
+                      <ContextMenuItem onClick={() => handlePrint(true)}>
+                        <Printer className="h-4 w-4 mr-3 text-slate-400" />
+                        Print Selected
+                      </ContextMenuItem>
+                      <ContextMenuSeparator />
+                      <ContextMenuItem
+                        onClick={() => {
+                          const name = getRowValue(row.original, 'fullName') || getRowValue(row.original, 'full_name') || 'this employee';
+                          openDeleteDialog(row.original.id!, name);
+                        }}
+                        danger
+                      >
+                        <Trash2 className="h-4 w-4 mr-3" />
+                        Delete Employee
+                        <ContextMenuShortcut>Del</ContextMenuShortcut>
+                      </ContextMenuItem>
+                    </ContextMenuContent>
+                  </ContextMenu>
                 ))
               )}
             </tbody>
@@ -561,68 +1031,112 @@ const StaffTable: React.FC<Props> = ({ type, searchTerm, onEdit }) => {
         </motion.div>
       </div>
 
-      {/* Pagination */}
-      <div className="flex items-center justify-between px-6 py-4 bg-white border-t border-slate-200">
-        <div className="text-sm text-slate-500">
-          Showing{' '}
-          <span className="font-medium text-slate-900">
-            {table.getState().pagination.pageIndex * pageSize + 1}
-          </span>
-          {' - '}
-          <span className="font-medium text-slate-900">
-            {Math.min(
-              (table.getState().pagination.pageIndex + 1) * pageSize,
-              table.getFilteredRowModel().rows.length
+      {/* Status Bar */}
+      <div className="sticky bottom-0 z-20 bg-slate-50 border-t border-slate-200 px-6 py-3">
+        <div className="flex items-center justify-between">
+          {/* Left: Stats */}
+          <div className="flex items-center gap-6 text-sm">
+            <div className="flex items-center gap-4">
+              <div className="flex items-center gap-2">
+                <Users className="h-4 w-4 text-slate-400" />
+                <span className="text-slate-500">Total:</span>
+                <span className="font-semibold text-slate-900">{stats.total}</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-emerald-500" />
+                <span className="text-slate-500">Active:</span>
+                <span className="font-semibold text-emerald-600">{stats.active}</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <DollarSign className="h-4 w-4 text-slate-400" />
+                <span className="text-slate-500">Avg Wage:</span>
+                <span className="font-mono font-semibold text-slate-900">¥{stats.avgWage.toLocaleString()}</span>
+              </div>
+            </div>
+
+            {/* Selected stats */}
+            {selectedStats && (
+              <>
+                <div className="w-px h-4 bg-slate-300" />
+                <div className="flex items-center gap-4">
+                  <span className="text-xs font-medium text-blue-600 bg-blue-50 px-2 py-0.5 rounded">
+                    {selectedStats.count} selected
+                  </span>
+                  <div className="flex items-center gap-2">
+                    <span className="text-xs text-slate-500">Avg Wage:</span>
+                    <span className="text-sm font-mono font-semibold text-slate-900">
+                      ¥{selectedStats.avgWage.toLocaleString()}
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <TrendingUp className="h-3 w-3 text-emerald-500" />
+                    <span className="text-xs text-slate-500">Total Profit:</span>
+                    <span className="text-sm font-mono font-semibold text-emerald-600">
+                      ¥{selectedStats.totalProfit.toLocaleString()}
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Calendar className="h-3 w-3 text-slate-400" />
+                    <span className="text-xs text-slate-500">Avg Age:</span>
+                    <span className="text-sm font-semibold text-slate-900">
+                      {selectedStats.avgAge}
+                    </span>
+                  </div>
+                </div>
+              </>
             )}
-          </span>
-          {' of '}
-          <span className="font-medium text-slate-900">
-            {table.getFilteredRowModel().rows.length}
-          </span>
-          {' results'}
-        </div>
+          </div>
 
-        <div className="flex items-center gap-2">
-          <Button
-            variant="outline"
-            size="iconSm"
-            onClick={() => table.setPageIndex(0)}
-            disabled={!table.getCanPreviousPage()}
-          >
-            <ChevronsLeft className="h-4 w-4" />
-          </Button>
-          <Button
-            variant="outline"
-            size="iconSm"
-            onClick={() => table.previousPage()}
-            disabled={!table.getCanPreviousPage()}
-          >
-            <ChevronLeft className="h-4 w-4" />
-          </Button>
+          {/* Right: Pagination */}
+          <div className="flex items-center gap-4">
+            <div className="text-xs text-slate-400 flex items-center gap-2">
+              <Clock className="h-3 w-3" />
+              Updated just now
+            </div>
 
-          <span className="px-4 text-sm text-slate-700">
-            Page{' '}
-            <span className="font-medium">{table.getState().pagination.pageIndex + 1}</span>
-            {' of '}
-            <span className="font-medium">{table.getPageCount()}</span>
-          </span>
+            <div className="flex items-center gap-2">
+              <Button
+                variant="ghost"
+                size="iconSm"
+                onClick={() => table.setPageIndex(0)}
+                disabled={!table.getCanPreviousPage()}
+              >
+                <ChevronsLeft className="h-4 w-4" />
+              </Button>
+              <Button
+                variant="ghost"
+                size="iconSm"
+                onClick={() => table.previousPage()}
+                disabled={!table.getCanPreviousPage()}
+              >
+                <ChevronLeft className="h-4 w-4" />
+              </Button>
 
-          <Button
-            variant="outline"
-            size="iconSm"
-            onClick={() => table.nextPage()}
-            disabled={!table.getCanNextPage()}
-          >
-            <ChevronRight className="h-4 w-4" />
-          </Button>
-          <Button
-            variant="outline"
-            size="iconSm"
-            onClick={() => table.setPageIndex(table.getPageCount() - 1)}
-            disabled={!table.getCanNextPage()}
-          >
-            <ChevronsRight className="h-4 w-4" />
-          </Button>
+              <span className="px-3 text-sm text-slate-700 min-w-[100px] text-center">
+                Page{' '}
+                <span className="font-medium">{table.getState().pagination.pageIndex + 1}</span>
+                {' of '}
+                <span className="font-medium">{table.getPageCount()}</span>
+              </span>
+
+              <Button
+                variant="ghost"
+                size="iconSm"
+                onClick={() => table.nextPage()}
+                disabled={!table.getCanNextPage()}
+              >
+                <ChevronRight className="h-4 w-4" />
+              </Button>
+              <Button
+                variant="ghost"
+                size="iconSm"
+                onClick={() => table.setPageIndex(table.getPageCount() - 1)}
+                disabled={!table.getCanNextPage()}
+              >
+                <ChevronsRight className="h-4 w-4" />
+              </Button>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -630,8 +1144,10 @@ const StaffTable: React.FC<Props> = ({ type, searchTerm, onEdit }) => {
       <ConfirmDialog
         open={deleteDialogOpen}
         onOpenChange={setDeleteDialogOpen}
-        title="Delete Employee Record"
-        description={`Are you sure you want to permanently delete ${deleteTarget?.name || 'this employee'}? This action cannot be undone.`}
+        title={bulkDeleteMode ? 'Delete Multiple Employees' : 'Delete Employee Record'}
+        description={bulkDeleteMode
+          ? `Are you sure you want to permanently delete ${deleteTarget?.name}? This action cannot be undone.`
+          : `Are you sure you want to permanently delete ${deleteTarget?.name || 'this employee'}? This action cannot be undone.`}
         confirmLabel="Delete"
         cancelLabel="Cancel"
         variant="danger"
