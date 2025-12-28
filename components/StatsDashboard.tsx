@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { useLiveQuery } from 'dexie-react-hooks';
-import { db } from '../db';
+import { useStaff, useResumes, useFactories } from '../lib/useSupabase';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   Users,
@@ -131,10 +130,10 @@ const COLORS = {
 export default function StatsDashboard() {
   const [isRefreshing, setIsRefreshing] = useState(false);
 
-  // Fetch all staff data
-  const staff = useLiveQuery(() => db.staff.toArray(), []);
-  const resumes = useLiveQuery(() => db.resumes.toArray(), []);
-  const factories = useLiveQuery(() => db.factories.toArray(), []);
+  // Fetch all data from Supabase (with realtime updates)
+  const staff = useStaff();
+  const resumes = useResumes();
+  const factories = useFactories();
 
   const isLoading = !staff || !resumes || !factories;
 

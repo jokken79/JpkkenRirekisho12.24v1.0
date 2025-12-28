@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { db } from '../db';
+import { applicationService } from '../lib/useSupabase';
 import { Rirekisho, Application, StaffType } from '../types';
 import { Save, X, Building2, Landmark, Calendar, Banknote, UserCheck, AlertCircle } from 'lucide-react';
 import AvatarDisplay from './AvatarDisplay';
@@ -40,7 +40,17 @@ const NyushaForm: React.FC<Props> = ({ resume, onClose }) => {
     setIsSubmitting(true);
 
     try {
-      await db.applications.add(formData as Application);
+      // Convert to Supabase format (snake_case)
+      await applicationService.create({
+        resume_id: formData.resumeId,
+        type: formData.type,
+        status: formData.status || 'draft',
+        factory_name: formData.factoryName,
+        department: formData.department,
+        hourly_wage: formData.hourlyWage,
+        billing_unit: formData.billingUnit,
+        start_date: formData.startDate,
+      });
       onClose();
     } catch (e) {
       setErrors({ submit: "Failed to save application: " + e });

@@ -1,6 +1,6 @@
 
 import initSqlJs from "sql.js";
-import { db } from "../db";
+import { staffService, resumeService, applicationService, factoryService } from "../lib/useSupabase";
 
 // Helper function to safely parse integers (prevents NaN)
 const safeParseInt = (value: any): number | null => {
@@ -117,13 +117,13 @@ export const exportToSQLite = async () => {
     )
   `);
 
-  // Fetch data from Dexie
-  const staff = await db.staff.toArray();
-  const resumes = await db.resumes.toArray();
-  const applications = await db.applications.toArray();
-  const factories = await db.factories.toArray();
+  // Fetch data from Supabase
+  const staff = await staffService.getAll();
+  const resumes = await resumeService.getAll();
+  const applications = await applicationService.getAll();
+  const factories = await factoryService.getAll();
 
-  // Insert Staff (EXPANDED with all critical fields)
+  // Insert Staff (EXPANDED with all critical fields) - using snake_case from Supabase
   staff.forEach(s => {
     sqlDb.run(
       `INSERT INTO staff (
@@ -134,16 +134,16 @@ export const exportToSQLite = async () => {
         bankAccountHolder, bankName, branchNum, branchName, accountNum, remarks, resumeId, createdAt
       ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
       [
-        s.id, s.type, s.empId, s.fullName, s.furigana, s.status, s.gender, s.nationality, s.birthDate, safeParseInt(s.age),
-        s.department, s.dispatchId, s.dispatchCompany, s.contractWork, safeParseInt(s.hourlyWage), safeParseInt(s.billingUnit),
-        safeParseInt(s.profitMargin), safeParseInt(s.standardRemuneration), String(s.healthIns || ''), String(s.nursingIns || ''), String(s.pension || ''), s.socialInsStatus,
-        s.visaExpiry, s.visaType, s.postalCode, s.address, s.apartment, s.isShaku ? 1 : 0, s.hireDate, s.resignDate,
-        s.bankAccountHolder, s.bankName, s.branchNum, s.branchName, s.accountNum, s.remarks, s.resumeId, s.createdAt
+        s.id, s.type, s.emp_id, s.full_name, s.furigana, s.status, s.gender, s.nationality, s.birth_date, safeParseInt(s.age),
+        s.department, s.dispatch_id, s.dispatch_company, s.contract_work, safeParseInt(s.hourly_wage), safeParseInt(s.billing_unit),
+        safeParseInt(s.profit_margin), safeParseInt(s.standard_remuneration), String(s.health_ins || ''), String(s.nursing_ins || ''), String(s.pension || ''), s.social_ins_status,
+        s.visa_expiry, s.visa_type, s.postal_code, s.address, s.apartment, s.is_shaku ? 1 : 0, s.hire_date, s.resign_date,
+        s.bank_account_holder, s.bank_name, s.branch_num, s.branch_name, s.account_num, s.remarks, s.resume_id, s.created_at
       ]
     );
   });
 
-  // Insert Resumes (with safeParseInt for age)
+  // Insert Resumes (with safeParseInt for age) - using snake_case from Supabase
   resumes.forEach(r => {
     sqlDb.run(
       `INSERT INTO resumes (
@@ -152,18 +152,18 @@ export const exportToSQLite = async () => {
         educationLevel, jobHistory, family, interviewResult, reasonForApplying, selfPR, createdAt
       ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
       [
-        r.id, r.applicantId, r.nameKanji, r.nameFurigana, r.birthDate, safeParseInt(r.age), r.gender, r.nationality, r.address,
-        r.postalCode, r.mobile, r.visaType, r.visaPeriod, r.residenceCardNo, r.height, r.weight,
-        r.educationLevel,
-        JSON.stringify(r.jobHistory || []),
+        r.id, r.applicant_id, r.name_kanji || r.full_name, r.name_furigana, r.birth_date, safeParseInt(r.age), r.gender, r.nationality, r.address,
+        r.postal_code, r.mobile || r.phone, r.visa_type, r.visa_period, r.residence_card_no, r.height, r.weight,
+        r.education_level,
+        JSON.stringify(r.job_history || []),
         JSON.stringify(r.family || []),
-        r.interviewResult,
-        r.reasonForApplying, r.selfPR, r.createdAt
+        r.interview_result,
+        r.reason_for_applying, r.self_pr, r.created_at
       ]
     );
   });
 
-  // Insert Applications (NEW - was missing!)
+  // Insert Applications - using snake_case from Supabase
   applications.forEach(a => {
     sqlDb.run(
       `INSERT INTO applications (
@@ -171,14 +171,14 @@ export const exportToSQLite = async () => {
         startDate, notes, createdAt, processedAt
       ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
       [
-        a.id, a.resumeId, a.status, a.type, a.factoryName, a.department,
-        safeParseInt(a.hourlyWage), safeParseInt(a.billingUnit),
-        a.startDate, a.notes, a.createdAt, a.processedAt
+        a.id, a.resume_id, a.status, a.type, a.factory_name, a.department,
+        safeParseInt(a.hourly_wage), safeParseInt(a.billing_unit),
+        a.start_date, a.notes, a.created_at, a.processed_at
       ]
     );
   });
 
-  // Insert Factories (NEW - was missing!)
+  // Insert Factories - using snake_case from Supabase
   factories.forEach(f => {
     sqlDb.run(
       `INSERT INTO factories (id, name, location, contact) VALUES (?, ?, ?, ?)`,

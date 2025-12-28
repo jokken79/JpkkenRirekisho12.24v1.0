@@ -1,11 +1,10 @@
 
 import React, { useState, useEffect } from 'react';
-import { useLiveQuery } from 'dexie-react-hooks';
-import { db } from '../db';
-import { UserProfile as IUserProfile } from '../types';
-import { 
-  User, Mail, Shield, Camera, Save, 
-  RefreshCw, CheckCircle2, UserCircle, 
+import { useCurrentUserProfile, userProfileService } from '../lib/useSupabase';
+import { useAuth } from './AuthProvider';
+import {
+  User, Mail, Shield, Camera, Save,
+  RefreshCw, CheckCircle2, UserCircle,
   MapPin, Globe, Award
 } from 'lucide-react';
 
@@ -16,22 +15,14 @@ const UserProfile: React.FC = () => {
   const [avatar, setAvatar] = useState<string | undefined>(undefined);
   const [bio, setBio] = useState('');
 
-  const userProfile = useLiveQuery(() => db.settings.get('current_user'));
+  const userProfile = useCurrentUserProfile();
+  const { user } = useAuth();
 
   useEffect(() => {
     if (userProfile) {
-      setDisplayName(userProfile.displayName);
-      setAvatar(userProfile.avatar);
+      setDisplayName(userProfile.display_name || '');
+      setAvatar(userProfile.avatar_url || undefined);
       setBio(userProfile.bio || '');
-    } else {
-      // Seed default user if none exists
-      db.settings.put({
-        key: 'current_user',
-        displayName: 'John Doe',
-        email: 'admin@staffhub.com',
-        role: 'Administrator',
-        createdAt: Date.now()
-      } as any);
     }
   }, [userProfile]);
 
@@ -39,9 +30,9 @@ const UserProfile: React.FC = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      await db.settings.update('current_user', {
-        displayName,
-        avatar,
+      await userProfileService.upsert({
+        display_name: displayName,
+        avatar_url: avatar,
         bio
       });
       setSuccess(true);
@@ -65,7 +56,18 @@ const UserProfile: React.FC = () => {
     }
   };
 
-  if (!userProfile) return null;
+  // Show loading or placeholder if profile isn't loaded yet
+  if (userProfile === undefined) {
+    return (
+      <div className="flex-1 flex items-center justify-center">
+        <RefreshCw className="animate-spin text-blue-600" size={32} />
+      </div>
+    );
+  }
+
+  // Get email from auth user, role from profile
+  const userEmail = user?.email || 'Unknown';
+  const userRole = userProfile?.role || 'User';
 
   return (
     <div className="flex-1 overflow-y-auto p-8 lg:p-12 bg-slate-50 flex flex-col items-center">
@@ -97,11 +99,11 @@ const UserProfile: React.FC = () => {
                 <div className="flex items-center gap-4 text-sm font-medium text-slate-400">
                   <div className="flex items-center gap-1.5">
                     <Shield size={14} className="text-blue-500" />
-                    {userProfile.role}
+                    {userRole}
                   </div>
                   <div className="flex items-center gap-1.5">
                     <Mail size={14} />
-                    {userProfile.email}
+                    {userEmail}
                   </div>
                 </div>
               </div>
@@ -149,18 +151,18 @@ const UserProfile: React.FC = () => {
                 <div className="grid grid-cols-2 gap-6">
                   <div className="space-y-2">
                     <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest px-1">Email Address</label>
-                    <input 
-                      type="email" 
-                      value={userProfile.email}
+                    <input
+                      type="email"
+                      value={userEmail}
                       readOnly
                       className="w-full px-5 py-3.5 bg-slate-100 border border-slate-100 rounded-2xl text-sm font-medium text-slate-400 cursor-not-allowed"
                     />
                   </div>
                   <div className="space-y-2">
                     <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest px-1">Role</label>
-                    <input 
-                      type="text" 
-                      value={userProfile.role}
+                    <input
+                      type="text"
+                      value={userRole}
                       readOnly
                       className="w-full px-5 py-3.5 bg-slate-100 border border-slate-100 rounded-2xl text-sm font-medium text-slate-400 cursor-not-allowed"
                     />

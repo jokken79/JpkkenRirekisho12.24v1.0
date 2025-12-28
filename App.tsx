@@ -15,7 +15,9 @@ import {
   BarChart3,
   FileText,
   User as UserIcon,
-  Loader2
+  Loader2,
+  Menu,
+  X
 } from 'lucide-react';
 import { StaffType, StaffMember, Rirekisho } from './types';
 import { useCurrentUserProfile } from './lib/useSupabase';
@@ -65,6 +67,7 @@ const App: React.FC = () => {
   // Derive activeView from current route
   const activeView: ViewType = routeToView[location.pathname] || 'dashboard';
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [showStaffForm, setShowStaffForm] = useState(false);
   const [showResumeForm, setShowResumeForm] = useState(false);
   const [editingMember, setEditingMember] = useState<StaffMember | undefined>(undefined);
@@ -114,65 +117,92 @@ const App: React.FC = () => {
     await signOut();
   };
 
+  // Close mobile menu when navigating
+  const handleMobileNavigation = (view: ViewType) => {
+    setActiveView(view);
+    setIsMobileMenuOpen(false);
+  };
+
   return (
     <div className="flex h-screen bg-slate-50 overflow-hidden font-sans">
+      {/* Mobile overlay */}
+      {isMobileMenuOpen && (
+        <div
+          className="fixed inset-0 bg-black/50 z-40 lg:hidden"
+          onClick={() => setIsMobileMenuOpen(false)}
+        />
+      )}
+
       {/* Sidebar */}
-      <aside className={`${isSidebarOpen ? 'w-64' : 'w-20'} bg-white border-r border-slate-200 transition-all duration-300 flex flex-col z-40 no-print`}>
+      <aside className={`
+        ${isSidebarOpen ? 'w-64' : 'w-20'}
+        bg-white border-r border-slate-200 transition-all duration-300 flex flex-col z-50 no-print
+        fixed lg:relative inset-y-0 left-0
+        ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
+      `}>
         <div className="p-4 flex items-center justify-between border-b border-slate-100 h-20">
-          <div className={`flex items-center gap-3 overflow-hidden ${!isSidebarOpen && 'hidden'}`}>
+          <div className={`flex items-center gap-3 overflow-hidden ${!isSidebarOpen && 'lg:hidden'}`}>
              <img src={APP_LOGO} alt="Logo" className="h-10 object-contain" />
              <div className="flex flex-col">
                <span className="text-xl font-bold text-blue-900 tracking-tight">StaffHub</span>
                <span className="text-[10px] text-slate-400 font-bold uppercase tracking-widest">Enterprise v2</span>
              </div>
           </div>
-          {!isSidebarOpen && <img src={APP_LOGO} alt="Logo" className="h-8 w-8 object-contain" />}
-          <button 
+          {!isSidebarOpen && <img src={APP_LOGO} alt="Logo" className="h-8 w-8 object-contain hidden lg:block" />}
+          {/* Desktop collapse button */}
+          <button
             onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-            className="p-1.5 hover:bg-slate-100 rounded-lg text-slate-400"
+            className="p-1.5 hover:bg-slate-100 rounded-lg text-slate-400 hidden lg:block"
           >
             {isSidebarOpen ? <ChevronLeft size={18} /> : <ChevronRight size={18} />}
+          </button>
+          {/* Mobile close button */}
+          <button
+            onClick={() => setIsMobileMenuOpen(false)}
+            className="p-1.5 hover:bg-slate-100 rounded-lg text-slate-400 lg:hidden"
+          >
+            <X size={20} />
           </button>
         </div>
 
         <nav className="flex-1 p-3 space-y-1 mt-4">
-          <SidebarItem 
-            icon={<LayoutDashboard size={20} />} 
-            label="Dashboard" 
-            active={activeView === 'dashboard'} 
-            onClick={() => setActiveView('dashboard')}
+          <SidebarItem
+            icon={<LayoutDashboard size={20} />}
+            label="Dashboard"
+            active={activeView === 'dashboard'}
+            onClick={() => handleMobileNavigation('dashboard')}
             collapsed={!isSidebarOpen}
           />
           <div className="pt-4 pb-2 px-3">
              <span className={`text-[10px] font-bold text-slate-400 uppercase tracking-widest ${!isSidebarOpen && 'hidden'}`}>Personnel</span>
              {!isSidebarOpen && <div className="h-px bg-slate-100" />}
           </div>
-          <SidebarItem 
-            icon={<Users size={20} />} 
-            label="GenzaiX (Internal)" 
-            active={activeView === 'genzaix'} 
-            onClick={() => setActiveView('genzaix')}
+          <SidebarItem
+            icon={<Users size={20} />}
+            label="GenzaiX (Internal)"
+            active={activeView === 'genzaix'}
+            onClick={() => handleMobileNavigation('genzaix')}
             collapsed={!isSidebarOpen}
           />
-          <SidebarItem 
-            icon={<Briefcase size={20} />} 
-            label="Ukeoi (Contract)" 
-            active={activeView === 'ukeoi'} 
-            onClick={() => setActiveView('ukeoi')}
+          <SidebarItem
+            icon={<Briefcase size={20} />}
+            label="Ukeoi (Contract)"
+            active={activeView === 'ukeoi'}
+            onClick={() => handleMobileNavigation('ukeoi')}
             collapsed={!isSidebarOpen}
           />
-          <SidebarItem 
-            icon={<FileText size={20} />} 
-            label="Resumes (CV)" 
-            active={activeView === 'resumes'} 
-            onClick={() => setActiveView('resumes')}
+          <SidebarItem
+            icon={<FileText size={20} />}
+            label="Resumes (CV)"
+            active={activeView === 'resumes'}
+            onClick={() => handleMobileNavigation('resumes')}
             collapsed={!isSidebarOpen}
           />
-          <SidebarItem 
-            icon={<FileText size={20} className="text-orange-500" />} 
-            label="Solicitudes (申請)" 
-            active={activeView === 'applications'} 
-            onClick={() => setActiveView('applications')}
+          <SidebarItem
+            icon={<FileText size={20} className="text-orange-500" />}
+            label="Solicitudes (申請)"
+            active={activeView === 'applications'}
+            onClick={() => handleMobileNavigation('applications')}
             collapsed={!isSidebarOpen}
           />
            <div className="pt-4 pb-2 px-3">
@@ -183,24 +213,24 @@ const App: React.FC = () => {
             icon={<BarChart3 size={20} />}
             label="Statistics"
             active={activeView === 'stats'}
-            onClick={() => setActiveView('stats')}
+            onClick={() => handleMobileNavigation('stats')}
             collapsed={!isSidebarOpen}
           />
-          <SidebarItem 
-            icon={<Database size={20} />} 
-            label="Database Hub" 
-            active={activeView === 'database'} 
-            onClick={() => setActiveView('database')}
+          <SidebarItem
+            icon={<Database size={20} />}
+            label="Database Hub"
+            active={activeView === 'database'}
+            onClick={() => handleMobileNavigation('database')}
             collapsed={!isSidebarOpen}
           />
         </nav>
 
         <div className="p-3 border-t border-slate-100 space-y-1">
-          <SidebarItem 
-            icon={<UserIcon size={20} />} 
-            label="My Profile" 
-            active={activeView === 'profile'} 
-            onClick={() => setActiveView('profile')}
+          <SidebarItem
+            icon={<UserIcon size={20} />}
+            label="My Profile"
+            active={activeView === 'profile'}
+            onClick={() => handleMobileNavigation('profile')}
             collapsed={!isSidebarOpen}
           />
           <SidebarItem 
@@ -223,18 +253,25 @@ const App: React.FC = () => {
 
       {/* Main Content Area */}
       <main className="flex-1 flex flex-col overflow-hidden">
-        <header className="h-20 bg-white border-b border-slate-200 px-8 flex items-center justify-between shrink-0 shadow-sm z-30 no-print">
-          <div className="flex items-center gap-6">
-            <h1 className="text-xl font-bold text-slate-800 capitalize">
+        <header className="h-20 bg-white border-b border-slate-200 px-4 lg:px-8 flex items-center justify-between shrink-0 shadow-sm z-30 no-print">
+          <div className="flex items-center gap-4 lg:gap-6">
+            {/* Mobile menu button */}
+            <button
+              onClick={() => setIsMobileMenuOpen(true)}
+              className="p-2 hover:bg-slate-100 rounded-lg text-slate-600 lg:hidden"
+            >
+              <Menu size={24} />
+            </button>
+            <h1 className="text-lg lg:text-xl font-bold text-slate-800 capitalize">
               {activeView === 'dashboard' ? 'Overview' : activeView === 'resumes' ? 'Applicant Resumes' : activeView === 'database' ? 'Database Management' : activeView === 'profile' ? 'User Profile' : activeView === 'stats' ? 'Statistics & KPIs' : activeView}
             </h1>
             {['genzaix', 'ukeoi', 'resumes'].includes(activeView) && (
-               <div className="relative group">
+               <div className="relative group hidden md:block">
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-blue-500 transition-colors" size={16} />
-                <input 
-                  type="text" 
+                <input
+                  type="text"
                   placeholder={`Search ${activeView}...`}
-                  className="pl-10 pr-4 py-2 w-72 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all text-sm"
+                  className="pl-10 pr-4 py-2 w-48 lg:w-72 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all text-sm"
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                 />
