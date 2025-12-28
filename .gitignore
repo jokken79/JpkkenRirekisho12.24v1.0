@@ -29,3 +29,9 @@ dist-ssr
 legacy_resumes.json
 nul
 *.cjs
+
+# Photos (stored in Supabase Storage)
+public/photos/
+
+# Supabase temp files
+supabase/.temp/
