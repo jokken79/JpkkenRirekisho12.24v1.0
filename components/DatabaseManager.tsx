@@ -1,6 +1,6 @@
 
 import React, { useState, useRef } from 'react';
-import { Database, Download, ShieldCheck, RefreshCw, FileCode, Cloud, Upload, FileSpreadsheet, CheckCircle2, AlertCircle } from 'lucide-react';
+import { Database, Download, ShieldCheck, RefreshCw, FileCode, Cloud, Upload, FileSpreadsheet, CheckCircle2, AlertCircle, Users } from 'lucide-react';
 import { read, utils } from 'xlsx';
 import { staffService, resumeService } from '../lib/dataService';
 import { isSupabaseConfigured } from '../lib/supabase';
@@ -47,6 +47,7 @@ const DatabaseManager: React.FC = () => {
   const [importStatus, setImportStatus] = useState<{ success: boolean; message: string } | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const legacyFileInputRef = useRef<HTMLInputElement>(null);
+  const staffJsonInputRef = useRef<HTMLInputElement>(null);
 
   const staffCount = useStaffCount() || 0;
   const resumeCount = useResumeCount() || 0;
@@ -297,6 +298,82 @@ const DatabaseManager: React.FC = () => {
     }
   };
 
+  // Import bulk staff JSON (from comprehensive_data_import.py)
+  const handleBulkStaffImport = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!e.target.files || e.target.files.length === 0) return;
+    const file = e.target.files[0];
+    setIsImporting(true);
+    setImportStatus(null);
+
+    try {
+      const text = await file.text();
+      const staffData = JSON.parse(text);
+
+      if (!Array.isArray(staffData)) {
+        throw new Error('JSONファイルは配列形式である必要があります');
+      }
+
+      let importedCount = 0;
+      let skippedCount = 0;
+
+      for (const staff of staffData) {
+        try {
+          // Map JSON fields to database fields (snake_case)
+          await staffService.create({
+            type: staff.type || 'GenzaiX',
+            status: staff.status || '在職中',
+            emp_id: staff.empId || '',
+            full_name: staff.fullName || '',
+            full_name_kana: staff.furigana || '',
+            gender: staff.gender || '',
+            nationality: staff.nationality || '',
+            birth_date: staff.birthDate || null,
+            age: staff.age || null,
+            dispatch_id: staff.dispatchId || null,
+            dispatch_company: staff.dispatchCompany || null,
+            department: staff.department || null,
+            line: staff.assignmentLine || null,
+            job_content: staff.jobContent || null,
+            contract_work: staff.contractWork || null,
+            hourly_wage: staff.hourlyWage || null,
+            billing_unit: staff.billingUnit || null,
+            profit_margin: staff.profitMargin || null,
+            standard_remuneration: staff.standardRemuneration || null,
+            health_ins: staff.healthIns || null,
+            nursing_ins: staff.nursingIns || null,
+            pension: staff.pension || null,
+            visa_expiry: staff.visaExpiry || null,
+            visa_type: staff.visaType || null,
+            postal_code: staff.postalCode || null,
+            address: staff.address || null,
+            apartment: staff.apartment || null,
+            hire_date: staff.hireDate || null,
+            resign_date: staff.resignDate || null,
+            social_ins_status: staff.socialInsStatus || null,
+            notes: staff.notes || null,
+            photo: staff.avatar || null, // Map 'avatar' from JSON to 'photo' in DB
+          });
+          importedCount++;
+        } catch (err) {
+          console.warn(`Skipped record: ${staff.empId}`, err);
+          skippedCount++;
+        }
+      }
+
+      setImportStatus({
+        success: true,
+        message: `${importedCount}件のスタッフデータをインポートしました！${skippedCount > 0 ? ` (${skippedCount}件スキップ)` : ''}`
+      });
+
+    } catch (error: any) {
+      console.error("Bulk import failed:", error);
+      setImportStatus({ success: false, message: `インポートエラー: ${error.message}` });
+    } finally {
+      setIsImporting(false);
+      if (staffJsonInputRef.current) staffJsonInputRef.current.value = '';
+    }
+  };
+
   // Export data from Supabase to JSON
   const handleExport = async () => {
     setIsExporting(true);
@@ -407,6 +484,36 @@ const DatabaseManager: React.FC = () => {
             >
               {isImporting ? <RefreshCw className="animate-spin" size={20} /> : <Upload size={20} />}
               {isImporting ? '処理中...' : 'JSONを選択'}
+            </button>
+          </div>
+
+          {/* Bulk Staff JSON Import Card */}
+          <div className="bg-white p-8 rounded-[2.5rem] shadow-xl shadow-slate-200/50 border border-slate-100 flex flex-col items-center text-center space-y-6 relative overflow-hidden group">
+            <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-purple-400 to-indigo-500" />
+            <div className="w-20 h-20 bg-purple-50 text-purple-600 rounded-3xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+              <Users size={40} strokeWidth={1.5} />
+            </div>
+            <div className="space-y-2">
+              <h3 className="text-xl font-bold text-slate-800">一括スタッフインポート</h3>
+              <p className="text-sm text-slate-400 px-4">staff_all.json からスタッフデータを一括インポート（写真リンク付き）</p>
+            </div>
+            <input
+              type="file"
+              ref={staffJsonInputRef}
+              onChange={handleBulkStaffImport}
+              className="hidden"
+              accept=".json"
+            />
+            <button
+              onClick={() => staffJsonInputRef.current?.click()}
+              disabled={isImporting || !isConnected}
+              className={`
+                w-full py-4 rounded-2xl font-bold transition-all active:scale-95 flex items-center justify-center gap-3 shadow-lg
+                ${isImporting || !isConnected ? 'bg-slate-100 text-slate-400 cursor-not-allowed' : 'bg-purple-600 hover:bg-purple-700 text-white shadow-purple-500/20'}
+              `}
+            >
+              {isImporting ? <RefreshCw className="animate-spin" size={20} /> : <Upload size={20} />}
+              {isImporting ? '処理中...' : '一括インポート'}
             </button>
           </div>
 

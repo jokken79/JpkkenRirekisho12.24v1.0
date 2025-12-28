@@ -1,0 +1,666 @@
+================================================================================
+ACCESS DATABASE STRUCTURE ANALYSIS
+================================================================================
+
+Database: C:\Users\Jpkken\Downloads\ユニバーサル企画㈱データベースv25.3.24_be.accdb
+
+
+================================================================================
+1. TABLES IN DATABASE
+================================================================================
+
+Found 11 user tables:
+
+  1. DBGenzaiX
+  2. DBStaffX
+  3. DBUkeoiX
+  4. ID派遣先作業者
+  5. T_入社連絡票
+  6. T_履歴書
+  7. T_派遣元
+  8. T_派遣先
+  9. T_退社連絡票
+  10. 担当者
+  11. 都道府県別・標準報酬月額表
+
+================================================================================
+2. DETAILED TABLE STRUCTURE
+================================================================================
+
+--------------------------------------------------------------------------------
+TABLE: DBGenzaiX
+--------------------------------------------------------------------------------
+Record Count: 1044
+
+Fields (42 total):
+  - 現在: Text
+  - 社員№: Double
+  - 派遣先ID: Double
+  - 派遣先: Text
+  - 配属先: Text
+  - 配属ライン: Text
+  - 仕事内容: Text
+  - 氏名: Text
+  - カナ: Text
+  - 性別: Text
+  - 国籍: Text
+  - 生年月日: Date/Time
+  - 年齢: Double
+  - 時給: Currency
+  - 時給改定: Text
+  - 請求単価: Currency
+  - 請求改定: Text
+  - 差額利益: Currency
+  - 標準報酬: Text
+  - 健康保険: Text
+  - 介護保険: Text
+  - 厚生年金: Text
+  - ビザ期限: Date/Time
+  - ｱﾗｰﾄ(ﾋﾞｻﾞ更新): Text
+  - ビザ種類: Text
+  - 〒: Text
+  - 住所: Text
+  - ｱﾊﾟｰﾄ: Text
+  - 入居: Double
+  - 入社日: Date/Time
+  - 退社日: Date/Time
+  - 退去: Date/Time
+  - 社保加入: Text
+  - 入社依頼: Double
+  - 備考: Double
+  - 現入社: Double
+  - 免許種類: Double
+  - 免許期限: Double
+  - 通勤方法: Double
+  - 任意保険期限: Double
+  - 日本語検定: Double
+  - キャリアアップ5年目: Double
+
+--------------------------------------------------------------------------------
+TABLE: DBStaffX
+--------------------------------------------------------------------------------
+Record Count: 22
+
+Fields (17 total):
+  - №: Double
+  - 社員№: Double
+  - 事務所: Text
+  - 氏名: Text
+  - カナ: Text
+  - 性別: Text
+  - 国籍: Text
+  - 生年月日: Date/Time
+  - 年齢: Double
+  - ビザ期限: Date/Time
+  - ビザ種類: Double
+  - 配偶者: Text
+  - 〒: Text
+  - 住所: Text
+  - 入社日: Date/Time
+  - 社保加入: Double
+  - 雇用保険: Double
+
+--------------------------------------------------------------------------------
+TABLE: DBUkeoiX
+--------------------------------------------------------------------------------
+Record Count: 99
+
+Fields (34 total):
+  - Id: Long
+  - 現在: Text
+  - 社員№: Text
+  - 請負業務: Text
+  - 氏名: Text
+  - カナ: Text
+  - 性別: Text
+  - 国籍: Text
+  - 生年月日: Double
+  - 年齢: Double
+  - 時給: Double
+  - 時給改定: Double
+  - 標準報酬: Double
+  - 健康保険: Text
+  - 介護保険: Text
+  - 厚生年金: Text
+  - 通勤距離: Double
+  - 交通費: Double
+  - 差額利益: Double
+  - ビザ期限: Text
+  - ｱﾗｰﾄ(ﾋﾞｻﾞ更新): Double
+  - ビザ種類: Double
+  - 〒: Text
+  - 住所: Text
+  - ｱﾊﾟｰﾄ: Text
+  - 入居: Text
+  - 入社日: Double
+  - 退社日: Double
+  - 退去: Double
+  - 社保加入: Double
+  - 口座名義: Double
+  - 銀行名: Double
+  - 支店番号: Double
+  - 支店名: Double
+
+--------------------------------------------------------------------------------
+TABLE: ID派遣先作業者
+--------------------------------------------------------------------------------
+Record Count: 0
+
+Fields (2 total):
+  - ID派遣元: Long
+  - ID派遣先: Long
+
+--------------------------------------------------------------------------------
+TABLE: T_入社連絡票
+--------------------------------------------------------------------------------
+Record Count: 427
+
+Fields (72 total):
+  - 履歴書ID: Long
+  - 社員番号: Long
+  - 雇用形態: Text
+  - 住い登録住所: Text
+  - 住い現住所: Text
+  - 家賃控除額: Long
+  - 光熱費: Text
+  - 入社日: Date/Time
+  - 契約形態: Text
+  - 契約単価: Currency
+  - 支払い時給: Currency
+  - 会社名及び部署名: Text
+  - 組織単位: Text
+  - 派遣元: Long
+  - 雇用保険加入日: Date/Time
+  - 社会保険加入日: Date/Time
+  - 雇用保険未加入の理由: Text
+  - 社会保険未加入の理由: Text
+  - 在留カード有り無し: Text
+  - 在留カードコピー: Attachment [ATTACHMENT]
+  - 在留カードコピー裏: Attachment [ATTACHMENT]
+  - パスポート有り無し: Text
+  - パスポートコピー: Attachment [ATTACHMENT]
+  - パスポートコピー裏: Attachment [ATTACHMENT]
+  - 運転免許コピー有り無し: Text
+  - 運転免許コピー裏: Attachment [ATTACHMENT]
+  - 運転免許コピー: Attachment [ATTACHMENT]
+  - 扶養申告書: Text
+  - マイナンバー有り無し: Text
+  - マイナンバーコピー: Attachment [ATTACHMENT]
+  - 年金手帳有り無し: Text
+  - 年金手帳コピー裏: Attachment [ATTACHMENT]
+  - 年金手帳コピー: Attachment [ATTACHMENT]
+  - 通帳有り無し: Text
+  - 通帳コピー裏: Attachment [ATTACHMENT]
+  - 通帳コピー: Attachment [ATTACHMENT]
+  - 雇用保険有り無し: Text
+  - 雇用保険番号コピー: Attachment [ATTACHMENT]
+  - 源泉徴収票原本有り無し: Text
+  - 源泉徴収票原本: Attachment [ATTACHMENT]
+  - 最後の派遣会: Text
+  - 異動日: Date/Time
+  - 新契約単価: Currency
+  - 新支払い時給: Currency
+  - 新会社名及び部署名: Text
+  - 親組織単位: Text
+  - 新住所郵便番号: Text
+  - 新住所: Text
+  - 新番地: Text
+  - 新物件名: Text
+  - 新住い: Text
+  - 新家賃控除額: Currency
+  - 作成者: Text
+  - 担当者: Text
+  - 新作成者: Text
+  - 新担当者: Text
+  - 退社年月日: Date/Time
+  - 退職CHECK: Boolean
+  - 在籍期間: Text
+  - 会社都合: Boolean
+  - 自己都合: Boolean
+  - 会社都合理由: Text
+  - 自己都合理由: Text
+  - 退社後住所: Text
+  - 食事代控除額: Currency
+  - 光熱費控除額: Currency
+  - 住民税控除: Currency
+  - 担当者年月日: Date/Time
+  - 離職票: Text
+  - 源泉徴収票: Text
+  - 源泉徴収票郵送？: Text
+  - その他連絡事項: Text
+
+--------------------------------------------------------------------------------
+TABLE: T_履歴書
+--------------------------------------------------------------------------------
+Record Count: 1156
+
+Fields (172 total):
+  - 履歴書ID: Long
+  - 受付日: Date/Time
+  - 来日: Text
+  - 氏名: Text
+  - フリガナ: Memo
+  - 氏名（ローマ字): Text
+  - 性別: Text
+  - 生年月日: Date/Time
+  - 写真: Attachment [ATTACHMENT]
+  - 国籍: Text
+  - 配偶者: Text
+  - 入社日: Date/Time
+  - 郵便番号: Text
+  - 現住所: Text
+  - 番地: Text
+  - 物件名: Text
+  - 登録住所: Text
+  - 電話番号: Text
+  - 携帯電話: Text
+  - パスポート番号: Text
+  - パスポート期限: Date/Time
+  - 在留資格: Text
+  - （在留カード記載）在留期限: Date/Time
+  - 在留カード番号: Text
+  - 運転免許番号及び条件: Text
+  - 運転免許期限: Date/Time
+  - 自動車所有: Boolean
+  - 任意保険加入: Boolean
+  - ﾌｫｰｸﾘﾌﾄ免許: Boolean
+  - 玉掛: Boolean
+  - 移動式ｸﾚｰﾝ運転士(5ﾄﾝ未満): Boolean
+  - 移動式ｸﾚｰﾝ運転士(5ﾄﾝ以上): Boolean
+  - ｶﾞｽ溶接作業者: Boolean
+  - 家族構成氏名1: Text
+  - 家族構成続柄1: Text
+  - 年齢1: Text
+  - 居住1: Text
+  - 別居住住所1: Text
+  - 家族構成氏名2: Text
+  - 家族構成続柄2: Text
+  - 年齢2: Text
+  - 居住2: Text
+  - 別居住住所2: Text
+  - 家族構成氏名3: Text
+  - 家族構成続柄3: Text
+  - 年齢3: Text
+  - 居住3: Text
+  - 別居住住所3: Text
+  - 家族構成氏名4: Text
+  - 家族構成続柄4: Text
+  - 年齢4: Text
+  - 居住4: Text
+  - 別居住住所4: Text
+  - 家族構成氏名5: Text
+  - 家族構成続柄5: Text
+  - 年齢5: Text
+  - 居住5: Text
+  - 別居住住所5: Text
+  - 会話ができる: Text
+  - 会話が理解できる: Text
+  - ひらがな・カタカナ読める: Text
+  - ひらがな・カタカナ書ける: Text
+  - 漢字の読み書き: Text
+  - 最終学歴: Text
+  - 身長: Text
+  - 体重: Text
+  - 服のサイズ: Text
+  - ウエスト: Text
+  - 靴サイズ: Text
+  - 安全靴持参: Boolean
+  - 血液型１: Text
+  - 眼 ﾒｶﾞﾈ､ｺﾝﾀｸﾄ使用: Boolean
+  - 利き腕 右: Boolean
+  - 利き腕 左: Boolean
+  - アレルギー 無: Boolean
+  - アレルギー 有: Boolean
+  - アレルギー 名: Text
+  - 職歴年入社1: Text
+  - 職歴月入社1: Text
+  - 職歴年退社社1: Text
+  - 職歴月退社社1: Text
+  - 職歴入社会社名1: Text
+  - 職歴退社会社名1: Text
+  - 職歴年入社2: Text
+  - 職歴月入社2: Text
+  - 職歴年退社社2: Text
+  - 職歴月退社社2: Text
+  - 職歴入社会社名2: Text
+  - 職歴退社会社名2: Text
+  - 職歴年入社3: Text
+  - 職歴月入社3: Text
+  - 職歴年退社社3: Text
+  - 職歴月退社社3: Text
+  - 職歴入社会社名3: Text
+  - 職歴退社会社名3: Text
+  - 職歴年入社4: Text
+  - 職歴月入社4: Text
+  - 職歴年退社社4: Text
+  - 職歴月退社社4: Text
+  - 職歴入社会社名4: Text
+  - 職歴退社会社名4: Text
+  - 職歴年入社5: Text
+  - 職歴月入社5: Text
+  - 職歴年退社社5: Text
+  - 職歴月退社社5: Text
+  - 職歴入社会社名5: Text
+  - 職歴退社会社名5: Text
+  - 職歴年入社6: Text
+  - 職歴月入社6: Text
+  - 職歴年退社社6: Text
+  - 職歴月退社社6: Text
+  - 職歴入社会社名6: Text
+  - 職歴退社会社名6: Text
+  - 職歴年入社7: Text
+  - 職歴月入社7: Text
+  - 職歴年退社社7: Text
+  - 職歴月退社社7: Text
+  - 職歴入社会社名7: Text
+  - 職歴退社会社名7: Text
+  - NC旋盤: Boolean
+  - 旋盤: Boolean
+  - ﾌﾟﾚｽ: Boolean
+  - ﾌｫｰｸﾘﾌﾄ: Boolean
+  - 梱包: Boolean
+  - 溶接: Boolean
+  - 車部品組立: Boolean
+  - 車部品ライン: Boolean
+  - 車部品検査: Boolean
+  - 電子部品検査: Boolean
+  - 食品加工: Boolean
+  - 鋳造: Boolean
+  - ラインリーダー: Boolean
+  - 塗装: Boolean
+  - その他: Boolean
+  - お弁当　昼/夜: Boolean
+  - お弁当　昼のみ: Boolean
+  - お弁当　夜のみ: Boolean
+  - お弁当　持参: Boolean
+  - 通勤方法: Text
+  - 通勤片道時間: Long
+  - 面接結果OK: Boolean
+  - 簡易抗原検査キット: Text
+  - 簡易抗原検査実施日: Date/Time
+  - コロナワクチン予防接種状態: Text
+  - 語学スキル有無: Text
+  - 語学スキル有無１: Text
+  - 語学スキル有無2: Text
+  - 日本語能力資格: Text
+  - 日本語能力資格Level: Text
+  - 能力試験受験: Text
+  - 能力試験受験日付: Text
+  - 能力試験受験点数: Text
+  - 能力試験受験受験予定: Date/Time
+  - 有資格取得: Text
+  - 有資格取得1: Text
+  - 有資格取得2: Text
+  - 専攻: Text
+  - 血液型: Text
+  - 利き腕: Text
+  - アレルギー有無: Text
+  - 聞く選択: Text
+  - 話す選択: Text
+  - 緊急連絡先　氏名: Text
+  - 緊急連絡先　続柄: Text
+  - 緊急連絡先　電話番号: Text
+  - 安全靴: Text
+  - 読む　カナ: Text
+  - 読む　ひら: Text
+  - 読む　漢字: Text
+  - 書く　カナ: Text
+  - 書く　ひら: Text
+  - 書く　漢字: Text
+
+--------------------------------------------------------------------------------
+TABLE: T_派遣元
+--------------------------------------------------------------------------------
+Record Count: 0
+
+Fields (10 total):
+  - ID: Long
+  - 派遣元: Text
+  - 事業所: Text
+  - 郵便番号: Text
+  - 住所: Text
+  - 番地: Text
+  - 電話番号: Text
+  - ファックス番号: Text
+  - 代表取締役社長: Text
+  - Presidente: Text
+
+--------------------------------------------------------------------------------
+TABLE: T_派遣先
+--------------------------------------------------------------------------------
+Record Count: 33
+
+Fields (11 total):
+  - ID: Text
+  - 派遣先名: Text
+  - 郵便番号: Text
+  - 住所: Text
+  - 電話番号: Text
+  - ファックス番号: Text
+  - 工場名: Text
+  - 配属部署: Text
+  - ライン: Text
+  - 仕事内容: Text
+  - 契約単価: Long
+
+--------------------------------------------------------------------------------
+TABLE: T_退社連絡票
+--------------------------------------------------------------------------------
+Record Count: 321
+
+Fields (18 total):
+  - 社員№: Long
+  - 退社年月日: Date/Time
+  - 退職CHECK: Boolean
+  - 在籍期間: Text
+  - 会社都合: Boolean
+  - 自己都合: Boolean
+  - 会社都合理由: Text
+  - 自己都合理由: Text
+  - 退社後住所: Text
+  - 食事代控除額: Currency
+  - 光熱費控除額: Currency
+  - 住民税控除: Currency
+  - 離職票: Text
+  - 源泉徴収票: Text
+  - 源泉徴収票郵送？: Text
+  - その他連絡事項: Text
+  - 作成者: Text
+  - 担当者: Text
+
+--------------------------------------------------------------------------------
+TABLE: 担当者
+--------------------------------------------------------------------------------
+Record Count: 6
+
+Fields (1 total):
+  - 氏名: Text
+
+--------------------------------------------------------------------------------
+TABLE: 都道府県別・標準報酬月額表
+--------------------------------------------------------------------------------
+Record Count: 50
+
+Fields (7 total):
+  - 健: Integer
+  - 以上～未満: Text
+  - 月額: Currency
+  - 健康保険: Currency
+  - 介護保険: Currency
+  - 健保+介護: Currency
+  - 被保険者: Currency
+
+================================================================================
+3. ATTACHMENT / PHOTO FIELDS
+================================================================================
+
+Found 14 attachment/OLE fields:
+
+  Table: T_入社連絡票
+  Field: 在留カードコピー
+  Type:  Attachment
+
+  Table: T_入社連絡票
+  Field: 在留カードコピー裏
+  Type:  Attachment
+
+  Table: T_入社連絡票
+  Field: パスポートコピー
+  Type:  Attachment
+
+  Table: T_入社連絡票
+  Field: パスポートコピー裏
+  Type:  Attachment
+
+  Table: T_入社連絡票
+  Field: 運転免許コピー裏
+  Type:  Attachment
+
+  Table: T_入社連絡票
+  Field: 運転免許コピー
+  Type:  Attachment
+
+  Table: T_入社連絡票
+  Field: マイナンバーコピー
+  Type:  Attachment
+
+  Table: T_入社連絡票
+  Field: 年金手帳コピー裏
+  Type:  Attachment
+
+  Table: T_入社連絡票
+  Field: 年金手帳コピー
+  Type:  Attachment
+
+  Table: T_入社連絡票
+  Field: 通帳コピー裏
+  Type:  Attachment
+
+  Table: T_入社連絡票
+  Field: 通帳コピー
+  Type:  Attachment
+
+  Table: T_入社連絡票
+  Field: 雇用保険番号コピー
+  Type:  Attachment
+
+  Table: T_入社連絡票
+  Field: 源泉徴収票原本
+  Type:  Attachment
+
+  Table: T_履歴書
+  Field: 写真
+  Type:  Attachment
+
+
+================================================================================
+4. TABLE RELATIONSHIPS
+================================================================================
+
+Found 2 relationships:
+
+  Relationship: MSysNavPaneGroupCategoriesMSysNavPaneGroups
+  From Table:   MSysNavPaneGroupCategories
+  To Table:     MSysNavPaneGroups
+  Fields:
+    Id -> GroupCategoryID
+
+  Relationship: MSysNavPaneGroupsMSysNavPaneGroupToObjects
+  From Table:   MSysNavPaneGroups
+  To Table:     MSysNavPaneGroupToObjects
+  Fields:
+    Id -> GroupID
+
+
+================================================================================
+5. RECORD COUNT SUMMARY
+================================================================================
+
+  DBGenzaiX: 1044 records
+  DBStaffX: 22 records
+  DBUkeoiX: 99 records
+  ID派遣先作業者: 0 records
+  T_入社連絡票: 427 records
+  T_履歴書: 1156 records
+  T_派遣元: 0 records
+  T_派遣先: 33 records
+  T_退社連絡票: 321 records
+  担当者: 6 records
+  都道府県別・標準報酬月額表: 50 records
+
+  TOTAL: 3158 records
+
+================================================================================
+6. KEY EMPLOYEE/RESUME TABLES
+================================================================================
+
+--- T_履歴書 ---
+Records: 1156
+Important fields:
+  * 履歴書ID: Long
+  * 氏名: Text
+  * 氏名（ローマ字): Text
+  * 生年月日: Date/Time
+  * 写真: Attachment
+  * 物件名: Text
+  * 電話番号: Text
+  * 携帯電話: Text
+  * 在留資格: Text
+  * （在留カード記載）在留期限: Date/Time
+  * 在留カード番号: Text
+  * 家族構成氏名1: Text
+  * 家族構成氏名2: Text
+  * 家族構成氏名3: Text
+  * 家族構成氏名4: Text
+  * 家族構成氏名5: Text
+  * アレルギー 名: Text
+  * 職歴入社会社名1: Text
+  * 職歴退社会社名1: Text
+  * 職歴入社会社名2: Text
+  * 職歴退社会社名2: Text
+  * 職歴入社会社名3: Text
+  * 職歴退社会社名3: Text
+  * 職歴入社会社名4: Text
+  * 職歴退社会社名4: Text
+  * 職歴入社会社名5: Text
+  * 職歴退社会社名5: Text
+  * 職歴入社会社名6: Text
+  * 職歴退社会社名6: Text
+  * 職歴入社会社名7: Text
+  * 職歴退社会社名7: Text
+  * 緊急連絡先　氏名: Text
+  * 緊急連絡先　電話番号: Text
+
+--- DBGenzaiX ---
+Records: 1044
+Important fields:
+  * 派遣先ID: Double
+  * 派遣先: Text
+  * 氏名: Text
+  * 生年月日: Date/Time
+  * 厚生年金: Text
+
+--- DBUkeoiX ---
+Records: 99
+Important fields:
+  * Id: Long
+  * 氏名: Text
+  * 生年月日: Double
+  * 厚生年金: Text
+  * 口座名義: Double
+  * 銀行名: Double
+  * 支店名: Double
+
+--- DBStaffX ---
+Records: 22
+Important fields:
+  * 氏名: Text
+  * 生年月日: Date/Time
+
+--- T_派遣先 ---
+Records: 33
+Important fields:
+  * ID: Text
+  * 派遣先名: Text
+  * 電話番号: Text
+  * 工場名: Text
