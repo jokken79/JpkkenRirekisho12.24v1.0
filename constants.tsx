@@ -118,11 +118,7 @@ export const COMPANY_INFO = {
   }
 };
 
-// Photo storage URL - uses Supabase Storage if configured, otherwise local fallback
-const SUPABASE_URL = typeof import.meta !== 'undefined'
-  ? import.meta.env?.VITE_SUPABASE_URL
-  : undefined;
-
-export const PHOTO_BASE_URL = SUPABASE_URL
-  ? `${SUPABASE_URL}/storage/v1/object/public/photos/`
-  : "/photos/"; // Fallback to local public/photos/
+// Photo storage URL - Supabase Storage with local fallback
+export const PHOTO_BASE_URL = import.meta.env?.VITE_SUPABASE_URL
+  ? `${import.meta.env.VITE_SUPABASE_URL}/storage/v1/object/public/photos/`
+  : "/photos/";

@@ -99,11 +99,11 @@ const Dashboard: React.FC<Props> = ({ onNav }) => {
           <h3 className={`text-sm font-bold mb-4 ${isDark ? 'text-white' : 'text-slate-800'}`}>Staff Distribution</h3>
           <div className="flex items-center justify-center">
             <DonutChart
-              data={staffDistribution}
+              segments={staffDistribution}
               size={120}
-              strokeWidth={20}
-              centerLabel={`${(genzaixCount || 0) + (ukeoiCount || 0)}`}
-              centerSubLabel="Total"
+              thickness={20}
+              centerValue={`${(genzaixCount || 0) + (ukeoiCount || 0)}`}
+              centerLabel="Total"
             />
           </div>
           <div className="flex justify-center gap-4 mt-4">
