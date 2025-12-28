@@ -32,17 +32,33 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   useEffect(() => {
     // Check if Supabase is configured
     if (!isSupabaseConfigured()) {
+      console.log('Supabase not configured, skipping auth');
       setLoading(false);
       return;
     }
 
+    let timeoutId: NodeJS.Timeout;
+    let didComplete = false;
+
+    // Timeout fallback - prevent infinite loading hang
+    timeoutId = setTimeout(() => {
+      if (!didComplete) {
+        console.warn('Auth session check timed out after 5s, proceeding to login');
+        setLoading(false);
+      }
+    }, 5000);
+
     // Get initial session - v2 fix for loading hang
     supabase.auth.getSession()
       .then(({ data: { session } }) => {
+        didComplete = true;
+        clearTimeout(timeoutId);
         setUser(session?.user ?? null);
         setLoading(false);
       })
       .catch((err) => {
+        didComplete = true;
+        clearTimeout(timeoutId);
         console.error('Auth session error:', err);
         setLoading(false);
       });
@@ -52,7 +68,10 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       setUser(session?.user ?? null);
     });
 
-    return () => subscription.unsubscribe();
+    return () => {
+      clearTimeout(timeoutId);
+      subscription.unsubscribe();
+    };
   }, []);
 
   const handleSignIn = async (email: string, password: string) => {
