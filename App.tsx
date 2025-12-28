@@ -34,7 +34,7 @@ import { Fab } from './components/ui/fab';
 import { pageVariants } from './lib/animations';
 
 // Lazy load components for code splitting
-const StaffTable = lazy(() => import('./components/StaffTable'));
+const StaffTableAG = lazy(() => import('./components/StaffTableAG'));
 const StaffForm = lazy(() => import('./components/StaffForm'));
 const RirekishoForm = lazy(() => import('./components/RirekishoForm'));
 const Dashboard = lazy(() => import('./components/Dashboard'));
@@ -392,8 +392,8 @@ const App: React.FC = () => {
               <Routes location={location}>
                 <Route path="/" element={<Dashboard onNav={setActiveView} />} />
                 <Route path="/dashboard" element={<Navigate to="/" replace />} />
-                <Route path="/genzaix" element={<StaffTable type="GenzaiX" searchTerm={searchTerm} onEdit={handleEditStaff} />} />
-                <Route path="/ukeoi" element={<StaffTable type="Ukeoi" searchTerm={searchTerm} onEdit={handleEditStaff} />} />
+                <Route path="/genzaix" element={<StaffTableAG type="GenzaiX" searchTerm={searchTerm} onEdit={handleEditStaff} onAddStaff={handleAddStaff} onCreateResume={() => {}} />} />
+                <Route path="/ukeoi" element={<StaffTableAG type="Ukeoi" searchTerm={searchTerm} onEdit={handleEditStaff} onAddStaff={handleAddStaff} onCreateResume={() => {}} />} />
                 <Route path="/resumes" element={<ResumeList searchTerm={searchTerm} onEdit={handleEditResume} />} />
                 <Route path="/applications" element={<ApplicationList />} />
                 <Route path="/stats" element={<StatsDashboard />} />
