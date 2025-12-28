@@ -814,6 +814,9 @@ const StaffTableAG: React.FC<StaffTableAGProps> = ({
 
           // Suppress features
           suppressCellFocus={false}
+
+          // Theme - use legacy to work with v32 CSS files
+          theme="legacy"
         />
       </div>
 
