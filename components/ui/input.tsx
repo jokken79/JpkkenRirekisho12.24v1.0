@@ -16,20 +16,23 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
       <div className="relative w-full">
         {hasIcon && iconPosition === 'left' && (
           <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-            <span className="text-slate-400">{icon}</span>
+            <span className="text-slate-400 dark:text-slate-500">{icon}</span>
           </div>
         )}
         <input
           type={type}
           className={cn(
-            'flex h-10 w-full rounded-xl border bg-white px-3 py-2 text-sm',
-            'ring-offset-white file:border-0 file:bg-transparent file:text-sm file:font-medium',
-            'placeholder:text-slate-400',
+            'flex h-10 w-full rounded-xl border px-3 py-2 text-sm transition-colors',
+            'bg-white dark:bg-slate-800',
+            'text-slate-900 dark:text-slate-100',
+            'ring-offset-white dark:ring-offset-slate-900',
+            'file:border-0 file:bg-transparent file:text-sm file:font-medium',
+            'placeholder:text-slate-400 dark:placeholder:text-slate-500',
             'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2',
             'disabled:cursor-not-allowed disabled:opacity-50',
             error
-              ? 'border-red-300 focus-visible:ring-red-500'
-              : 'border-slate-200 focus-visible:ring-blue-500',
+              ? 'border-red-300 dark:border-red-800 focus-visible:ring-red-500'
+              : 'border-slate-200 dark:border-slate-700 focus-visible:ring-blue-500',
             hasIcon && iconPosition === 'left' && 'pl-10',
             hasIcon && iconPosition === 'right' && 'pr-10',
             className
@@ -39,14 +42,14 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
         />
         {hasIcon && iconPosition === 'right' && (
           <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
-            <span className="text-slate-400">{icon}</span>
+            <span className="text-slate-400 dark:text-slate-500">{icon}</span>
           </div>
         )}
         {helperText && (
           <p
             className={cn(
               'mt-1.5 text-xs',
-              error ? 'text-red-500' : 'text-slate-500'
+              error ? 'text-red-500 dark:text-red-400' : 'text-slate-500 dark:text-slate-400'
             )}
           >
             {helperText}
@@ -70,13 +73,16 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
       <div className="relative w-full">
         <textarea
           className={cn(
-            'flex min-h-[80px] w-full rounded-xl border bg-white px-3 py-2 text-sm',
-            'ring-offset-white placeholder:text-slate-400',
+            'flex min-h-[80px] w-full rounded-xl border px-3 py-2 text-sm transition-colors',
+            'bg-white dark:bg-slate-800',
+            'text-slate-900 dark:text-slate-100',
+            'ring-offset-white dark:ring-offset-slate-900',
+            'placeholder:text-slate-400 dark:placeholder:text-slate-500',
             'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2',
             'disabled:cursor-not-allowed disabled:opacity-50',
             error
-              ? 'border-red-300 focus-visible:ring-red-500'
-              : 'border-slate-200 focus-visible:ring-blue-500',
+              ? 'border-red-300 dark:border-red-800 focus-visible:ring-red-500'
+              : 'border-slate-200 dark:border-slate-700 focus-visible:ring-blue-500',
             className
           )}
           ref={ref}
@@ -86,7 +92,7 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
           <p
             className={cn(
               'mt-1.5 text-xs',
-              error ? 'text-red-500' : 'text-slate-500'
+              error ? 'text-red-500 dark:text-red-400' : 'text-slate-500 dark:text-slate-400'
             )}
           >
             {helperText}
@@ -109,7 +115,7 @@ const SearchInput = React.forwardRef<HTMLInputElement, SearchInputProps>(
       <div className="relative w-full">
         <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
           <svg
-            className="h-4 w-4 text-slate-400"
+            className="h-4 w-4 text-slate-400 dark:text-slate-500"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -125,8 +131,12 @@ const SearchInput = React.forwardRef<HTMLInputElement, SearchInputProps>(
         <input
           type="search"
           className={cn(
-            'flex h-10 w-full rounded-xl border border-slate-200 bg-white py-2 pl-10 pr-10 text-sm',
-            'ring-offset-white placeholder:text-slate-400',
+            'flex h-10 w-full rounded-xl border py-2 pl-10 pr-10 text-sm transition-colors',
+            'bg-white dark:bg-slate-800',
+            'text-slate-900 dark:text-slate-100',
+            'border-slate-200 dark:border-slate-700',
+            'ring-offset-white dark:ring-offset-slate-900',
+            'placeholder:text-slate-400 dark:placeholder:text-slate-500',
             'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2',
             'disabled:cursor-not-allowed disabled:opacity-50',
             '[&::-webkit-search-cancel-button]:hidden',
@@ -140,7 +150,7 @@ const SearchInput = React.forwardRef<HTMLInputElement, SearchInputProps>(
           <button
             type="button"
             onClick={onClear}
-            className="absolute inset-y-0 right-0 flex items-center pr-3 text-slate-400 hover:text-slate-600"
+            className="absolute inset-y-0 right-0 flex items-center pr-3 text-slate-400 hover:text-slate-600 dark:text-slate-500 dark:hover:text-slate-300"
           >
             <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path

@@ -9,7 +9,7 @@ function Skeleton({ className, variant = 'default', ...props }: SkeletonProps) {
   return (
     <div
       className={cn(
-        'animate-pulse bg-slate-200',
+        'animate-pulse bg-slate-200 dark:bg-slate-700',
         variant === 'circular' && 'rounded-full',
         variant === 'rounded' && 'rounded-xl',
         variant === 'default' && 'rounded-md',
@@ -23,7 +23,7 @@ function Skeleton({ className, variant = 'default', ...props }: SkeletonProps) {
 // Pre-built skeleton patterns
 function SkeletonCard({ className }: { className?: string }) {
   return (
-    <div className={cn('rounded-2xl border border-slate-200 bg-white p-6', className)}>
+    <div className={cn('rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-6', className)}>
       <div className="flex items-center gap-4">
         <Skeleton variant="circular" className="h-12 w-12" />
         <div className="flex-1 space-y-2">
@@ -39,7 +39,7 @@ function SkeletonTable({ rows = 5 }: { rows?: number }) {
   return (
     <div className="space-y-3">
       {/* Header */}
-      <div className="flex gap-4 p-4 bg-slate-50 rounded-lg">
+      <div className="flex gap-4 p-4 bg-slate-50 dark:bg-slate-800 rounded-lg">
         <Skeleton className="h-4 w-1/4" />
         <Skeleton className="h-4 w-1/4" />
         <Skeleton className="h-4 w-1/4" />
@@ -60,7 +60,7 @@ function SkeletonTable({ rows = 5 }: { rows?: number }) {
 
 function SkeletonMetricCard() {
   return (
-    <div className="rounded-2xl border border-slate-200 bg-white p-6">
+    <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-6">
       <div className="flex items-start justify-between">
         <div className="space-y-2">
           <Skeleton className="h-3 w-20" />
@@ -78,7 +78,7 @@ function SkeletonMetricCard() {
 function SkeletonChart({ height = 200 }: { height?: number }) {
   return (
     <div
-      className="rounded-2xl border border-slate-200 bg-white p-6"
+      className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-6"
       style={{ height }}
     >
       <div className="flex items-end justify-between h-full gap-2 pt-8">

@@ -14,8 +14,11 @@ const SelectTrigger = React.forwardRef<
   <SelectPrimitive.Trigger
     ref={ref}
     className={cn(
-      'flex h-10 w-full items-center justify-between rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm',
-      'ring-offset-white placeholder:text-slate-400',
+      'flex h-10 w-full items-center justify-between rounded-xl border px-3 py-2 text-sm',
+      'border-slate-200 bg-white text-slate-900',
+      'dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100',
+      'ring-offset-white dark:ring-offset-slate-900',
+      'placeholder:text-slate-400 dark:placeholder:text-slate-500',
       'focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2',
       'disabled:cursor-not-allowed disabled:opacity-50',
       '[&>span]:line-clamp-1',
@@ -67,7 +70,9 @@ const SelectContent = React.forwardRef<
     <SelectPrimitive.Content
       ref={ref}
       className={cn(
-        'relative z-50 max-h-96 min-w-[8rem] overflow-hidden rounded-xl border border-slate-200 bg-white text-slate-700 shadow-lg',
+        'relative z-50 max-h-96 min-w-[8rem] overflow-hidden rounded-xl border shadow-lg',
+        'border-slate-200 bg-white text-slate-700',
+        'dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200',
         'data-[state=open]:animate-in data-[state=closed]:animate-out',
         'data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0',
         'data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95',
@@ -102,7 +107,11 @@ const SelectLabel = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <SelectPrimitive.Label
     ref={ref}
-    className={cn('py-1.5 pl-8 pr-2 text-sm font-semibold text-slate-900', className)}
+    className={cn(
+      'py-1.5 pl-8 pr-2 text-sm font-semibold',
+      'text-slate-900 dark:text-slate-100',
+      className
+    )}
     {...props}
   />
 ));
@@ -116,7 +125,9 @@ const SelectItem = React.forwardRef<
     ref={ref}
     className={cn(
       'relative flex w-full cursor-default select-none items-center rounded-lg py-1.5 pl-8 pr-2 text-sm outline-none',
+      'text-slate-700 dark:text-slate-200',
       'focus:bg-slate-100 focus:text-slate-900',
+      'dark:focus:bg-slate-700 dark:focus:text-slate-100',
       'data-[disabled]:pointer-events-none data-[disabled]:opacity-50',
       className
     )}
@@ -138,7 +149,7 @@ const SelectSeparator = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <SelectPrimitive.Separator
     ref={ref}
-    className={cn('-mx-1 my-1 h-px bg-slate-200', className)}
+    className={cn('-mx-1 my-1 h-px bg-slate-200 dark:bg-slate-700', className)}
     {...props}
   />
 ));

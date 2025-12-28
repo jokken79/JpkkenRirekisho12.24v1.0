@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { useTheme } from '../ThemeProvider';
 
 /**
  * Compact donut chart for status breakdowns
@@ -23,6 +24,13 @@ export const DonutChart: React.FC<DonutChartProps> = ({
   centerLabel,
   centerValue
 }) => {
+  const { theme } = useTheme();
+  const isDark = theme === 'dark';
+
+  if (!segments || segments.length === 0) {
+    return null;
+  }
+
   const total = segments.reduce((sum, seg) => sum + seg.value, 0);
   const radius = (size - thickness) / 2;
   const circumference = 2 * Math.PI * radius;
@@ -38,7 +46,7 @@ export const DonutChart: React.FC<DonutChartProps> = ({
           cy={size / 2}
           r={radius}
           fill="none"
-          stroke="#F1F5F9"
+          stroke={isDark ? '#334155' : '#F1F5F9'}
           strokeWidth={thickness}
         />
 
@@ -83,13 +91,13 @@ export const DonutChart: React.FC<DonutChartProps> = ({
               initial={{ scale: 0 }}
               animate={{ scale: 1 }}
               transition={{ delay: 0.5, type: 'spring' }}
-              className="text-2xl font-black text-slate-900"
+              className="text-2xl font-black text-slate-900 dark:text-slate-100"
             >
               {centerValue}
             </motion.span>
           )}
           {centerLabel && (
-            <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">
+            <span className="text-[10px] text-slate-400 dark:text-slate-500 font-bold uppercase tracking-wider">
               {centerLabel}
             </span>
           )}
@@ -118,9 +126,13 @@ export const ComparisonBar: React.FC<ComparisonBarProps> = ({
   label2,
   value2,
   color1 = '#3B82F6',
-  color2 = '#E2E8F0',
+  color2,
   height = 32
 }) => {
+  const { theme } = useTheme();
+  const isDark = theme === 'dark';
+  const actualColor2 = color2 || (isDark ? '#475569' : '#E2E8F0');
+
   const total = value1 + value2;
   const percentage1 = (value1 / total) * 100;
   const percentage2 = (value2 / total) * 100;
@@ -130,17 +142,17 @@ export const ComparisonBar: React.FC<ComparisonBarProps> = ({
       <div className="flex items-center justify-between mb-2 text-xs">
         <div className="flex items-center gap-2">
           <div className="w-3 h-3 rounded-full" style={{ backgroundColor: color1 }} />
-          <span className="font-medium text-slate-600">{label1}</span>
-          <span className="font-bold text-slate-900">{value1}</span>
+          <span className="font-medium text-slate-600 dark:text-slate-400">{label1}</span>
+          <span className="font-bold text-slate-900 dark:text-slate-100">{value1}</span>
         </div>
         <div className="flex items-center gap-2">
-          <span className="font-bold text-slate-900">{value2}</span>
-          <span className="font-medium text-slate-600">{label2}</span>
-          <div className="w-3 h-3 rounded-full" style={{ backgroundColor: color2 }} />
+          <span className="font-bold text-slate-900 dark:text-slate-100">{value2}</span>
+          <span className="font-medium text-slate-600 dark:text-slate-400">{label2}</span>
+          <div className="w-3 h-3 rounded-full" style={{ backgroundColor: actualColor2 }} />
         </div>
       </div>
 
-      <div className="flex w-full rounded-full overflow-hidden bg-slate-100" style={{ height }}>
+      <div className="flex w-full rounded-full overflow-hidden bg-slate-100 dark:bg-slate-700" style={{ height }}>
         <motion.div
           initial={{ width: 0 }}
           animate={{ width: `${percentage1}%` }}
@@ -154,14 +166,14 @@ export const ComparisonBar: React.FC<ComparisonBarProps> = ({
           initial={{ width: 0 }}
           animate={{ width: `${percentage2}%` }}
           transition={{ duration: 1, ease: 'easeOut', delay: 0.1 }}
-          style={{ backgroundColor: color2 }}
+          style={{ backgroundColor: actualColor2 }}
           className="relative"
         >
           <div className="absolute inset-0 bg-gradient-to-l from-white/20 to-transparent" />
         </motion.div>
       </div>
 
-      <div className="flex items-center justify-between mt-1 text-[10px] font-bold text-slate-400">
+      <div className="flex items-center justify-between mt-1 text-[10px] font-bold text-slate-400 dark:text-slate-500">
         <span>{percentage1.toFixed(1)}%</span>
         <span>{percentage2.toFixed(1)}%</span>
       </div>
@@ -198,9 +210,9 @@ export const TrendIndicator: React.FC<TrendIndicatorProps> = ({
   };
 
   const colors = {
-    up: 'bg-emerald-50 text-emerald-700 border-emerald-200',
-    down: 'bg-red-50 text-red-700 border-red-200',
-    neutral: 'bg-slate-50 text-slate-700 border-slate-200',
+    up: 'bg-emerald-50 text-emerald-700 border-emerald-200 dark:bg-emerald-900/30 dark:text-emerald-400 dark:border-emerald-800',
+    down: 'bg-red-50 text-red-700 border-red-200 dark:bg-red-900/30 dark:text-red-400 dark:border-red-800',
+    neutral: 'bg-slate-50 text-slate-700 border-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700',
   };
 
   const Arrow = () => {
