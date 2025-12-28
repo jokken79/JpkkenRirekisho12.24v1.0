@@ -852,7 +852,7 @@ const StaffTableAG: React.FC<StaffTableAGProps> = ({
         }
         confirmLabel="Delete"
         onConfirm={handleDelete}
-        variant="destructive"
+        variant="danger"
         loading={deleteLoading}
       />
     </motion.div>
