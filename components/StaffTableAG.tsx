@@ -614,7 +614,12 @@ const StaffTableAG: React.FC<StaffTableAGProps> = ({
   }
 
   return (
-    <motion.div {...staggerContainer} className="flex flex-col h-full">
+    <motion.div
+      variants={staggerContainer}
+      initial="initial"
+      animate="animate"
+      className="flex flex-col h-full"
+    >
       {/* Toolbar */}
       <motion.div {...fadeInUp} className="p-4 border-b border-slate-200 dark:border-slate-700 space-y-4">
         {/* Search and Filters Row */}
